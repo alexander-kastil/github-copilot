@@ -14,8 +14,8 @@
 ### GitHub Copilot for CLI
 
 - Show [Azure Cost CLI](https://github.com/mivano/azure-cost-cli/)
-
-- Get the Subscription ID using the following GitHub Copilot for CLI prompt:
+_
+- Get the Subscription ID using the following GitHub Copilot for CLI prompt:_
 
     ```prompt
     using az account list get the id of a subscription who's name starts with Integrations

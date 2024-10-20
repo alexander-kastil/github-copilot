@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "lnTyrouyBl7nMEmQ4AEZ1IabvEE8SMnFWXLVEKhLcKyIVJMCXeyzIoqf4qRCahs3EMZ3mjGW5uD6J5e1QJxAcw==",
+  "dgSpecHash": "Q7J1vSEjEaY=",
   "success": true,
-  "projectFilePath": "D:\\git-classes\\github-copilot\\demos\\07-testing\\test-console\\Test-Console.csproj",
+  "projectFilePath": "D:\\git-classes\\github-copilot\\demos\\07-testing\\01-net\\test-console\\Test-Console.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\AlexanderKastil\\.nuget\\packages\\microsoft.codecoverage\\17.10.0\\microsoft.codecoverage.17.10.0.nupkg.sha512",
     "C:\\Users\\AlexanderKastil\\.nuget\\packages\\microsoft.net.test.sdk\\17.10.0\\microsoft.net.test.sdk.17.10.0.nupkg.sha512",
