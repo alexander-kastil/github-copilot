@@ -2,13 +2,17 @@
 
 ## Possible Prompts
 
+```bash
 Add documentation & code comments to my code
+```
 
+```bash
 Create a functional documentation explaining the various public APIs in #editor
+```
 
+```bash
 Create an API documentation aligned to Swagger documentation for the APIs defined in #file:ClinicAppointmentsController.cs use #file:ClinicAppointment.cs
-
-
+```
 ## Example
 
 Copilot can help you write documentation for your project. It can generate a README file for you based on the information you provide.

@@ -8,4 +8,3 @@
 - Using Copilot in Azure Functions Node
 - Create an aggregation function in Python
 - Creating Jinja Templates in Python
-- Using Copilot in Angular Development

@@ -1,7 +1,5 @@
 # Refactor and Optimize Python Code
 
-## 
-
 ## Optimized code using Beautiful Soup
 
 from bs4 import BeautifulSoup
