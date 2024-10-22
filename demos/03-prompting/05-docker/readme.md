@@ -3,7 +3,13 @@
 - Get information about the current project
 
 ```bash
-@workspace what is this project about?
+@workspace Explain this project
+```
+
+- Explain a specific file
+
+```bash
+@workspace /explain #file:Program.cs
 ```
 
 - Build the image

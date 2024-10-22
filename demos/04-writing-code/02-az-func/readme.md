@@ -1,4 +1,4 @@
-# Azure Functions
+# Using Copilot in Azure Functions
 
 ## Prompts
 

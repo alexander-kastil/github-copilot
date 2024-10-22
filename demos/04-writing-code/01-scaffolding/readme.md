@@ -1,4 +1,4 @@
-# Scaffolding
+# Scaffolding Projects
 
 ## Scaffold a new Next.js project
 

@@ -1,10 +1,10 @@
 # GitHub Copilot Introduction​
 
-[GitHub Copilot Plans](https://github.com/features/copilot/plans)
+[Visual Studio Code Updates](https://code.visualstudio.com/updates)
 
 [GitHub Copilot Extensions](https://github.com/marketplace?type=apps&copilot_app=true)
 
-[GitHub Copilot Blog](https://github.blog/)
+[GitHub Blog](https://github.blog/)
 
 ## Demos
 
