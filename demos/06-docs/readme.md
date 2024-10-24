@@ -1,5 +1,9 @@
 # Using Copilot for Documentation​
 
+- .NET Api
+- Angular UI
+- Blob Console Spring
+
 ## Possible Prompts
 
 ```bash
