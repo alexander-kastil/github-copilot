@@ -1,5 +1,11 @@
 # Angular Testing
 
+Generate tests for the following components:
+
+- nav-bar.service.spec.ts
+- navbar.component.spec.ts
+- food-list.component.spec.ts
+- food-list.component.spec.ts
 
 ##  nav-bar.service.spec.ts
 

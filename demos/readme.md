@@ -7,4 +7,3 @@
 - Refactoring, Fixing Errors ​& Reducing Repetitive Tasks​
 - Using Copilot for Documentation​
 - Testing using Copilot​
-- Deployment
