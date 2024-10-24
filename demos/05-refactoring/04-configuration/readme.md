@@ -1,7 +1,7 @@
 # Configuration: Adding Tests
 
 ```prompt 
-`@workspace /new` create a dotnet console app including `xunit tests`. add a Validator class that hast one static method that checks if a string is a Palindrome and returns a boolean
+@workspace /new console application named test-console. Use C# LangVersion 12 and NET8.0. Only .cs and .csproj files. Enable ImplicitUsings and Nullable. Including `xunit tests`. add a Validator class that hast one static method that checks if a string is a Palindrome and returns a boolean
 ```
 
 Run it, notice possible problems, and create it manually and setup testing

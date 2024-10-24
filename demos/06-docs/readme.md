@@ -7,7 +7,23 @@
 ## Possible Prompts
 
 ```bash
+@workspace Explain this project
+```
+
+```bash
+@workspace generate a readme document that can be used as a repo description
+```
+
+```bash
+@workspace /explain #file:
+```
+
+```bash
 Add documentation & code comments to my code
+```
+
+```bash
+@workspace #selection generate inline code documentation for the selected code
 ```
 
 ```bash
@@ -17,6 +33,13 @@ Create a functional documentation explaining the various public APIs in #editor
 ```bash
 Create an API documentation aligned to Swagger documentation for the APIs defined in #file:ClinicAppointmentsController.cs use #file:ClinicAppointment.cs
 ```
+
+Explain on errors when using selections:
+
+```bash
+/explain why is the selection causing an error
+```
+
 ## Example
 
 Copilot can help you write documentation for your project. It can generate a README file for you based on the information you provide.
