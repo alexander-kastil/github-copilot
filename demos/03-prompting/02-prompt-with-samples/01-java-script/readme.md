@@ -12,9 +12,9 @@ async function getUserData(userId) {
 }
 ```
 ```prompt
-// Map through an array of arrays of objects
-// Example: Extract names from the data array
-// Desired outcome: ['John', 'Jane', 'Bob']
+Map through an array of arrays of objects
+Example: Extract names from the data array
+Desired outcome: ['John', 'Jane', 'Bob']
 ```
 
 ```javascript
