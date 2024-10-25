@@ -17,7 +17,7 @@ code --install-extension github.copilot
 code --install-extension github.copilot-chat
 
 code --install-extension ms-dotnettools.csharp
-# code --install-extension ms-dotnettools.csdevkit //requires license
+code --install-extension ms-dotnettools.csdevkit 
 
 code --install-extension ms-toolsai.jupyter
 code --install-extension ms-dotnettools.dotnet-interactive-vscode

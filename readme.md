@@ -1,8 +1,9 @@
-# GitHub Copilot for Developers
+# Master Class: GitHub Copilot for Developers
 
 Companion Material for Class Delivery by [Alexander Kastil](https://www.integrations.at/kontakt-impressum.aspx) containing:
 
   - [Instructor Demos](./demos)
+  - [Lab Host](./tooling/06-lab-host)
   - [Class Setup](./setup)
 
 ## License & Re-Use
