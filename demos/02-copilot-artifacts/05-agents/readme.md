@@ -40,18 +40,16 @@ Define handoffs in the agent file frontmatter (YAML) with the following properti
 
 ## Available Agents in This Repository
 
-| Agent                  | Purpose                                                                                                                                               |
-| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Angular**            | Angular expert that scaffolds projects strictly under angular-cli MCP while coordinating Playwright workflows for verification.                       |
-| **AzDevOps**           | Azure DevOps pipeline specialist that writes, imports, and runs pipelines using Microsoft Learn guidance and manages service connections.             |
-| **AzureDeployment**    | Deploys and provisions Azure resources using Azure CLI operations, orchestrating infrastructure and analyzing deployment logs.                        |
-| **Codespaces**         | Auto-detects language/frameworks in repositories and scaffolds optimized GitHub Codespaces + Devcontainer setups with recommended VS Code extensions. |
-| **GH Actions**         | GitHub Actions workflow specialist that authors, optimizes, and troubleshoots pipelines using Microsoft Learn best practices.                         |
-| **RaspiExpert**        | Expert assistant for Raspberry Pi development, configuration, and remote management via SSH.                                                          |
-| **SmokeTester**        | Automated smoke testing agent that executes validation workflows for deployed applications through REST APIs and browser automation.                  |
-| **AIAgentExpert**      | Develops, enhances, traces, evaluates, and deploys AI agent applications using Microsoft Agent Framework and Microsoft Foundry.                       |
-| **DataAnalysisExpert** | Analyzes data files using Data Viewer, explores data structure, reads specific rows/cells, and provides insights.                                     |
-| **Plan**               | Researches and outlines multi-step implementation plans and strategies for complex development initiatives.                                           |
+| Agent               | Purpose                                                                                                                                               |
+| ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Angular**         | Angular expert that scaffolds projects strictly under angular-cli MCP while coordinating Playwright workflows for verification.                       |
+| **AzDevOps**        | Azure DevOps pipeline specialist that writes, imports, and runs pipelines using Microsoft Learn guidance and manages service connections.             |
+| **AzureDeployment** | Deploys and provisions Azure resources using Azure CLI operations, orchestrating infrastructure and analyzing deployment logs.                        |
+| **Codespaces**      | Auto-detects language/frameworks in repositories and scaffolds optimized GitHub Codespaces + Devcontainer setups with recommended VS Code extensions. |
+| **GH Actions**      | GitHub Actions workflow specialist that authors, optimizes, and troubleshoots pipelines using Microsoft Learn best practices.                         |
+| **RaspiExpert**     | Expert assistant for Raspberry Pi development, configuration, and remote management via SSH.                                                          |
+| **SmokeTester**     | Automated smoke testing agent that executes validation workflows for deployed applications through REST APIs and browser automation.                  |
+| **AIAgentExpert**   | Develops, enhances, traces, evaluates, and deploys AI agent applications using Microsoft Agent Framework and Microsoft Foundry.                       |
 
 ## Links & Resources
 
