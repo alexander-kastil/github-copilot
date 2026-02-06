@@ -4,6 +4,18 @@
 
 Agent Skills are portable folders containing instructions, scripts, and resources that Copilot can load to perform specialized tasks. Skills follow an open standard that works across multiple AI agents—GitHub Copilot in VS Code, GitHub Copilot CLI, and GitHub Copilot coding agent—making them reusable and composable for complex workflows.
 
+## Enable Agent Skills
+
+Enable skills discovery and auto-loading in VS Code:
+
+```json
+{
+  "chat.useAgentSkills": true,
+  "chat.agent.enabled": true,
+  "chat.detectParticipant.enabled": true
+}
+```
+
 ## How Skills are Loaded
 
 Skills use progressive disclosure to efficiently load content in three levels: Copilot discovers available skills by reading their name and description from YAML frontmatter, then loads detailed instructions only when your request matches a skill's description. Additional resources like scripts and examples load on-demand, ensuring you can install many skills without consuming unnecessary context. This architecture means skills are automatically activated based on your prompt without manual selection.

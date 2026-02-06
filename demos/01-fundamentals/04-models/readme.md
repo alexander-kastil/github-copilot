@@ -29,6 +29,16 @@ Choose lightweight models like **Claude Haiku 4.5** (0.33x) for rapid iterations
 
 The [AI Toolkit for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio) extension enables access to both Foundry and Local models directly within VS Code. Foundry models provide cloud-based access to a curated selection of models, while Local models allow you to run models like Deepseek R1 Distilled on your machine for offline development, privacy-sensitive tasks, or experimentation without consuming cloud requests.
 
+**Enable AI Toolkit in VS Code:**
+
+```json
+{
+  "extensions": [
+    "ms-windows-ai-studio.windows-ai-studio"
+  ]
+}
+```
+
 ## Links & Resources
 
 - [Language Models in GitHub Copilot](https://docs.github.com/en/copilot/using-github-copilot/asking-github-copilot-questions-in-your-ide#ai-models-for-copilot-chat)

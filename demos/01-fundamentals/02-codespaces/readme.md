@@ -24,6 +24,18 @@ Docker-based local development environments defined in your repository, ensuring
 - Simple onboarding for new contributors
 - Full customization of tools and extensions
 
+**Enable Dev Containers in VS Code:**
+
+Install the remote development extensions to use dev containers:
+
+```json
+"extensions": [
+  "ms-vscode-remote.remote-containers",
+  "ms-vscode-remote.remote-wsl",
+  "ms-vscode-remote.remote-ssh"
+]
+```
+
 ## Links & Resources
 
 - [GitHub Codespaces Documentation](https://docs.github.com/en/codespaces/about-codespaces/what-are-codespaces)

@@ -4,16 +4,14 @@
 
 Copilot Memory enables Copilot to build a persistent, repository-specific understanding by storing tightly scoped information about your codebase that it deduces through interactions. Memories are validated against current code citations, automatically deleted after 28 days if unused, and kept completely repository-scoped to ensure privacy and security. This persistent knowledge reduces the burden of repeatedly explaining coding conventions and maintaining custom instruction files, allowing Copilot to adapt to your repository's patterns and deliver increasingly better results over time.
 
-## How to Enable Copilot Memory
+## Enable Copilot Memory
 
-Copilot Memory is turned off by default and must be enabled at the enterprise, organization, or personal level:
+Copilot Memory is turned off by default and must be enabled in VS Code settings:
 
-- **Enterprise/Organization**: Admins enable in Copilot settings; all members with a Copilot subscription gain access
-- **Personal (Copilot Pro/Pro+)**: Users enable in their personal Copilot settings on GitHub
-- Once enabled for a user, Copilot can use agentic memory across any repository they access
-
-```
-github.copilot.chat.copilotMemory.enabled: true
+```json
+{
+  "github.copilot.chat.copilotMemory.enabled": true
+}
 ```
 
 Currently, Copilot Memory is used by **Copilot coding agent**, **Copilot code review**, and **Copilot CLI** when working on pull requests and code operations on GitHub.

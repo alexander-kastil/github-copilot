@@ -2,6 +2,18 @@
 
 Context variables enable you to explicitly reference files, code, documentation, and other workspace elements in your GitHub Copilot Chat conversations. By using special symbols like `#` and `@`, you provide Copilot with precise context about what you want assistance with, reducing ambiguity and improving response accuracy. Context variables integrate seamlessly with your codebase, allowing Copilot to understand relationships between files, track dependencies, and generate more contextually relevant solutions. Use context variables to ground your questions in specific code, documentation, or terminal output for targeted, intelligent assistance.
 
+## Enable Context Features in Chat
+
+Enable context-aware capabilities in VS Code:
+
+```json
+{
+  "chat.codebase.enabled": true,
+  "github.copilot.chat.codesearch.enabled": true,
+  "chat.detectParticipant.enabled": true
+}
+```
+
 ## Available Context Variables
 
 | Variable               | Description                                                                |

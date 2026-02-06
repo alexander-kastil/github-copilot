@@ -6,6 +6,18 @@ Prompt files are Markdown documents (`.prompt.md` extension) that define reusabl
 
 Prompt files combine structured metadata with task-specific instructions, allowing you to encapsulate complex guidelines and ensure consistent execution across your team. You can configure them with specific agents, tools, models, and even reference other files in your workspace. This makes them powerful for creating a library of standardized development workflows that scale across your entire organization.
 
+## Enable Prompt Files
+
+Ensure Copilot Chat is enabled and prompt discovery is active:
+
+```json
+{
+  "chat.agent.enabled": true,
+  "chat.detectParticipant.enabled": true,
+  "github.copilot.chat.customAgents.showOrganizationAndEnterpriseAgents": true
+}
+```
+
 ![prompt-files](./_images/prmopt-files.png)
 
 > **Note:** 100% of the documentation in this repository was created using prompt files. They enable consistent, high-quality documentation across demos, modules, and infrastructure code without manual effort.

@@ -2,6 +2,20 @@
 
 Copilot uses two layers of instructions to shape AI behavior: **general repository rules** that apply everywhere, and **stack-specific guidelines** that activate based on the technologies you're working with. Understanding how these are loaded and managed is essential for optimizing your LLM context window and ensuring consistent code quality across different domains.
 
+## Enable Instructions in VS Code
+
+Configure VS Code to automatically load instructions from your repository:
+
+```json
+{
+  "chat.instructionsFilesLocations": {
+    ".github/instructions": true,
+    ".github/copilot-instructions.md": true,
+    ".copilot-instructions.md": true
+  }
+}
+```
+
 ## General Repository Instructions
 
 **File**: [.github/copilot-instructions.md](./.../../.github/copilot-instructions.md)

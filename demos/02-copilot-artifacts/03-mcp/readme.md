@@ -6,6 +6,23 @@
 
 Model Context Protocol (MCP) is a standardized framework that enables GitHub Copilot to connect to external tools, services, and data sources. It acts as a bridge between Copilot and specialized systems—allowing Copilot to access real-time information, execute commands, and interact with platforms like Azure DevOps, GitHub, or deployment services. MCPs extend Copilot's capabilities beyond code generation to include infrastructure management, testing automation, and domain-specific tooling.
 
+## Enable MCP Discovery and Auto-Start
+
+Configure VS Code to auto-discover and start MCP servers:
+
+```json
+{
+  "chat.mcp.discovery.enabled": {
+    "claude-desktop": true,
+    "windsurf": true,
+    "cursor-global": true,
+    "cursor-workspace": true
+  },
+  "chat.mcp.autostart": "newAndOutdated",
+  "chat.mcp.gallery.enabled": true
+}
+```
+
 ## MCP Server Types & Integration
 
 MCP servers can be integrated in multiple ways depending on their nature: **local executables** (via `npx` or `stdio` commands), **remote HTTP endpoints** for cloud services, or **browser extensions** that bundle MCPs automatically. You can configure MCPs globally via the **user-level `~/.copilot/mcp.json`** for persistent access across all workspaces, or locally in a **workspace-level `.vscode/mcp.json`** to isolate tools for specific projects. The MCPs can come from VS Code extensions, npm packages, or custom implementations.

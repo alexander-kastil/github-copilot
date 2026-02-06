@@ -6,6 +6,19 @@ The primary techniques for effective context engineering include file context (r
 
 Context engineering becomes essential when working with complex architectures, domain-specific code, or when integrating Copilot into team workflows. Well-engineered context reduces iteration time, minimizes off-topic suggestions, and helps maintain code quality and consistency across your project.
 
+## Enable Instructions Files for Context
+
+Ensure Copilot reads your project instructions automatically:
+
+```json
+{
+  "chat.instructionsFilesLocations": {
+    ".github/instructions": true,
+    ".github/copilot-instructions.md": true
+  }
+}
+```
+
 ## Links & Resources
 
 - [Context Engineering Guide](https://code.visualstudio.com/docs/copilot/guides/context-engineering-guide)

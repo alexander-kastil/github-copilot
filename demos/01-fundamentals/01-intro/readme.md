@@ -1,8 +1,6 @@
 # GitHub Copilot Introduction
 
-Overview of GitHub Copilot, the latest updates, extensions, and community insights.
-
-## Key Resources
+Get started with GitHub Copilot — understand its capabilities, installation options, latest releases, and available extensions. This module establishes the foundation for using AI-assisted coding in VS Code and GitHub workflows.
 
 **Visual Studio Code Updates** — Track new VS Code releases, features, and improvements that impact Copilot integration and development workflows.
 

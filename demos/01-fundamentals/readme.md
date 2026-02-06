@@ -2,7 +2,7 @@
 
 ## GitHub Copilot Essentials
 
-Get started with GitHub Copilot's core features and foundational concepts for effective AI-assisted coding.
+Master the core capabilities and foundational concepts of GitHub Copilot — from inline code suggestions and chat interactions to advanced prompting techniques, context engineering, and multi-model selection. Build the skills needed for effective AI-assisted development.
 
 | Topic                                                | Description                                                                                                  |
 | ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
