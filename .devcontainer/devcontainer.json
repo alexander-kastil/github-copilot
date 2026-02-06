@@ -42,6 +42,7 @@
         "bierner.markdown-mermaid"
       ],
       "settings": {
+        "settings.sync.enabled": false,
         "editor.formatOnSave": true,
         "editor.codeActionsOnSave": {
           "source.organizeImports": "explicit"
