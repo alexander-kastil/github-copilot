@@ -5,7 +5,7 @@ Master the art of writing effective prompts to get better code suggestions, expl
 ## Prompting Approaches
 
 - **Inline Suggestions**: Leverage real-time code completions while typing by providing meaningful context through comments and clear patterns
-- **Chat-Based Prompting**: Use natural language in Copilot Chat with slash commands and context variables for targeted assistance 
+- **Chat-Based Prompting**: Use natural language in Copilot Chat with slash commands and context variables for targeted assistance
 - **Prompt Engineering**: Combine samples, instructions, and project context to improve response quality and consistency
 - **Database-Driven Prompts**: Reference existing patterns and queries to help Copilot understand your architecture
 
