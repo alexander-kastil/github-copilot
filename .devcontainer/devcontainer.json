@@ -12,6 +12,7 @@
     "ghcr.io/devcontainers/features/azure-cli:1": {},
     "ghcr.io/devcontainers/features/github-cli:1": {}
   },
+  "postCreateCommand": "git config core.autocrlf false && git config core.eol lf",
   "customizations": {
     "vscode": {
       "extensions": [
