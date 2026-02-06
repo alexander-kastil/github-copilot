@@ -41,12 +41,13 @@ The `mcp.json` file contains server definitions organized by name, with each ser
 | MCP                 | Type            | Purpose                                                                                                  |
 | ------------------- | --------------- | -------------------------------------------------------------------------------------------------------- |
 | **Microsoft Learn** | Remote (HTTP)   | Official Microsoft documentation and code samples for Azure, .NET, and Microsoft 365 services.           |
-| **Playwright**      | Local (`npx`)   | Browser automation with vision support for visual testing and screenshot capture during E2E tests.       |
 | **Azure DevOps**    | Local (`npx`)   | Programmatic access to Azure DevOps pipelines, repos, work items, and service connections via REST API.  |
 | **Azure Deploy**    | Local (`npx`)   | Infrastructure deployment and management for Azure resources with CLI-based orchestration.               |
 | **GitHub**          | Remote (HTTP)   | GitHub API integration for repositories, issues, pull requests, and project management.                  |
+| **WorkIQ**          | Local (`npx`)   | Microsoft 365 integration for accessing emails, meetings, files, and work context across Microsoft apps. |
 | **Figma**           | Remote (HTTP)   | Design system integration for extracting UI components, diagrams, and design metadata.                   |
 | **SSH MCP**         | Local (`stdio`) | Remote server management via SSH for infrastructure provisioning, diagnostics, and system configuration. |
+| **Playwright**      | Local (`npx`)   | Browser automation with vision support for visual testing and screenshot capture during E2E tests.       |
 
 ## Links & Resources
 

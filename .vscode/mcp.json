@@ -54,6 +54,14 @@
 				"--timeout=120000",
 				"--maxChars=none"
 			]
+		},
+		"workiq": {
+			"command": "npx",
+			"args": [
+				"-y",
+				"@microsoft/workiq",
+				"mcp"
+			]
 		}
 	},
 	"inputs": [

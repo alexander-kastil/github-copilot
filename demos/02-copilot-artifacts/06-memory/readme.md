@@ -12,38 +12,46 @@ Copilot Memory is turned off by default and must be enabled at the enterprise, o
 - **Personal (Copilot Pro/Pro+)**: Users enable in their personal Copilot settings on GitHub
 - Once enabled for a user, Copilot can use agentic memory across any repository they access
 
+```
+github.copilot.chat.copilotMemory.enabled: true
+```
+
 Currently, Copilot Memory is used by **Copilot coding agent**, **Copilot code review**, and **Copilot CLI** when working on pull requests and code operations on GitHub.
 
 ## Use Cases & Examples
 
-### 1. Database Connection Patterns
+Memory ist stored in the settings of your GitHub repository:
 
-When Copilot coding agent discovers your repository uses a specific connection pooling pattern (e.g., singleton managed identity for Azure SQL), it stores this as a memory with code citations. Later, Copilot code review can apply this knowledge to spot when new pull requests use inconsistent connection handling, flagging potential bugs before merge.
+![copilot-memory](_images/copilot-memory.jpg)
 
-```
-Memory: "Repository uses Azure managed identity singleton for DB connections"
-Connection: Lines 42-50 in src/db/connectionPool.ts
-Use: Code review flags PR with standard DriverManager connection as violation
-```
+### 1. Deployment Configuration Management
 
-### 2. Configuration File Synchronization
-
-Copilot learns that settings in `config.json` must stay synchronized with environment variables in `.env.example`. When Copilot coding agent later modifies one file, the memory helps it automatically recognize and update the related file, preventing configuration drift.
+When Copilot discovers your repository maintains a `deploy.json` file as the single source of truth for Azure deployment metadata (service connections, container registries, environments), it stores this as a memory. Later, when scripting deployments or creating pipelines, Copilot automatically retrieves configuration from this file instead of hardcoding values, ensuring consistency across all deployment operations.
 
 ```
-Memory: "config.json settings must sync with .env.example"
-Citations: Lines 15-30 in both files
-Use: Coding agent auto-updates .env.example when config.json changes
+Memory: "Deployment configuration always sourced from .github/deploy.json"
+Citations: Lines 1-10 in .github/deploy.json (defines Azure Service Connection, ACR, ACA environment)
+Use: Deployment scripts and pipeline generation automatically read values from deploy.json
 ```
 
-### 3. Naming Convention Mastery
+### 2. Respecting Intentional Deletions
 
-Over time, Copilot observes your repository's naming patterns (camelCase for variables, PascalCase for classes, specific prefix conventions) and stores this as operational memory. Subsequent code generation, refactoring, or reviews automatically align with your conventions without needing explicit instruction in every prompt.
+Copilot learns your preferences about file and folder management. When you intentionally delete files, folders, or other items from your workspace, Copilot remembers this preference and respects those deletions rather than automatically restoring or recovering them in future operations. This ensures deleted items remain gone unless you explicitly ask for restoration.
 
 ```
-Memory: "API endpoints use verb-noun pattern: /api/resource/action"
-Examples: /api/users/create, /api/orders/cancel (from pull requests)
-Use: Coding agent generates consistent endpoint names automatically
+Memory: "Do not restore deleted files, folders, or items unless explicitly requested"
+Behavior: User deletes unnecessary files or outdated configurations
+Use: Copilot avoids suggesting recovery or restoration of intentionally deleted items
+```
+
+### 3. C# Private Variable Naming Conventions
+
+Copilot learns your C# coding style preferences. When it observes or is told that your codebase uses camelCase for private variables (e.g., `_userName`, `_connectionString`), Copilot stores this as a memory. Later, when generating new C# classes, refactoring existing code, or reviewing pull requests, Copilot automatically applies this naming convention to all private fields and variables without requiring repeated instructions.
+
+```
+Memory: "Use camelCase for private variables in C#"
+Pattern: Private fields like _userId, _configSettings, _apiKey
+Use: Code generation and refactoring automatically apply camelCase naming to new private members
 ```
 
 ## Links & Resources

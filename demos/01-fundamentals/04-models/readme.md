@@ -5,7 +5,7 @@ GitHub Copilot offers access to multiple language models through the Language Mo
 | Model                | Description                                                                                                                               | Factor |
 | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ------ |
 | **Claude Haiku 4.5** | Lightweight and fast. Ideal for quick code completions, refactoring, and explanations with 128K context window.                           | 0.33x  |
-| **Claude Opus 4.5**  | Maximum reasoning power for intricate algorithms, system design, and debugging complex codebases. 128K context window.                    | 3x     |
+| **Claude Opus 4.6**  | Maximum reasoning power for intricate algorithms, system design, and debugging complex codebases. 128K context window.                    | 3x     |
 | **Gemini 2.5 Pro**   | Google's latest with 109K context and 64K output. Strong at reasoning tasks, code analysis, and working with large codebases.             | 1x     |
 | **GPT-5.2-Codex**    | OpenAI's advanced reasoning model with 272K context. Superior for complex code generation, multi-file analysis, and architectural design. | 1x     |
 
