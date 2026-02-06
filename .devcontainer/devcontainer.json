@@ -20,7 +20,6 @@
         "ms-dotnettools.csharp",
         "ms-dotnettools.csdevkit",
         "ms-dotnettools.vscode-dotnet-runtime",
-        "ms-dotnettools.vscodeintellicode-csharp",
         "aliasadidev.nugetpackagemanagergui",
         // Angular & Node development
         "angular.ng-template",
