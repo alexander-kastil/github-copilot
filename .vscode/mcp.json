@@ -62,6 +62,22 @@
 				"@microsoft/workiq",
 				"mcp"
 			]
+		},
+		"debug-mcp": {
+			"command": "npx",
+			"args": [
+				"-y",
+				"@microsoft/debug-mcp@latest"
+			],
+			"type": "stdio"
+		},
+		"chrome-devtools-mcp": {
+			"command": "npx",
+			"args": [
+				"-y",
+				"chrome-devtools-mcp@latest"
+			],
+			"type": "stdio"
 		}
 	},
 	"inputs": [

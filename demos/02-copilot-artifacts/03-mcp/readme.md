@@ -1,10 +1,10 @@
 # Model Context Protocol
 
-![manage-mcp](_images/manage-mcp.png)
-
-## What is Model Context Protocol?
-
 Model Context Protocol (MCP) is a standardized framework that enables GitHub Copilot to connect to external tools, services, and data sources. It acts as a bridge between Copilot and specialized systems—allowing Copilot to access real-time information, execute commands, and interact with platforms like Azure DevOps, GitHub, or deployment services. MCPs extend Copilot's capabilities beyond code generation to include infrastructure management, testing automation, and domain-specific tooling.
+
+![VS Code MCP Server Management Interface - showing available MCP servers and their configuration status](_images/manage-mcp.png)
+
+The MCP ecosystem provides both local executables for direct system access and remote HTTP endpoints for cloud services, enabling seamless integration of specialized capabilities into your Copilot workflows.
 
 ## Enable MCP Discovery and Auto-Start
 
@@ -53,7 +53,9 @@ The `mcp.json` file contains server definitions organized by name, with each ser
 }
 ```
 
-## Available MCPs
+## Common MCPs for Development Workflows
+
+In this class we have [registered](/.vscode/mcp.json) several MCP servers that integrate with popular development tools and platforms. These MCPs enable Copilot to interact with Azure DevOps, GitHub, Microsoft 365, design systems, and remote servers directly from your VS Code environment.
 
 | MCP                 | Type            | Purpose                                                                                                  |
 | ------------------- | --------------- | -------------------------------------------------------------------------------------------------------- |
@@ -65,6 +67,8 @@ The `mcp.json` file contains server definitions organized by name, with each ser
 | **Figma**           | Remote (HTTP)   | Design system integration for extracting UI components, diagrams, and design metadata.                   |
 | **SSH MCP**         | Local (`stdio`) | Remote server management via SSH for infrastructure provisioning, diagnostics, and system configuration. |
 | **Playwright**      | Local (`npx`)   | Browser automation with vision support for visual testing and screenshot capture during E2E tests.       |
+| **Debug MCP**       | Local (`npx`)   | Debugging and diagnostic capabilities for agents, enabling introspection and issue diagnosis.            |
+| **Chrome DevTools** | Local (`npx`)   | Chrome DevTools protocol integration for browser debugging, performance profiling, and DOM inspection.   |
 
 ## Links & Resources
 
