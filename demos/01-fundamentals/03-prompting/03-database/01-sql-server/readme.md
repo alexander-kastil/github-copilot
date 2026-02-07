@@ -1,6 +1,8 @@
-# Prompting for SQL 
+# Prompting for SQL
 
-```
+**Step 1: Create a Food table**
+
+```sql
 -- create a table for microsoft sql server azure to store the data of the following type:
 -- export type Food = {
 --     name: string;
@@ -10,18 +12,26 @@
 -- };
 ```
 
-```
+**Step 2: Create a view for budget items**
+
+```sql
 -- create a view to get the food items with price less than 10
 ```
 
-```
- -- create a stored procedure to get all the food items in a certain category
+**Step 3: Create a stored procedure to filter by category**
+
+```sql
+-- create a stored procedure to get all the food items in a certain category
 ```
 
-```
+**Step 4: Create a stored procedure to insert items**
+
+```sql
 -- create a stored procedure to insert a new food item
 ```
 
-```
+**Step 5: Generate sample data**
+
+```sql
 -- generate some sample data to insert into the table using the stored procedure
 ```
