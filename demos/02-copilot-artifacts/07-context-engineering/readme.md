@@ -1,4 +1,4 @@
-# Context Engineering
+# Understanding and Shaping GitHub Copilot's Context Window
 
 Context engineering is the practice of strategically providing information to GitHub Copilot to improve the quality, accuracy, and relevance of its responses. By understanding what goes into GitHub Copilot's context window and deliberately composing that context, you guide GitHub Copilot to produce results that precisely match your project's needs and coding conventions.
 
