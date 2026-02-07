@@ -18,7 +18,7 @@ When context engineering, understanding your model's limits helps you prioritize
 
 When you reference files with the file context button, add relevant instructions, or attach examples, you are deliberately shaping how GitHub Copilot understands the task. Smart context engineering reduces iteration time, minimizes off-topic suggestions, and helps maintain code quality and consistency across your project.
 
-GitHub Copilot Agent Mode Context Window showing all component layers.
+GitHub Copilot Agent Mode Context Window showing all component layers:
 
 ![context-window.png](./_images/context-window.jpg) 
 
