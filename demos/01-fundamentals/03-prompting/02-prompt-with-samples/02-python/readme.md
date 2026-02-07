@@ -1,5 +1,11 @@
 # Python - Prompt with Samples
 
+Learn how providing detailed examples and expected outputs helps Copilot generate contextually accurate code. This example demonstrates a time-based greeting system.
+
+## Example: Time-Based Greeting Message
+
+**Prompt:**
+
 ```prompt
 # generate a python code that takes the current time as input using the datetime module
 # and returns the appropriate greeting message based on the current time.
@@ -15,3 +21,4 @@
 # Example 3: Greeting message for evening
 # Input: 9 PM
 # Output: "Good Evening!"
+```
