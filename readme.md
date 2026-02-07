@@ -2,8 +2,6 @@
 
 Companion Material for Class Delivery by [Alexander Kastil](https://www.integrations.at/kontakt-impressum.aspx) containing:
 
-- [Instructor Demos](./demos)
-
 ## License & Re-Use
 
 This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
