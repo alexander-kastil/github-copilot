@@ -32,7 +32,7 @@ Ensure Copilot Chat is enabled in VS Code:
 
 ## Demo
 
-Execute
+Scaffold an MFA (Microsoft Agent Framework) starter app based on the #Fetch tool:
 
 ```
 In demos\01-fundamentals\05-slash-commands create a folder maf-starter and use it
