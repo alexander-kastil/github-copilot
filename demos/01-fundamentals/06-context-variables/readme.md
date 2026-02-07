@@ -30,7 +30,7 @@ Enable context-aware capabilities in VS Code:
 | `@vscode`              | Reference VS Code settings, extensions, or configuration context.          |
 | `@recent`              | Access recent files or conversations for continuity.                       |
 
-## Demo
+## Demos
 
 ### Using `#terminalLastCommand` to Fix Errors
 
