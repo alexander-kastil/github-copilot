@@ -64,12 +64,8 @@
 			]
 		},
 		"debug-mcp": {
-			"command": "npx",
-			"args": [
-				"-y",
-				"@microsoft/debug-mcp@latest"
-			],
-			"type": "stdio"
+			"type": "sse",
+			"url": "http://localhost:3001/sse"
 		},
 		"chrome-devtools-mcp": {
 			"command": "npx",
