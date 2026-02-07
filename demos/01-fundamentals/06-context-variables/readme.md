@@ -44,8 +44,6 @@ fix #terminalLastCommand
 
 Build a working Microsoft Agent Framework application in Python 3.12 using slash commands and the #fetch tool. The #fetch tool retrieves official documentation from URLs so you can reference current docs while scaffolding code.
 
-A solution is available in the [maf-starter-solution](maf-starter-solution) folder.
-
 ```
 In demos\01-fundamentals\05-slash-commands create a folder maf-starter and use it
 
@@ -59,6 +57,8 @@ Create an .env with PROJECT_ENDPOINT, MODEL_DEPLOYMENT and USE MY VARIABLE NAMES
 Implement the sample and run it until all errors are fixed
 In the folder create a readme.md with very short instructions for beginners to run the app. Instruct them on where to get the required values for the .env from Microsoft Foundry
 ```
+
+A solution is available in the [maf-starter-solution](maf-starter-solution) folder.
 
 ## Links & Resources
 
