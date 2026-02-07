@@ -30,26 +30,6 @@ Ensure Copilot Chat is enabled in VS Code:
 | `/clear`    | Start a new session / clear conversation.                         |
 | `/new`      | Create a new project / new chat session.                          |
 
-## Demo
-
-Build a working Microsoft Agent Framework application in Python 3.12 using slash commands and the #fetch tool. The #fetch tool retrieves official documentation from URLs so you can reference current docs while scaffolding code.
-
-A solution is available in the [maf-starter-solution](maf-starter-solution) folder.
-
-```
-In demos\01-fundamentals\05-slash-commands create a folder maf-starter and use it
-
-#fetch https://learn.microsoft.com/en-us/agent-framework/tutorials/quick-start?pivots=programming-language-python and create a hello world python 3.12 app with the prompt of "tell me about the microsoft agent framework"
-
-Implement the following steps:
-
-Add required packages to requirements.txt and create and activate a python .venv. No need to upgrade pip.
-Add a valid .gitignore for python projects.
-Create an .env with PROJECT_ENDPOINT, MODEL_DEPLOYMENT and USE MY VARIABLE NAMES
-Implement the sample and run it until all errors are fixed
-In the folder create a readme.md with very short instructions for beginners to run the app. Instruct them on where to get the required values for the .env from Microsoft Foundry
-```
-
 ## Links & Resources
 
 - [GitHub Copilot Slash Commands](https://docs.github.com/en/copilot/using-github-copilot/asking-github-copilot-questions-in-your-ide#using-slash-commands)
