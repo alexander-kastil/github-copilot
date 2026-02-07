@@ -19,6 +19,7 @@ When context engineering, understanding your model's limits helps you prioritize
 When you reference files with the file context button, add relevant instructions, or attach examples, you are deliberately shaping how GitHub Copilot understands the task. Smart context engineering reduces iteration time, minimizes off-topic suggestions, and helps maintain code quality and consistency across your project.
 
 ![context-window.png](./_images/context-window.jpg) 
+
 Agent Mode Context Window showing all component layers.
 
 The diagram above shows how System Instructions and Tool Definitions form the foundation, Custom Instructions provide explicit references to your project rules, and Skills add specialized capabilities. User Context (attached files, open files, selections) supplies immediate problem details, while Conversation History carries forward previous exchanges.
