@@ -34,7 +34,7 @@ Enable context-aware capabilities in VS Code:
 
 ### Using `#terminalLastCommand` to Fix Errors
 
-Run demos\01-fundamentals\06-context-variables\tasks-api and notice the error in the terminal. Then ask Copilot Chat to help you fix the error using the `#terminalLastCommand` variable to reference the error message.
+Run demos\01-fundamentals\06-context-variables\tasks-api using `dotnet run` and notice the error in the terminal. Then ask Copilot Chat to help you fix the error using the `#terminalLastCommand` variable to reference the error message.
 
 ```
 fix #terminalLastCommand
