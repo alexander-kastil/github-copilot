@@ -9,7 +9,6 @@
 - [Models & Language Models Editor](01-fundamentals/04-models/)
 - [Slash Commands / Agents (Chat Participants)](01-fundamentals/05-slash-commands/)
 - [Context Variables](01-fundamentals/06-context-variables/)
-- [Context Engineering](01-fundamentals/07-context-engineering/)
 
 ## Module 2: [Copilot Artifacts](./02-copilot-artifacts/)
 
@@ -19,6 +18,7 @@
 - [Custom Agents](02-copilot-artifacts/04-agents/)
 - [Agent Skills](02-copilot-artifacts/05-skills/)
 - [GitHub Copilot Memory](02-copilot-artifacts/06-memory/)
+- [Context Engineering](02-copilot-artifacts/07-context-engineering/)
 
 ## Module 3: [Agentic Coding](./03-agentic-coding/)
 
