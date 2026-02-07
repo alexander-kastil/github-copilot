@@ -41,9 +41,10 @@ In demos\01-fundamentals\05-slash-commands create a folder maf-starter and use i
 
 Implement the following steps:
 
-Add required packages to requirements.txt and create and activate a python .venv
-Create an .env with PROJECT_ENDPOINT, MODEL_DEPLOYMENT
+Add required packages to requirements.txt and create and activate a python .venv. No need to upgrade pip.
+Create an .env with PROJECT_ENDPOINT, MODEL_DEPLOYMENT and USE MY VARIABLE NAMES
 Implement the sample and run it until all errors are fixed
+In the folder create a readme.md with very short instructions for beginners to run the app. Instruct them on where to get the required values for the .env from Microsoft Foundry
 ```
 
 ## Links & Resources
