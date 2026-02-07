@@ -1,6 +1,6 @@
 # Demos
 
-## Module 1: GitHub Copilot Fundamentals
+## Module 1: [GitHub Copilot Fundamentals](./01-fundamentals/)
 
 - [Introduction](01-fundamentals/01-intro/)
 - [GitHub Codespaces / Dev Containers](01-fundamentals/02-codespaces/)
@@ -11,7 +11,7 @@
 - [Context Variables](01-fundamentals/06-context-variables/)
 - [Context Engineering](01-fundamentals/07-context-engineering/)
 
-## Module 2: Copilot Artifacts
+## Module 2: [Copilot Artifacts](./02-copilot-artifacts/)
 
 - [Instructions & Reusable Prompts](02-copilot-artifacts/01-instructions/)
 - [Prompts](02-copilot-artifacts/02-prompts/)
@@ -20,7 +20,7 @@
 - [Agent Skills](02-copilot-artifacts/05-skills/)
 - [GitHub Copilot Memory](02-copilot-artifacts/06-memory/)
 
-## Module 3: Agentic Coding
+## Module 3: [Agentic Coding](./03-agentic-coding/)
 
 - [Local Agents](03-agentic-coding/01-local/)
 - [Cloud Agents](03-agentic-coding/02-cloud/)
@@ -28,7 +28,7 @@
 - [Sub-Agents](03-agentic-coding/04-sub-agents/)
 - [Claude Code](03-agentic-coding/05-claude-code/)
 
-## Module 4: GitHub Copilot in Use-Cases
+## Module 4: [GitHub Copilot in Use-Cases](./04-use-cases/)
 
 - [Writing Code](04-use-cases/01-writing-code/)
 - [Refactoring](04-use-cases/02-refactoring/)
@@ -37,6 +37,6 @@
 - [Documentation](04-use-cases/05-docs/)
 - [DevOps](04-use-cases/06-devops/)
 
-## Module 5: Automating Tasks with GitHub Copilot for CLI
+## Module 5: [Automating Tasks with GitHub Copilot for CLI](./05-copilot-cli/)
 
 Coming soon. This module is not yet implemented.
