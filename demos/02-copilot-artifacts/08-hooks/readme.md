@@ -26,7 +26,68 @@ GitHub Copilot hooks allow you to extend and customize agent behavior by executi
 
 ## Copilot Conversation Tracker
 
+The Copilot Conversation Tracker automatically records all agent activities—user prompts, tool calls, subagent lifecycle events—into a structured JSON format stored in [.copilot-conversation](./.../../.copilot-conversation/). This enables full conversation history, detailed execution analysis, and automated visualization of agent behavior without requiring manual logging code.
 
+### How It Works
+
+Hooks fire at key agent lifecycle events, with each hook executing a PowerShell script that captures relevant data. When the conversation starts, [session-start.ps1](./session-start.ps1) generates a unique session ID and creates baseline JSON files. As the agent executes, [log-prompt.ps1](./log-prompt.ps1) logs user submissions, [track-tool.ps1](./track-tool.ps1) records pre/post tool execution details, and [track-agent.ps1](./track-agent.ps1) monitors subagent lifecycle. Finally, [session-stop.ps1](./session-stop.ps1) finalizes the session and runs [visualize.mjs](./../../.copilot-conversation/visualize.mjs) to generate a markdown diagram of the entire conversation flow.
+
+### Hook Registration
+
+Hooks are registered in [hooks.json](./hooks.json), which maps each lifecycle event to one or more PowerShell scripts. Each hook entry specifies the event type (sessionStart, userPromptSubmitted, preToolUse, etc.), the command to execute, working directory, and timeout. The configuration ensures scripts run in sequence without blocking the agent, with a minimum timeout required for the final sessionEnd hook to complete visualization.
+
+### Conversation Flow
+
+The tracker captures the full conversation lifecycle as a sequence of events leading from session initialization through prompt submission, tool execution, and eventual finalization:
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor User as User
+    participant Agent as GH Copilot
+
+    Note over User,Agent: Conversation starts
+    Note over User,Agent: sessionStart: Create session ID & JSON files
+
+    User->>Agent: Navigate to src/ and execute: dotnet new webapit -n copilot-...
+    Note over User,Agent: userPromptSubmitted: Log prompt to history
+    Agent->>Agent: preToolUse: Record run_in_terminal
+    Agent-->>Agent: postToolUse: Log command output
+    Agent->>Agent: preToolUse: Record readFile calls
+    Agent-->>Agent: postToolUse: Log file contents
+    Agent-->>User: Executed 30 actions: 8× run in terminal, 4× readFile, 3× replaceString
+
+    User->>Agent: while the terminal runs use chrome mcp
+    Note over User,Agent: Multiple preToolUse/postToolUse events
+    Agent-->>User: Executed 13 actions: 3× readFile, 3× chrome snapshot, 2× new page
+
+    User->>Agent: More questions and refinements
+    Agent-->>User: Multiple iterations with tool tracking
+
+    Note over User,Agent: Conversation ends
+    Note over User,Agent: sessionEnd: Finalize history & run visualize.mjs
+```
+
+The visualization generates a Mermaid sequence diagram showing the complete interaction pattern, making it easy to understand tool usage patterns, identify bottlenecks, and replay conversation flows for debugging or documentation purposes.
+
+### Building a .NET Instructions API with Scalar UI
+
+This example shows how hooks track a comprehensive development workflow—from project scaffolding through code refactoring, dependency injection setup, API documentation integration, build validation, and browser-based verification of a running .NET service.
+
+Here's the prompt that generated this recorded conversation:
+
+```
+Navigate to src/ and execute: dotnet new webapi -n copilot-api
+Navigate to src/copilot-api and execute: dotnet new .gitignore
+In src/copilot-api i want you to apply my coding conventions for .net and then remove all weather (controller) related data. 
+next implement a InstructionsController with model name, description as a standalone controller and register it. 
+Use microsoft learn mcp for planning.
+Provide scalar ui in the root. 
+Build run and fix all errors. while keeping the dotnet app running use your chrome dev tools mcp visit the http url 
+and port it is configured to run on an check the result. no need to use https
+```
+
+The hooks recorded every tool call, file modification, terminal command, and browser interaction during this workflow:
 
 ```mermaid
 sequenceDiagram
