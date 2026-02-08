@@ -2,8 +2,8 @@
 sequenceDiagram
     autonumber
     actor User as User
-    participant Bot as Assistant
-    participant API as External API
+    participant Bot as GH Copilot
+    participant API as Tool Use
 
     Note over User,Bot: Conversation starts
 

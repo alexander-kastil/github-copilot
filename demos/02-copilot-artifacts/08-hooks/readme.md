@@ -30,54 +30,72 @@ Create a hooks.json file in the `.github/hooks/` directory (or current working d
 
 ```json
 {
-  "version": 1,
-  "hooks": {
-    "sessionStart": [
-      {
-        "type": "command",
-        "bash": "echo \"Session started: $(date)\" >> logs/session.log",
-        "powershell": "Add-Content -Path logs/session.log -Value \"Session started: $(Get-Date)\"",
-        "cwd": ".",
-        "timeoutSec": 10
-      }
-    ]
-  }
+	"version": 1,
+	"hooks": {
+		"sessionStart": [
+			{
+				"type": "command",
+				"powershell": ".\\init-conversation.ps1",
+				"cwd": ".github/hooks",
+				"timeoutSec": 5
+			}
+		],
+		"userPromptSubmitted": [
+			{
+				"type": "command",
+				"powershell": ".\\log-prompt.ps1",
+				"cwd": ".github/hooks",
+				"timeoutSec": 10
+			}
+		],
+		"preToolUse": [
+			{
+				"type": "command",
+				"powershell": ".\\track-tool-use.ps1 -Phase pre",
+				"cwd": ".github/hooks",
+				"timeoutSec": 10
+			}
+		],
+		"postToolUse": [
+			{
+				"type": "command",
+				"powershell": ".\\track-tool-use.ps1 -Phase post",
+				"cwd": ".github/hooks",
+				"timeoutSec": 10
+			}
+		],
+		"sessionEnd": [
+			{
+				"type": "command",
+				"powershell": ".\\finalize-conversation.ps1",
+				"cwd": ".github/hooks",
+				"timeoutSec": 5
+			}
+		]
+	}
 }
 ```
 
-The above example logs the session start time to a file. You can also reference external scripts that capture context state. For example, this hook captures the context window state and visualizes it as a mermaid diagram:
+```mermaid
+sequenceDiagram
+    autonumber
+    actor User as User
+    participant Bot as GH Copilot
+    participant API as Tool Use
 
-```bash
-#!/bin/bash
-# scripts/capture-context.sh - Capture and visualize context window state
+    Note over User,Bot: Conversation starts
 
-INPUT=$(cat)
-TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+    User->>Bot: Continue: 'Continue to iterate?'
 
-# Extract context information from input
-CONTEXT_SIZE=$(echo "$INPUT" | jq '.contextWindow.size // 0' 2>/dev/null)
-MESSAGES=$(echo "$INPUT" | jq '.contextWindow.messages // 0' 2>/dev/null)
-FILES=$(echo "$INPUT" | jq '.contextWindow.files // 0' 2>/dev/null)
-INSTRUCTIONS=$(echo "$INPUT" | jq '.contextWindow.instructions // 0' 2>/dev/null)
+    User->>Bot: now run visualize.mjs
 
-# Create mermaid diagram
-DIAGRAM="graph TD
-    A[Context Window<br/>Size: ${CONTEXT_SIZE}] --> B[Messages: ${MESSAGES}]
-    A --> C[Files: ${FILES}]
-    A --> D[Instructions: ${INSTRUCTIONS}]
-    B --> E[Ready for Agent]
-    C --> E
-    D --> E"
+    User->>Bot: no you got the diagram style ... at least ... but it does no...
 
-# Log structured data with diagram
-jq -n \
-  --arg timestamp "$TIMESTAMP" \
-  --arg diagram "$DIAGRAM" \
-  --arg context_size "$CONTEXT_SIZE" \
-  '{timestamp: $timestamp, context_size: $context_size, diagram: $diagram}'
+    User->>Bot: Look: user -> assistant (coopilot) is conversation history, ...
+
+    Bot->>+API: read_file
+    Note over User,Bot: Conversation ends
 ```
-
-The above script processes the hook input, extracts context window metadata, and generates a mermaid diagram visualization showing the current state.
 
 ## Links & Resources
 
