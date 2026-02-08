@@ -63,10 +63,6 @@
 				"mcp"
 			]
 		},
-		"debug-mcp": {
-			"type": "sse",
-			"url": "http://localhost:3001/sse"
-		},
 		"chrome-devtools-mcp": {
 			"command": "npx",
 			"args": [
