@@ -1,13 +1,17 @@
 $sessionId = [guid]::NewGuid().ToString()
 $metadataPath = Join-Path -Path $PSScriptRoot -ChildPath "..\..\.copilot-metadata"
+$dataPath = Join-Path -Path $metadataPath -ChildPath "data"
 
-# Ensure metadata folder exists
+# Ensure metadata and data folders exist
 if (-not (Test-Path -Path $metadataPath)) {
     New-Item -ItemType Directory -Path $metadataPath -Force | Out-Null
 }
+if (-not (Test-Path -Path $dataPath)) {
+    New-Item -ItemType Directory -Path $dataPath -Force | Out-Null
+}
 
-$conversationPath = Join-Path -Path $metadataPath -ChildPath "conversation-history--$sessionId.json"
-$toolUsePath = Join-Path -Path $metadataPath -ChildPath "tool-use--$sessionId.json"
+$conversationPath = Join-Path -Path $dataPath -ChildPath "conversation-history--$sessionId.json"
+$toolUsePath = Join-Path -Path $dataPath -ChildPath "tool-use--$sessionId.json"
 
 $conversationState = @{
     sessionId = $sessionId

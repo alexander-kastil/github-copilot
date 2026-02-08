@@ -31,7 +31,8 @@ $logEntry = [pscustomobject]@{
 
 # Get sessionId from latest conversation history file
 $metadataPath = Join-Path -Path $PSScriptRoot -ChildPath "..\..\.copilot-metadata"
-$conversationFiles = Get-ChildItem -Path "$metadataPath\conversation-history--*.json" -ErrorAction SilentlyContinue | Sort-Object -Property LastWriteTime -Descending
+$dataPath = Join-Path -Path $metadataPath -ChildPath "data"
+$conversationFiles = Get-ChildItem -Path "$dataPath\conversation-history--*.json" -ErrorAction SilentlyContinue | Sort-Object -Property LastWriteTime -Descending
 $sessionId = if ($conversationFiles) { 
     $conversationFiles[0].Name -replace '^conversation-history--', '' -replace '\.json$', ''
 } else { 
@@ -39,7 +40,7 @@ $sessionId = if ($conversationFiles) {
 }
 
 # Path to the session-specific tool-use file
-$toolUsePath = Join-Path -Path $metadataPath -ChildPath "tool-use--$sessionId.json"
+$toolUsePath = Join-Path -Path $dataPath -ChildPath "tool-use--$sessionId.json"
 
 # Read existing entries or create new array
 $entries = @()
@@ -149,7 +150,7 @@ _Session ID: $sessionId_
 Set-Content -Path $mdPath -Value $mdContent -Force
 
 # Append to conversation history if it exists
-$conversationPath = Join-Path -Path $metadataPath -ChildPath "conversation-history--$sessionId.json"
+$conversationPath = Join-Path -Path $dataPath -ChildPath "conversation-history--$sessionId.json"
 if (Test-Path -Path $conversationPath) {
     try {
         $conversation = Get-Content -Path $conversationPath -Raw | ConvertFrom-Json

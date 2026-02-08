@@ -5,6 +5,80 @@ import { glob } from 'glob';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
+function generateConversationSequenceDiagram(messages, toolEvents) {
+  let diagram = 'sequenceDiagram\n';
+  diagram += '    autonumber\n';
+  diagram += '    actor User as User\n';
+  diagram += '    participant Bot as Assistant\n';
+  
+  if (toolEvents && toolEvents.length > 0) {
+    diagram += '    participant Tools as External API\n';
+  }
+  
+  diagram += '\n';
+  diagram += '    Note over User,Bot: Conversation starts\n';
+  diagram += '\n';
+  
+  // Process messages and interleave with tool calls
+  if (messages && messages.length > 0) {
+    messages.forEach((msg, idx) => {
+      if (msg.role === 'user') {
+        const msgText = truncateText(msg.content, 50);
+        diagram += `    User->>Bot: ${msgText}\n`;
+      } else {
+        const msgText = truncateText(msg.content, 50);
+        diagram += `    Bot-->>User: ${msgText}\n`;
+        
+        // Check if there are tool calls after this assistant message
+        const nextToolCalls = getToolCallsAfterMessage(idx, toolEvents);
+        if (nextToolCalls.length > 0) {
+          diagram += '    alt Tool Execution\n';
+          nextToolCalls.forEach(event => {
+            if (event.type === 'call') {
+              const toolName = event.message.split('(')[1]?.replace(')', '') || event.message;
+              diagram += `        Bot->>+Tools: ${event.message}\n`;
+              diagram += `        Note right of Tools: ${event.noteText}\n`;
+              diagram += `        Tools-->>-Bot: ${event.status} (${event.responseTime})\n`;
+            }
+          });
+          diagram += '    end\n';
+        }
+      }
+      diagram += '\n';
+    });
+  } else if (toolEvents && toolEvents.length > 0) {
+    // If no messages, show tool execution sequence
+    toolEvents.forEach(event => {
+      if (event.type === 'call') {
+        diagram += `    Bot->>+Tools: ${event.message}\n`;
+        diagram += `    Note right of Tools: ${event.noteText}\n`;
+        diagram += `    Tools-->>-Bot: ${event.status} (${event.responseTime})\n`;
+        diagram += '\n';
+      }
+    });
+  }
+  
+  diagram += '    Note over User,Bot: Conversation ends\n';
+  
+  return diagram;
+}
+
+function truncateText(text, maxLength) {
+  if (!text) return '';
+  if (text.length <= maxLength) return text.replace(/"/g, "'");
+  return text.substring(0, maxLength).replace(/"/g, "'") + '...';
+}
+
+function getToolCallsAfterMessage(messageIndex, toolEvents) {
+  // Group tool calls with assistant messages
+  // For now, return all tool events that follow in sequence
+  if (!toolEvents || toolEvents.length === 0) return [];
+  
+  // Get events that would logically follow this message
+  // In a real scenario, we'd match based on timestamps or other metadata
+  return toolEvents.slice(0, Math.ceil(toolEvents.length / (messageIndex + 1)));
+}
+
 function generateSequenceDiagram(sequence) {
   let diagram = 'sequenceDiagram\n';
   
@@ -55,12 +129,12 @@ function formatMessages(messages) {
     return '';
   }
   
-  let content = '## Conversation\n\n';
+  let content = '## Conversation Transcript\n\n';
   
   messages.forEach(msg => {
-    const role = msg.role === 'user' ? '👤 User' : '🤖 Assistant';
+    const role = msg.role === 'user' ? '👤 **User**' : '🤖 **Assistant**';
     const timestamp = new Date(msg.timestamp).toLocaleString();
-    content += `### ${role} - ${timestamp}\n\n`;
+    content += `### ${role} — ${timestamp}\n\n`;
     content += `${msg.content}\n\n`;
   });
   
@@ -75,16 +149,19 @@ function generateMarkdown(toolData, historyData) {
   
   markdown += formatMessages(historyData.messages);
   
-  if (toolData.sequence && toolData.sequence.events.length > 0) {
-    markdown += '## Tool Use\n\n';
-    markdown += '### Execution Flow\n\n';
+  // Generate conversation sequence diagram
+  const toolEvents = toolData.sequence && toolData.sequence.events ? toolData.sequence.events : [];
+  const conversationDiagram = generateConversationSequenceDiagram(historyData.messages, toolEvents);
+  
+  if (historyData.messages && historyData.messages.length > 0) {
+    markdown += '## Conversation Flow\n\n';
     markdown += '```mermaid\n';
-    markdown += generateSequenceDiagram(toolData.sequence);
+    markdown += conversationDiagram;
     markdown += '```\n\n';
   }
   
   if (toolData.metrics && toolData.metrics.tools.length > 0) {
-    markdown += '### Metrics\n\n';
+    markdown += '## Tool Execution Metrics\n\n';
     markdown += '```mermaid\n';
     markdown += generateMetricsDiagram(toolData.metrics);
     markdown += '```\n\n';

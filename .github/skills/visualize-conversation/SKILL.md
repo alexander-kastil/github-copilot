@@ -25,7 +25,7 @@ This skill generates clean, visual documentation of conversations by:
 ├── data/
 │   ├── tool-use--{sessionId}.json
 │   └── conversation-history--{sessionId}.json
-├── generate.mjs               (generator script)
+├── visualize.mjs              (visualization script)
 ├── package.json              (npm configuration)
 └── conversation--{sessionId}.md  (generated output)
 ```
@@ -105,7 +105,7 @@ Populated by hooks during conversation (`init-conversation.ps1` creates structur
 ### Workflow
 
 1. **Session runs**: Hooks automatically track tool usage and conversation messages, updating JSON files in `.copilot-metadata/data/`
-2. **Run the skill**: Execute `generate.mjs` to visualize the collected data
+2. **Run the skill**: Execute `visualize.mjs` to visualize the collected data
 3. **Review output**: Generated markdown appears in `.copilot-metadata/conversation--{sessionId}.md`
 
 ### Run from `.copilot-metadata` directory
@@ -177,7 +177,7 @@ Or integrated in hook finalization:
 ```powershell
 # finalize-conversation.ps1
 # ... cleanup and finalization code ...
-npm run generate:metadata
+cd .copilot-metadata && npm run generate:metadata
 ```
 
 ## Key Features
@@ -196,7 +196,7 @@ The JSON files in `.copilot-metadata/data/` are maintained automatically by hook
 
 - **`init-conversation.ps1`** - Creates session files on session start
 - **`track-tool-use.ps1`** - Updates tool metrics before/after each tool call
-- **`finalize-conversation.ps1`** - Optional: can call `generate.mjs` on session end
+- **`finalize-conversation.ps1`** - Optional: can call `visualize.mjs` on session end
 
 This skill assumes the JSON files are already populated by these hooks.
 

@@ -1,11 +1,12 @@
 # Find the latest conversation session based on file pattern
 $metadataPath = Join-Path -Path $PSScriptRoot -ChildPath "..\..\.copilot-metadata"
-$conversationFiles = Get-ChildItem -Path "$metadataPath\conversation-history--*.json" -ErrorAction SilentlyContinue | Sort-Object -Property LastWriteTime -Descending
+$dataPath = Join-Path -Path $metadataPath -ChildPath "data"
+$conversationFiles = Get-ChildItem -Path "$dataPath\conversation-history--*.json" -ErrorAction SilentlyContinue | Sort-Object -Property LastWriteTime -Descending
 
 if ($conversationFiles) {
     $conversationPath = $conversationFiles[0].FullName
     $sessionId = $conversationFiles[0].Name -replace '^conversation-history--', '' -replace '\.json$', ''
-    $toolUsePath = Join-Path -Path $metadataPath -ChildPath "tool-use--$sessionId.json"
+    $toolUsePath = Join-Path -Path $dataPath -ChildPath "tool-use--$sessionId.json"
     $mdPath = Join-Path -Path $metadataPath -ChildPath "conversation--$sessionId.md"
 } else {
     exit 0
