@@ -1,0 +1,31 @@
+{
+    "status":  "active",
+    "endTime":  null,
+    "startTime":  {
+
+                  },
+    "sessionId":  "b37b6fc0-b04a-428f-8d42-0116d6b6e7a1",
+    "messages":  [
+                     {
+                         "content":  "in src/copilot-api i want you to apply my coding conventions for .net and then remove all weather (controller) related data. next implement a InstructionsController with  model name, description as a standalone controller and register it. provide sclarr ui in the root. build run and fix all errors. Use microsoft learn mcp",
+                         "timestamp":  {
+
+                                       },
+                         "role":  "user"
+                     },
+                     {
+                         "content":  "the app is running and you can check chrome dev mcp and check yourselt at http://localhost:5010. for me the task is done",
+                         "timestamp":  {
+
+                                       },
+                         "role":  "user"
+                     },
+                     {
+                         "content":  "please update-diagram",
+                         "timestamp":  {
+
+                                       },
+                         "role":  "user"
+                     }
+                 ]
+}
