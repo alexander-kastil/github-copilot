@@ -26,15 +26,15 @@ GitHub Copilot hooks allow you to extend and customize agent behavior by executi
 
 ## Copilot Conversation Tracker
 
-The Copilot Conversation Tracker automatically records all agent activities—user prompts, tool calls, subagent lifecycle events—into a structured JSON format stored in [.copilot-conversation](./.../../.copilot-conversation/). This enables full conversation history, detailed execution analysis, and automated visualization of agent behavior without requiring manual logging code.
+The Copilot Conversation Tracker automatically records all agent activities—user prompts, tool calls, subagent lifecycle events—into a structured JSON format stored in [.copilot-conversation](../../../.copilot-conversation/). This enables full conversation history, detailed execution analysis, and automated visualization of agent behavior without requiring manual logging code.
 
 ### How It Works
 
-Hooks fire at key agent lifecycle events, with each hook executing a PowerShell script that captures relevant data. When the conversation starts, [session-start.ps1](./session-start.ps1) generates a unique session ID and creates baseline JSON files. As the agent executes, [log-prompt.ps1](./log-prompt.ps1) logs user submissions, [track-tool.ps1](./track-tool.ps1) records pre/post tool execution details, and [track-agent.ps1](./track-agent.ps1) monitors subagent lifecycle. Finally, [session-stop.ps1](./session-stop.ps1) finalizes the session and runs [visualize.mjs](./../../.copilot-conversation/visualize.mjs) to generate a markdown diagram of the entire conversation flow.
+Hooks fire at key agent lifecycle events, with each hook executing a script that captures relevant data. When the conversation starts, the session-start hook generates a unique session ID and creates baseline JSON files. As the agent executes, hooks log user submissions, record pre/post tool execution details, and monitor subagent lifecycle. Finally, the session-stop hook finalizes the session and runs [visualize.mjs](../../../.copilot-conversation/visualize.mjs) to generate a markdown diagram of the entire conversation flow.
 
 ### Hook Registration
 
-Hooks are registered in [hooks.json](./hooks.json), which maps each lifecycle event to one or more PowerShell scripts. Each hook entry specifies the event type (sessionStart, userPromptSubmitted, preToolUse, etc.), the command to execute, working directory, and timeout. The configuration ensures scripts run in sequence without blocking the agent, with a minimum timeout required for the final sessionEnd hook to complete visualization.
+Hooks are registered in a hooks.json configuration file, which maps each lifecycle event to one or more scripts. Each hook entry specifies the event type (sessionStart, userPromptSubmitted, preToolUse, etc.), the command to execute, working directory, and timeout. The configuration ensures scripts run in sequence without blocking the agent, with a minimum timeout required for the final sessionEnd hook to complete visualization.
 
 ### Conversation Flow
 

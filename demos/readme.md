@@ -19,6 +19,7 @@
 - [Agent Skills](02-copilot-artifacts/05-skills/)
 - [GitHub Copilot Memory](02-copilot-artifacts/06-memory/)
 - [Context Engineering](02-copilot-artifacts/07-context-engineering/)
+- [Hooks](02-copilot-artifacts/08-hooks/)
 
 ## [Module 3: Agentic Coding](./03-agentic-coding/)
 
