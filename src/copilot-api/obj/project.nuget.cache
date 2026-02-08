@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "Ko2ehm4BjFI=",
+  "success": true,
+  "projectFilePath": "D:\\git-classes\\github-copilot\\labs\\copilot-api\\copilot-api.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\AlexanderKastil\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.2\\microsoft.aspnetcore.openapi.10.0.2.nupkg.sha512",
+    "C:\\Users\\AlexanderKastil\\.nuget\\packages\\microsoft.openapi\\2.0.0\\microsoft.openapi.2.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
