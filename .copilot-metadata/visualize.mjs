@@ -36,7 +36,8 @@ function buildDiagram(history, tools, agents, level = 1) {
   const agentNames = [...new Set(agents.map(a => a.agentName))];
   const hasAgents = agentNames.length > 0;
 
-  let d = 'sequenceDiagram\n';
+  let d = `%%{init: {'theme':'dark', 'themeVariables': {'primaryTextColor':'#ffff00', 'primaryBorderColor':'#ffff00', 'textColor':'#ffff00'}}}%%\n`;
+  d += 'sequenceDiagram\n';
   d += '    autonumber\n';
   d += '    actor User as User\n';
   d += '    participant Bot as GH Copilot\n';

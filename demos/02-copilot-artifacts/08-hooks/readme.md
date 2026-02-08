@@ -24,76 +24,32 @@ GitHub Copilot hooks allow you to extend and customize agent behavior by executi
 - Performance Tracking: Measure execution time, monitor tool usage, and collect metrics for optimization.
 - Conditional Execution: Block dangerous operations or prevent tools from running in certain contexts using hook validation.
 
-## Getting Started
+## Copilot Conversation Tracker
 
-Create a hooks.json file in the `.github/hooks/` directory (or current working directory for Copilot CLI) with your desired hook configurations:
 
-```json
-{
-	"version": 1,
-	"hooks": {
-		"sessionStart": [
-			{
-				"type": "command",
-				"powershell": ".\\init-conversation.ps1",
-				"cwd": ".github/hooks",
-				"timeoutSec": 5
-			}
-		],
-		"userPromptSubmitted": [
-			{
-				"type": "command",
-				"powershell": ".\\log-prompt.ps1",
-				"cwd": ".github/hooks",
-				"timeoutSec": 10
-			}
-		],
-		"preToolUse": [
-			{
-				"type": "command",
-				"powershell": ".\\track-tool-use.ps1 -Phase pre",
-				"cwd": ".github/hooks",
-				"timeoutSec": 10
-			}
-		],
-		"postToolUse": [
-			{
-				"type": "command",
-				"powershell": ".\\track-tool-use.ps1 -Phase post",
-				"cwd": ".github/hooks",
-				"timeoutSec": 10
-			}
-		],
-		"sessionEnd": [
-			{
-				"type": "command",
-				"powershell": ".\\finalize-conversation.ps1",
-				"cwd": ".github/hooks",
-				"timeoutSec": 5
-			}
-		]
-	}
-}
-```
 
 ```mermaid
 sequenceDiagram
     autonumber
     actor User as User
     participant Bot as GH Copilot
-    participant API as Tool Use
 
     Note over User,Bot: Conversation starts
 
-    User->>Bot: Continue: 'Continue to iterate?'
+    User->>Bot: Navigate to src/ and execute: dotnet new webapit -n copilot-...
+    Bot-->>User: Executed 30 actions: 8× run in terminal, 4× readFile, 3× replaceString
+    User->>Bot: whilee the terminal runs use chrome mcp
+    Bot-->>User: Executed 13 actions: 3× readFile, 3× chrome-devtoo take snapshot, 2× chrome-devtoo new page
+    User->>Bot: questions. do this mermaids support making the tool call lay...
+    Bot-->>User: Executed 2 actions: get-syntax-docs-mermaid, readFile
+    User->>Bot: question 2. couldnt we asign more meaning to the tool call w...
+    User->>Bot: ok then wouldnt it make more sense to process the 3 json fil...
+    Bot-->>User: Executed 21 actions: 9× readFile, 7× replaceString, 2× listDirectory
+    User->>Bot: that is already great progress! my initial request was havin...
+    Bot-->>User: Executed 18 actions: 11× replaceString, 4× readFile, 3× run in terminal
+    User->>Bot: yes ... but i meant as a mermaid ... no need to have 1.5 ......
+    Bot-->>User: Executed 7 actions: 5× replaceString, run in terminal, readFile
 
-    User->>Bot: now run visualize.mjs
-
-    User->>Bot: no you got the diagram style ... at least ... but it does no...
-
-    User->>Bot: Look: user -> assistant (coopilot) is conversation history, ...
-
-    Bot->>+API: read_file
     Note over User,Bot: Conversation ends
 ```
 
@@ -102,4 +58,3 @@ sequenceDiagram
 - [Using hooks with GitHub Copilot agents](https://docs.github.com/en/copilot/how-tos/use-copilot-agents/coding-agent/use-hooks)
 - [Hooks configuration reference](https://docs.github.com/en/copilot/reference/hooks-configuration)
 - [About GitHub Copilot hooks](https://docs.github.com/en/copilot/concepts/agents/coding-agent/about-hooks)
-- [Customize the development environment for GitHub Copilot coding agent](https://docs.github.com/en/copilot/how-tos/use-copilot-agents/coding-agent/customize-the-agent-environment)
