@@ -20,12 +20,18 @@ function truncate(text, max = 60) {
 }
 
 function toMs(ts) {
+  if (!ts || typeof ts === 'object') return 0;
   const d = new Date(ts);
   return isNaN(d.getTime()) ? 0 : d.getTime();
 }
 
+function isValidString(val) {
+  return val && typeof val === 'string' && val.length > 0;
+}
+
 function buildDiagram(history, tools, agents) {
-  const hasTools = tools.length > 0;
+  const validTools = tools.filter(t => isValidString(t.toolName) && t.toolName !== 'unknown');
+  const hasTools = validTools.length > 0;
   const agentNames = [...new Set(agents.map(a => a.agentName))];
   const hasAgents = agentNames.length > 0;
 
@@ -54,7 +60,7 @@ function buildDiagram(history, tools, agents) {
     });
   }
 
-  tools.forEach(t => {
+  validTools.forEach(t => {
     if (t.phase === 'pre') {
       events.push({ type: 'tool-call', toolName: t.toolName, ts: toMs(t.timestamp) });
     } else if (t.phase === 'post') {
@@ -79,12 +85,17 @@ function buildDiagram(history, tools, agents) {
 
   events.sort((a, b) => a.ts - b.ts);
 
-  events.forEach(evt => {
+  const enriched = addInferredResponses(events);
+
+  enriched.forEach(evt => {
     switch (evt.type) {
       case 'message':
         if (evt.role === 'user') {
           d += `    User->>Bot: ${truncate(evt.content)}\n\n`;
         }
+        break;
+      case 'assistant-response':
+        d += '    Bot-->>User: [response]\n\n';
         break;
       case 'tool-call':
         d += `    Bot->>+API: ${truncate(evt.toolName, 40)}\n`;
@@ -107,14 +118,42 @@ function buildDiagram(history, tools, agents) {
   return d;
 }
 
+function addInferredResponses(events) {
+  const result = [];
+  let hadAgentActivity = false;
+
+  for (let i = 0; i < events.length; i++) {
+    const evt = events[i];
+
+    if (evt.type === 'tool-call' || evt.type === 'tool-response' ||
+        evt.type === 'agent-start' || evt.type === 'agent-stop') {
+      hadAgentActivity = true;
+    }
+
+    if (evt.type === 'message' && evt.role === 'user' && hadAgentActivity) {
+      result.push({ type: 'assistant-response', ts: evt.ts - 1 });
+      hadAgentActivity = false;
+    }
+
+    result.push(evt);
+  }
+
+  if (hadAgentActivity) {
+    result.push({ type: 'assistant-response', ts: Date.now() });
+  }
+
+  return result;
+}
+
 function buildMetrics(tools) {
-  const postTools = tools.filter(t => t.phase === 'post');
+  const validTools = tools.filter(t => isValidString(t.toolName) && t.toolName !== 'unknown');
+  const postTools = validTools.filter(t => t.phase === 'post');
   const total = postTools.length;
   const success = postTools.filter(t => t.resultType === 'success').length;
   const failed = total - success;
 
   const byName = {};
-  tools.forEach(t => {
+  validTools.forEach(t => {
     if (!byName[t.toolName]) byName[t.toolName] = 0;
     if (t.phase === 'pre') byName[t.toolName]++;
   });
@@ -137,10 +176,14 @@ function buildMetrics(tools) {
 }
 
 function generateMarkdown(sessionId, history, tools, agents) {
+  const startTime = isValidString(history.startTime) ? history.startTime : 'N/A';
+  const endTime = isValidString(history.endTime) ? history.endTime : null;
+  const status = isValidString(history.status) ? history.status : null;
+
   let md = `# Conversation: ${sessionId}\n\n`;
-  md += `**Started:** ${history.startTime || 'N/A'}\n`;
-  if (history.endTime) md += `**Ended:** ${history.endTime}\n`;
-  if (history.status) md += `**Status:** ${history.status}\n`;
+  md += `**Started:** ${startTime}\n`;
+  if (endTime) md += `**Ended:** ${endTime}\n`;
+  if (status) md += `**Status:** ${status}\n`;
   md += '\n';
 
   md += '## Sequence Diagram\n\n';
@@ -216,5 +259,7 @@ function main() {
   }
   console.log(`\n✓ Processed ${count} session(s)`);
 }
+
+export { buildDiagram, addInferredResponses, buildMetrics, sanitize, truncate, toMs };
 
 main();

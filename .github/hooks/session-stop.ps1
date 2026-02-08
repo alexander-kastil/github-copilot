@@ -1,6 +1,6 @@
 $inputJson = [Console]::In.ReadToEnd()
 $hookData = $null
-try { $hookData = $inputJson | ConvertFrom-Json } catch { exit 0 }
+try { $hookData = $inputJson | ConvertFrom-Json } catch { }
 
 $metadataPath = Join-Path $PSScriptRoot "../../.copilot-metadata"
 $dataPath = Join-Path $metadataPath "data"
@@ -9,20 +9,28 @@ $sessionFile = Join-Path $dataPath "current-session.txt"
 if (-not (Test-Path $sessionFile)) { exit 0 }
 $sessionId = (Get-Content $sessionFile -Raw).Trim()
 
-$epoch = [datetime]::new(1970, 1, 1, 0, 0, 0, [DateTimeKind]::Utc)
-$timestamp = if ($hookData.timestamp) {
-    $epoch.AddMilliseconds($hookData.timestamp).ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
-} else {
-    (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
+function ConvertFrom-UnixMs($val) {
+    try {
+        $ms = [double]$val
+        if ($ms -gt 0) {
+            return ([datetime]::new(1970, 1, 1, 0, 0, 0, [DateTimeKind]::Utc)).AddMilliseconds($ms).ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
+        }
+    } catch { }
+    return (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
 }
+
+$timestamp = ConvertFrom-UnixMs $hookData.timestamp
+
+$debugPath = Join-Path $dataPath "debug-$sessionId.log"
+"[sessionEnd] $(Get-Date -Format o)`nRAW: $inputJson`n" | Add-Content $debugPath
 
 $historyPath = Join-Path $dataPath "history-$sessionId.json"
 if (Test-Path $historyPath) {
     $history = Get-Content $historyPath -Raw | ConvertFrom-Json
-    $history | Add-Member -NotePropertyName endTime -NotePropertyValue $timestamp -Force
+    $history | Add-Member -NotePropertyName endTime -NotePropertyValue ([string]$timestamp) -Force
     $history | Add-Member -NotePropertyName status -NotePropertyValue "completed" -Force
     if ($hookData.reason) {
-        $history | Add-Member -NotePropertyName reason -NotePropertyValue $hookData.reason -Force
+        $history | Add-Member -NotePropertyName reason -NotePropertyValue ([string]$hookData.reason) -Force
     }
     $history | ConvertTo-Json -Depth 10 | Set-Content $historyPath
 }

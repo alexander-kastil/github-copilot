@@ -1,6 +1,6 @@
 $inputJson = [Console]::In.ReadToEnd()
 $hookData = $null
-try { $hookData = $inputJson | ConvertFrom-Json } catch { exit 0 }
+try { $hookData = $inputJson | ConvertFrom-Json } catch { }
 
 $sessionId = [guid]::NewGuid().ToString()
 
@@ -13,12 +13,20 @@ if (-not (Test-Path $dataPath)) {
 
 Set-Content -Path (Join-Path $dataPath "current-session.txt") -Value $sessionId -NoNewline
 
-$epoch = [datetime]::new(1970, 1, 1, 0, 0, 0, [DateTimeKind]::Utc)
-$timestamp = if ($hookData.timestamp) {
-    $epoch.AddMilliseconds($hookData.timestamp).ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
-} else {
-    (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
+function ConvertFrom-UnixMs($val) {
+    try {
+        $ms = [double]$val
+        if ($ms -gt 0) {
+            return ([datetime]::new(1970, 1, 1, 0, 0, 0, [DateTimeKind]::Utc)).AddMilliseconds($ms).ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
+        }
+    } catch { }
+    return (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
 }
+
+$timestamp = ConvertFrom-UnixMs $hookData.timestamp
+
+$debugPath = Join-Path $dataPath "debug-$sessionId.log"
+"[sessionStart] $(Get-Date -Format o)`nRAW: $inputJson`n" | Set-Content $debugPath
 
 @{
     sessionId = $sessionId

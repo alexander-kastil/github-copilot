@@ -16,27 +16,47 @@ $sessionId = (Get-Content $sessionFile -Raw).Trim()
 $toolsPath = Join-Path $dataPath "tools-$sessionId.json"
 if (-not (Test-Path $toolsPath)) { exit 0 }
 
-$epoch = [datetime]::new(1970, 1, 1, 0, 0, 0, [DateTimeKind]::Utc)
-$timestamp = if ($hookData.timestamp) {
-    $epoch.AddMilliseconds($hookData.timestamp).ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
-} else {
-    (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
+function ConvertFrom-UnixMs($val) {
+    try {
+        $ms = [double]$val
+        if ($ms -gt 0) {
+            return ([datetime]::new(1970, 1, 1, 0, 0, 0, [DateTimeKind]::Utc)).AddMilliseconds($ms).ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
+        }
+    } catch { }
+    return (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
 }
+
+$timestamp = ConvertFrom-UnixMs $hookData.timestamp
+$toolName = if ($hookData.toolName) { [string]$hookData.toolName } else { "unknown" }
+
+$debugPath = Join-Path $dataPath "debug-$sessionId.log"
+"[$Phase-tool] $(Get-Date -Format o) tool=$toolName`nRAW: $inputJson`n" | Add-Content $debugPath
 
 $entry = [ordered]@{
-    timestamp = $timestamp
-    phase     = $Phase
-    toolName  = $hookData.toolName
+    timestamp = [string]$timestamp
+    phase     = [string]$Phase
+    toolName  = [string]$toolName
 }
 
-if ($Phase -eq "post" -and $hookData.toolResult) {
-    $entry.resultType = $hookData.toolResult.resultType
+if ($Phase -eq "post") {
+    $rt = "success"
+    if ($hookData.toolResult -and $hookData.toolResult.resultType) {
+        $rt = [string]$hookData.toolResult.resultType
+    }
+    $entry.resultType = $rt
 }
 
-$toolsData = Get-Content $toolsPath -Raw | ConvertFrom-Json
-if (-not $toolsData.tools) {
-    $toolsData | Add-Member -NotePropertyName tools -NotePropertyValue @() -Force
+$maxRetries = 3
+for ($i = 0; $i -lt $maxRetries; $i++) {
+    try {
+        $toolsData = Get-Content $toolsPath -Raw | ConvertFrom-Json
+        if (-not $toolsData.tools) {
+            $toolsData | Add-Member -NotePropertyName tools -NotePropertyValue @() -Force
+        }
+        $toolsData.tools += [pscustomobject]$entry
+        $toolsData | ConvertTo-Json -Depth 10 | Set-Content $toolsPath
+        break
+    } catch {
+        Start-Sleep -Milliseconds 50
+    }
 }
-
-$toolsData.tools += [pscustomobject]$entry
-$toolsData | ConvertTo-Json -Depth 10 | Set-Content $toolsPath

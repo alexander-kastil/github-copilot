@@ -95,6 +95,11 @@ describe('visualize.mjs', () => {
     assert.ok(md.includes('Sub:'), 'should have Sub: prefix for agent participant');
   });
 
+  it('includes inferred assistant responses', () => {
+    const md = fs.readFileSync(path.join(__dirname, `conv-${testSessionId}.md`), 'utf-8');
+    assert.ok(md.includes('Bot-->>User: [response]'), 'should have inferred response arrow');
+  });
+
   it('includes conversation start/end notes', () => {
     const md = fs.readFileSync(path.join(__dirname, `conv-${testSessionId}.md`), 'utf-8');
     assert.ok(md.includes('Conversation starts'), 'should have start note');
@@ -135,8 +140,75 @@ describe('visualize.mjs', () => {
     const md = fs.readFileSync(path.join(__dirname, `conv-${noToolsId}.md`), 'utf-8');
     assert.ok(md.includes('Hello'), 'should contain user message');
     assert.ok(!md.includes('Tool Use'), 'should not have Tool Use participant');
+    assert.ok(!md.includes('[response]'), 'no response without agent activity');
 
     fs.unlinkSync(path.join(dataDir, `history-${noToolsId}.json`));
     fs.unlinkSync(path.join(__dirname, `conv-${noToolsId}.md`));
+  });
+
+  it('handles malformed data from hooks (null toolName, object timestamps)', () => {
+    const badId = 'test-bad-data';
+    fs.writeFileSync(path.join(dataDir, `history-${badId}.json`), JSON.stringify({
+      sessionId: badId,
+      startTime: {},
+      status: 'active',
+      messages: [
+        { role: 'user', timestamp: {}, content: 'Test prompt' }
+      ]
+    }));
+    fs.writeFileSync(path.join(dataDir, `tools-${badId}.json`), JSON.stringify({
+      sessionId: badId,
+      tools: [
+        { timestamp: {}, phase: 'pre', toolName: null },
+        { timestamp: {}, phase: 'pre', toolName: null },
+        { timestamp: '2026-02-08T11:00:01.000Z', phase: 'pre', toolName: 'read_file' },
+        { timestamp: '2026-02-08T11:00:02.000Z', phase: 'post', toolName: 'read_file', resultType: 'success' }
+      ]
+    }));
+
+    execSync(`node visualize.mjs ${badId}`, { cwd: __dirname });
+    const md = fs.readFileSync(path.join(__dirname, `conv-${badId}.md`), 'utf-8');
+
+    assert.ok(md.includes('Test prompt'), 'should contain user message despite bad timestamp');
+    assert.ok(md.includes('read_file'), 'should include valid tool calls');
+    assert.ok(!md.includes('null'), 'should not render null toolName in diagram');
+    assert.ok(md.includes('**Started:** N/A'), 'should show N/A for object startTime');
+
+    fs.unlinkSync(path.join(dataDir, `history-${badId}.json`));
+    fs.unlinkSync(path.join(dataDir, `tools-${badId}.json`));
+    fs.unlinkSync(path.join(__dirname, `conv-${badId}.md`));
+  });
+
+  it('infers response before second user message after tool activity', () => {
+    const respId = 'test-response-inference';
+    fs.writeFileSync(path.join(dataDir, `history-${respId}.json`), JSON.stringify({
+      sessionId: respId,
+      startTime: '2026-02-08T12:00:00.000Z',
+      status: 'active',
+      messages: [
+        { role: 'user', timestamp: '2026-02-08T12:00:01.000Z', content: 'First prompt' },
+        { role: 'user', timestamp: '2026-02-08T12:01:00.000Z', content: 'Second prompt' }
+      ]
+    }));
+    fs.writeFileSync(path.join(dataDir, `tools-${respId}.json`), JSON.stringify({
+      sessionId: respId,
+      tools: [
+        { timestamp: '2026-02-08T12:00:10.000Z', phase: 'pre', toolName: 'grep_search' },
+        { timestamp: '2026-02-08T12:00:15.000Z', phase: 'post', toolName: 'grep_search', resultType: 'success' }
+      ]
+    }));
+
+    execSync(`node visualize.mjs ${respId}`, { cwd: __dirname });
+    const md = fs.readFileSync(path.join(__dirname, `conv-${respId}.md`), 'utf-8');
+
+    const lines = md.split('\n');
+    const responseIdx = lines.findIndex(l => l.includes('[response]'));
+    const secondPromptIdx = lines.findIndex(l => l.includes('Second prompt'));
+    assert.ok(responseIdx > -1, 'should have inferred response');
+    assert.ok(responseIdx < secondPromptIdx, 'response should appear before second user prompt');
+
+    fs.unlinkSync(path.join(dataDir, `history-${respId}.json`));
+    fs.unlinkSync(path.join(dataDir, `tools-${respId}.json`));
+    fs.unlinkSync(path.join(__dirname, `conv-${respId}.md`));
   });
 });

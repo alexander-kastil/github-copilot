@@ -11,12 +11,21 @@ $sessionId = (Get-Content $sessionFile -Raw).Trim()
 $historyPath = Join-Path $dataPath "history-$sessionId.json"
 if (-not (Test-Path $historyPath)) { exit 0 }
 
-$epoch = [datetime]::new(1970, 1, 1, 0, 0, 0, [DateTimeKind]::Utc)
-$timestamp = if ($hookData.timestamp) {
-    $epoch.AddMilliseconds($hookData.timestamp).ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
-} else {
-    (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
+function ConvertFrom-UnixMs($val) {
+    try {
+        $ms = [double]$val
+        if ($ms -gt 0) {
+            return ([datetime]::new(1970, 1, 1, 0, 0, 0, [DateTimeKind]::Utc)).AddMilliseconds($ms).ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
+        }
+    } catch { }
+    return (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
 }
+
+$timestamp = ConvertFrom-UnixMs $hookData.timestamp
+$prompt = if ($hookData.prompt) { [string]$hookData.prompt } else { "" }
+
+$debugPath = Join-Path $dataPath "debug-$sessionId.log"
+"[userPrompt] $(Get-Date -Format o)`nRAW: $inputJson`n" | Add-Content $debugPath
 
 $history = Get-Content $historyPath -Raw | ConvertFrom-Json
 if (-not $history.messages) {
@@ -26,7 +35,7 @@ if (-not $history.messages) {
 $history.messages += @{
     role      = "user"
     timestamp = $timestamp
-    content   = $hookData.prompt
+    content   = $prompt
 }
 
 $history | ConvertTo-Json -Depth 10 | Set-Content $historyPath
