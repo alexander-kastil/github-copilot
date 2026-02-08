@@ -1,0 +1,28 @@
+{
+    "status":  "active",
+    "endTime":  null,
+    "startTime":  "2026-02-08T15:48:29.309Z",
+    "sessionId":  "f851ddc1-fd22-4999-8725-1853d73ed013",
+    "messages":  [
+                     {
+                         "content":  "in src/copilot-api i want you to apply my coding conventions for .net and then remove all weather (controller) related data. next implement a InstructionsController with  model name, description as a standalone controller and register it. Use microsoft learn mcp for planning. \r\n\r\nprovide scalar ui in the root. build run and fix all errors.  while keeping the dotnet app running use your chrome dev tools mcp visit http://localhost:5001 an check the result. no need to use https",
+                         "timestamp":  "2026-02-08T15:48:29.579Z",
+                         "role":  "user"
+                     },
+                     {
+                         "content":  "visualize diagram",
+                         "timestamp":  "2026-02-08T15:50:49.677Z",
+                         "role":  "user"
+                     },
+                     {
+                         "content":  "call visualize with session id f851ddc1-fd22-4999-8725-1853d73ed013",
+                         "timestamp":  "2026-02-08T15:52:14.726Z",
+                         "role":  "user"
+                     },
+                     {
+                         "content":  "there is still the issue that responses and toll calls are  not in the diagram",
+                         "timestamp":  "2026-02-08T15:53:49.184Z",
+                         "role":  "user"
+                     }
+                 ]
+}

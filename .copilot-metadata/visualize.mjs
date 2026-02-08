@@ -30,7 +30,7 @@ function isValidString(val) {
 }
 
 function buildDiagram(history, tools, agents) {
-  const validTools = tools.filter(t => isValidString(t.toolName) && t.toolName !== 'unknown');
+  const validTools = tools.filter(t => t && t.toolName);
   const hasTools = validTools.length > 0;
   const agentNames = [...new Set(agents.map(a => a.agentName))];
   const hasAgents = agentNames.length > 0;
@@ -60,13 +60,14 @@ function buildDiagram(history, tools, agents) {
     });
   }
 
-  validTools.forEach(t => {
+  validTools.forEach((t, idx) => {
     if (t.phase === 'pre') {
-      events.push({ type: 'tool-call', toolName: t.toolName, ts: toMs(t.timestamp) });
+      events.push({ type: 'tool-call', toolName: t.toolName, toolId: idx, ts: toMs(t.timestamp) });
     } else if (t.phase === 'post') {
       events.push({
         type: 'tool-response',
         toolName: t.toolName,
+        toolId: idx,
         resultType: t.resultType || 'success',
         ts: toMs(t.timestamp)
       });
@@ -97,9 +98,11 @@ function buildDiagram(history, tools, agents) {
       case 'assistant-response':
         d += '    Bot-->>User: [response]\n\n';
         break;
-      case 'tool-call':
-        d += `    Bot->>+API: ${truncate(evt.toolName, 40)}\n`;
+      case 'tool-call': {
+        const label = evt.toolName === 'unknown' ? `Tool Call #${evt.toolId}` : truncate(evt.toolName, 40);
+        d += `    Bot->>+API: ${label}\n`;
         break;
+      }
       case 'tool-response': {
         const status = evt.resultType === 'success' ? 'OK' : evt.resultType;
         d += `    API-->>-Bot: ${status}\n\n`;
@@ -121,22 +124,59 @@ function buildDiagram(history, tools, agents) {
 function addInferredResponses(events) {
   const result = [];
   let hadAgentActivity = false;
+  let pendingToolCalls = [];
 
   for (let i = 0; i < events.length; i++) {
     const evt = events[i];
 
-    if (evt.type === 'tool-call' || evt.type === 'tool-response' ||
-        evt.type === 'agent-start' || evt.type === 'agent-stop') {
+    if (evt.type === 'tool-call') {
+      pendingToolCalls.push(evt);
+      result.push(evt);
+      continue;
+    }
+
+    if (evt.type === 'tool-response') {
+      hadAgentActivity = true;
+      result.push(evt);
+      continue;
+    }
+
+    if (evt.type === 'agent-start' || evt.type === 'agent-stop') {
       hadAgentActivity = true;
     }
 
-    if (evt.type === 'message' && evt.role === 'user' && hadAgentActivity) {
-      result.push({ type: 'assistant-response', ts: evt.ts - 1 });
-      hadAgentActivity = false;
+    if (evt.type === 'message' && evt.role === 'user') {
+      // Close out any pending tool calls with synthetic responses
+      pendingToolCalls.forEach(toolCall => {
+        result.push({
+          type: 'tool-response',
+          toolName: toolCall.toolName,
+          toolId: toolCall.toolId,
+          resultType: 'success',
+          ts: toolCall.ts + 100
+        });
+      });
+      pendingToolCalls = [];
+
+      if (hadAgentActivity) {
+        result.push({ type: 'assistant-response', ts: evt.ts - 1 });
+        hadAgentActivity = false;
+      }
     }
 
     result.push(evt);
   }
+
+  // Handle any remaining pending tool calls
+  pendingToolCalls.forEach(toolCall => {
+    result.push({
+      type: 'tool-response',
+      toolName: toolCall.toolName,
+      toolId: toolCall.toolId,
+      resultType: 'success',
+      ts: toolCall.ts + 100
+    });
+  });
 
   if (hadAgentActivity) {
     result.push({ type: 'assistant-response', ts: Date.now() });
@@ -146,16 +186,18 @@ function addInferredResponses(events) {
 }
 
 function buildMetrics(tools) {
-  const validTools = tools.filter(t => isValidString(t.toolName) && t.toolName !== 'unknown');
+  const validTools = tools.filter(t => t && t.toolName);
   const postTools = validTools.filter(t => t.phase === 'post');
-  const total = postTools.length;
+  const total = validTools.filter(t => t.phase === 'pre').length;
   const success = postTools.filter(t => t.resultType === 'success').length;
-  const failed = total - success;
+  const failed = postTools.filter(t => t.resultType !== 'success').length;
 
   const byName = {};
   validTools.forEach(t => {
-    if (!byName[t.toolName]) byName[t.toolName] = 0;
-    if (t.phase === 'pre') byName[t.toolName]++;
+    if (t.phase === 'pre') {
+      if (!byName[t.toolName]) byName[t.toolName] = 0;
+      byName[t.toolName]++;
+    }
   });
 
   let md = '## Metrics\n\n';

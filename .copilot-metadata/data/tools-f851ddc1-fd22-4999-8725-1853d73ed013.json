@@ -1,0 +1,210 @@
+{
+    "sessionId":  "f851ddc1-fd22-4999-8725-1853d73ed013",
+    "tools":  [
+                  {
+                      "timestamp":  "2026-02-08T15:48:34.588Z",
+                      "phase":  "pre",
+                      "toolName":  "unknown"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T15:48:34.902Z",
+                      "phase":  "pre",
+                      "toolName":  "unknown"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T15:48:35.194Z",
+                      "phase":  "pre",
+                      "toolName":  "unknown"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T15:48:35.517Z",
+                      "phase":  "pre",
+                      "toolName":  "unknown"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T15:48:39.211Z",
+                      "phase":  "pre",
+                      "toolName":  "unknown"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T15:48:39.211Z",
+                      "phase":  "pre",
+                      "toolName":  "unknown"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T15:48:42.944Z",
+                      "phase":  "pre",
+                      "toolName":  "unknown"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T15:48:57.661Z",
+                      "phase":  "pre",
+                      "toolName":  "unknown"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T15:48:57.957Z",
+                      "phase":  "pre",
+                      "toolName":  "unknown"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T15:48:58.257Z",
+                      "phase":  "pre",
+                      "toolName":  "unknown"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T15:48:58.575Z",
+                      "phase":  "pre",
+                      "toolName":  "unknown"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T15:49:02.028Z",
+                      "phase":  "pre",
+                      "toolName":  "unknown"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T15:49:09.767Z",
+                      "phase":  "pre",
+                      "toolName":  "unknown"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T15:49:18.578Z",
+                      "phase":  "pre",
+                      "toolName":  "unknown"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T15:49:18.855Z",
+                      "phase":  "pre",
+                      "toolName":  "unknown"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T15:49:26.359Z",
+                      "phase":  "pre",
+                      "toolName":  "unknown"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T15:49:28.780Z",
+                      "phase":  "pre",
+                      "toolName":  "unknown"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T15:49:36.460Z",
+                      "phase":  "pre",
+                      "toolName":  "unknown"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T15:49:39.327Z",
+                      "phase":  "pre",
+                      "toolName":  "unknown"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T15:49:44.994Z",
+                      "phase":  "pre",
+                      "toolName":  "unknown"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T15:49:47.928Z",
+                      "phase":  "pre",
+                      "toolName":  "unknown"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T15:49:51.629Z",
+                      "phase":  "pre",
+                      "toolName":  "unknown"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T15:49:57.481Z",
+                      "phase":  "pre",
+                      "toolName":  "unknown"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T15:50:05.752Z",
+                      "phase":  "pre",
+                      "toolName":  "unknown"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T15:50:57.983Z",
+                      "phase":  "pre",
+                      "toolName":  "unknown"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T15:51:04.415Z",
+                      "phase":  "pre",
+                      "toolName":  "unknown"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T15:52:18.517Z",
+                      "phase":  "pre",
+                      "toolName":  "unknown"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T15:52:24.630Z",
+                      "phase":  "pre",
+                      "toolName":  "unknown"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T15:53:55.842Z",
+                      "phase":  "pre",
+                      "toolName":  "unknown"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T15:53:58.193Z",
+                      "phase":  "pre",
+                      "toolName":  "unknown"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T15:54:00.825Z",
+                      "phase":  "pre",
+                      "toolName":  "unknown"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T15:54:05.807Z",
+                      "phase":  "pre",
+                      "toolName":  "unknown"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T15:54:13.578Z",
+                      "phase":  "pre",
+                      "toolName":  "unknown"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T15:54:13.924Z",
+                      "phase":  "pre",
+                      "toolName":  "unknown"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T15:54:14.227Z",
+                      "phase":  "pre",
+                      "toolName":  "unknown"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T15:54:18.534Z",
+                      "phase":  "pre",
+                      "toolName":  "unknown"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T15:54:23.047Z",
+                      "phase":  "pre",
+                      "toolName":  "unknown"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T15:54:28.014Z",
+                      "phase":  "pre",
+                      "toolName":  "unknown"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T15:54:37.480Z",
+                      "phase":  "pre",
+                      "toolName":  "unknown"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T15:54:40.902Z",
+                      "phase":  "pre",
+                      "toolName":  "unknown"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T15:54:47.844Z",
+                      "phase":  "pre",
+                      "toolName":  "unknown"
+                  }
+              ]
+}

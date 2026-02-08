@@ -1,0 +1,6 @@
+[sessionStart] 2026-02-08T16:48:15.6969028+01:00
+RAW: {"timestamp":"2026-02-08T15:48:15.074Z","cwd":"d:\\git-classes\\github-copilot\\.github\\hooks","sessionId":"vscode-chat-session://local/YzhkYTIyMzAtZjNmZC00YTdmLTg5NzEtZGU4MGUwOGJkOThm","hookEventName":"SessionStart","source":"new"}
+
+[userPrompt] 2026-02-08T16:48:15.9674789+01:00
+RAW: {"timestamp":"2026-02-08T15:48:15.714Z","cwd":"d:\\git-classes\\github-copilot\\.github\\hooks","sessionId":"vscode-chat-session://local/YzhkYTIyMzAtZjNmZC00YTdmLTg5NzEtZGU4MGUwOGJkOThm","hookEventName":"UserPromptSubmit","prompt":"in src/copilot-api i want you to apply my coding conventions for .net and then remove all weather (controller) related data. next implement a InstructionsController with  model name, description as a standalone controller and register it. Use microsoft learn mcp for planning. \r\n\r\nprovide scalar ui in the root. build run and fix all errors.  while keeping the dotnet app running use your chrome dev tools mcp visit http://localhost:5001 an check the result. no need to use https"}
+

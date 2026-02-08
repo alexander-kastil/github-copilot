@@ -36,6 +36,22 @@
             "related": ".pdb;.xml"
           }
         }
+      },
+      "Scalar.AspNetCore/1.2.63": {
+        "type": "package",
+        "compile": {
+          "lib/net9.0/Scalar.AspNetCore.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net9.0/Scalar.AspNetCore.dll": {
+            "related": ".xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       }
     }
   },
@@ -75,11 +91,29 @@
         "microsoft.openapi.2.0.0.nupkg.sha512",
         "microsoft.openapi.nuspec"
       ]
+    },
+    "Scalar.AspNetCore/1.2.63": {
+      "sha512": "4KMdq0GJYlzIbe3x4fxj1+3YUeywWDlfXl1pk3ihWp0AomKWhg76qbpW/DRWJv/MvAfO97G5qRMaHQ/eg/IeiQ==",
+      "type": "package",
+      "path": "scalar.aspnetcore/1.2.63",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "icon.png",
+        "lib/net8.0/Scalar.AspNetCore.dll",
+        "lib/net8.0/Scalar.AspNetCore.xml",
+        "lib/net9.0/Scalar.AspNetCore.dll",
+        "lib/net9.0/Scalar.AspNetCore.xml",
+        "scalar.aspnetcore.1.2.63.nupkg.sha512",
+        "scalar.aspnetcore.nuspec"
+      ]
     }
   },
   "projectFileDependencyGroups": {
     "net10.0": [
-      "Microsoft.AspNetCore.OpenApi >= 10.0.2"
+      "Microsoft.AspNetCore.OpenApi >= 10.0.2",
+      "Scalar.AspNetCore >= 1.2.63"
     ]
   },
   "packageFolders": {
@@ -89,11 +123,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\git-classes\\github-copilot\\labs\\copilot-api\\copilot-api.csproj",
+      "projectUniqueName": "D:\\git-classes\\github-copilot\\src\\copilot-api\\copilot-api.csproj",
       "projectName": "copilot-api",
-      "projectPath": "D:\\git-classes\\github-copilot\\labs\\copilot-api\\copilot-api.csproj",
+      "projectPath": "D:\\git-classes\\github-copilot\\src\\copilot-api\\copilot-api.csproj",
       "packagesPath": "C:\\Users\\AlexanderKastil\\.nuget\\packages\\",
-      "outputPath": "D:\\git-classes\\github-copilot\\labs\\copilot-api\\obj\\",
+      "outputPath": "D:\\git-classes\\github-copilot\\src\\copilot-api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -136,6 +170,10 @@
           "Microsoft.AspNetCore.OpenApi": {
             "target": "Package",
             "version": "[10.0.2, )"
+          },
+          "Scalar.AspNetCore": {
+            "target": "Package",
+            "version": "[1.2.63, )"
           }
         },
         "imports": [
