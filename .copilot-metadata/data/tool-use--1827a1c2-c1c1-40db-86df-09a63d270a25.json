@@ -1,9 +1,0 @@
-{
-    "timestamp":  "2024-02-08T11:14:29.000Z",
-    "phase":  "pre",
-    "toolName":  "read_file",
-    "cwd":  ".",
-    "toolArgs":  {
-                     "filePath":  "test.txt"
-                 }
-}

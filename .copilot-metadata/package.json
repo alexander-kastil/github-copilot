@@ -1,11 +1,8 @@
 {
+  "type": "module",
   "scripts": {
-    "generate:metadata": "node ./visualize.mjs",
-    "release": "commit-and-tag-version"
+    "visualize": "node ./visualize.mjs",
+    "test": "node --test ./test.mjs"
   },
-  "devDependencies": {
-    "commit-and-tag-version": "^12.2.0",
-    "glob": "^10.3.10"
-  },
-  "version": "0.0.0"
+  "version": "1.0.0"
 }
