@@ -1,0 +1,13 @@
+{
+  "endTime": null,
+  "startTime": "2026-02-08T20:26:45.94Z",
+  "status": "active",
+  "sessionId": "c6085dee-880e-4d33-8a75-9f8bbbc45f8c",
+  "messages": [
+    {
+      "content": "Here are some broken links https://github.com/alexander-kastil/github-copilot/tree/master/demos/02-copilot-artifacts/08-hooks. Herre modole 2 needs to be updated https://github.com/alexander-kastil/github-copilot/tree/master/demos",
+      "role": "user",
+      "timestamp": "2026-02-08T20:26:51.766Z"
+    }
+  ]
+}

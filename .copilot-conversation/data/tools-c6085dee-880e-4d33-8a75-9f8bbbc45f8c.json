@@ -1,0 +1,142 @@
+{
+  "sessionId": "c6085dee-880e-4d33-8a75-9f8bbbc45f8c",
+  "tools": [
+    {
+      "timestamp": "2026-02-08T20:26:59.675Z",
+      "phase": "pre",
+      "toolName": "view"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:00.493Z",
+      "phase": "pre",
+      "toolName": "view"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:01.3Z",
+      "phase": "pre",
+      "toolName": "view"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:02.152Z",
+      "phase": "post",
+      "toolName": "view",
+      "resultType": "success"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:02.974Z",
+      "phase": "post",
+      "toolName": "view",
+      "resultType": "success"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:03.796Z",
+      "phase": "post",
+      "toolName": "view",
+      "resultType": "success"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:07.851Z",
+      "phase": "pre",
+      "toolName": "view"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:08.655Z",
+      "phase": "pre",
+      "toolName": "view"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:09.472Z",
+      "phase": "post",
+      "toolName": "view",
+      "resultType": "success"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:10.294Z",
+      "phase": "post",
+      "toolName": "view",
+      "resultType": "success"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:14.972Z",
+      "phase": "pre",
+      "toolName": "view"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:15.786Z",
+      "phase": "pre",
+      "toolName": "bash"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:16.608Z",
+      "phase": "post",
+      "toolName": "view",
+      "resultType": "success"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:17.427Z",
+      "phase": "post",
+      "toolName": "bash",
+      "resultType": "success"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:23.159Z",
+      "phase": "pre",
+      "toolName": "bash"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:23.953Z",
+      "phase": "pre",
+      "toolName": "bash"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:25.272Z",
+      "phase": "post",
+      "toolName": "bash",
+      "resultType": "success"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:26.092Z",
+      "phase": "post",
+      "toolName": "bash",
+      "resultType": "success"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:29.576Z",
+      "phase": "pre",
+      "toolName": "view"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:30.382Z",
+      "phase": "post",
+      "toolName": "view",
+      "resultType": "success"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:34.989Z",
+      "phase": "pre",
+      "toolName": "bash"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:36.302Z",
+      "phase": "post",
+      "toolName": "bash",
+      "resultType": "success"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:41.69Z",
+      "phase": "pre",
+      "toolName": "view"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:42.527Z",
+      "phase": "post",
+      "toolName": "view",
+      "resultType": "success"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:49.453Z",
+      "phase": "pre",
+      "toolName": "report_progress"
+    }
+  ]
+}
