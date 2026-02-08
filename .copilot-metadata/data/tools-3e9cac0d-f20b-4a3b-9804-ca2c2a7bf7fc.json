@@ -1,0 +1,230 @@
+{
+    "sessionId":  "3e9cac0d-f20b-4a3b-9804-ca2c2a7bf7fc",
+    "tools":  [
+                  {
+                      "timestamp":  "2026-02-08T18:46:43.768Z",
+                      "phase":  "pre",
+                      "toolName":  "copilot_readFile"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:46:48.317Z",
+                      "phase":  "pre",
+                      "toolName":  "manage_todo_list"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:46:51.026Z",
+                      "phase":  "pre",
+                      "toolName":  "run_in_terminal"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:47:22.913Z",
+                      "phase":  "pre",
+                      "toolName":  "run_in_terminal"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:47:25.715Z",
+                      "phase":  "pre",
+                      "toolName":  "copilot_listDirectory"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:47:27.964Z",
+                      "phase":  "pre",
+                      "toolName":  "copilot_listDirectory"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:47:30.332Z",
+                      "phase":  "pre",
+                      "toolName":  "copilot_readFile"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:47:36.103Z",
+                      "phase":  "pre",
+                      "toolName":  "copilot_replaceString"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:47:39.222Z",
+                      "phase":  "pre",
+                      "toolName":  "run_in_terminal"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:47:42.789Z",
+                      "phase":  "pre",
+                      "toolName":  "copilot_createDirectory"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:47:43.079Z",
+                      "phase":  "pre",
+                      "toolName":  "copilot_createDirectory"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:47:45.953Z",
+                      "phase":  "pre",
+                      "toolName":  "copilot_createFile"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:47:50.080Z",
+                      "phase":  "pre",
+                      "toolName":  "copilot_createFile"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:47:53.957Z",
+                      "phase":  "pre",
+                      "toolName":  "copilot_replaceString"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:47:56.747Z",
+                      "phase":  "pre",
+                      "toolName":  "run_in_terminal"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:48:02.747Z",
+                      "phase":  "pre",
+                      "toolName":  "copilot_replaceString"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:48:05.165Z",
+                      "phase":  "pre",
+                      "toolName":  "run_in_terminal"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:48:10.216Z",
+                      "phase":  "pre",
+                      "toolName":  "manage_todo_list"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:48:12.909Z",
+                      "phase":  "pre",
+                      "toolName":  "run_in_terminal"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:48:20.299Z",
+                      "phase":  "pre",
+                      "toolName":  "kill_terminal"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:48:22.789Z",
+                      "phase":  "pre",
+                      "toolName":  "run_in_terminal"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:48:27.981Z",
+                      "phase":  "pre",
+                      "toolName":  "await_terminal"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:48:35.053Z",
+                      "phase":  "pre",
+                      "toolName":  "get_terminal_output"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:48:37.737Z",
+                      "phase":  "pre",
+                      "toolName":  "kill_terminal"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:48:40.385Z",
+                      "phase":  "pre",
+                      "toolName":  "run_in_terminal"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:48:45.485Z",
+                      "phase":  "pre",
+                      "toolName":  "await_terminal"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:48:57.764Z",
+                      "phase":  "pre",
+                      "toolName":  "get_terminal_output"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:49:00.757Z",
+                      "phase":  "pre",
+                      "toolName":  "kill_terminal"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:49:03.379Z",
+                      "phase":  "pre",
+                      "toolName":  "copilot_readFile"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:49:06.311Z",
+                      "phase":  "pre",
+                      "toolName":  "copilot_readFile"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:49:15.782Z",
+                      "phase":  "pre",
+                      "toolName":  "run_in_terminal"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:49:21.510Z",
+                      "phase":  "pre",
+                      "toolName":  "await_terminal"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:49:31.619Z",
+                      "phase":  "pre",
+                      "toolName":  "mcp_chrome-devtoo_new_page"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:49:38.068Z",
+                      "phase":  "pre",
+                      "toolName":  "copilot_readFile"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:49:39.634Z",
+                      "phase":  "pre",
+                      "toolName":  "copilot_listDirectory"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:49:41.206Z",
+                      "phase":  "pre",
+                      "toolName":  "copilot_readFile"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:49:42.854Z",
+                      "phase":  "pre",
+                      "toolName":  "mcp_chrome-devtoo_new_page"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:49:44.532Z",
+                      "phase":  "pre",
+                      "toolName":  "mcp_chrome-devtoo_take_snapshot"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:49:46.436Z",
+                      "phase":  "pre",
+                      "toolName":  "copilot_readFile"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:49:47.913Z",
+                      "phase":  "pre",
+                      "toolName":  "mcp_chrome-devtoo_take_snapshot"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:49:49.710Z",
+                      "phase":  "pre",
+                      "toolName":  "mcp_chrome-devtoo_navigate_page"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:49:56.457Z",
+                      "phase":  "pre",
+                      "toolName":  "mcp_chrome-devtoo_take_snapshot"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:50:00.120Z",
+                      "phase":  "pre",
+                      "toolName":  "mcp_chrome-devtoo_click"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:53:09.928Z",
+                      "phase":  "pre",
+                      "toolName":  "get-syntax-docs-mermaid"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T18:53:13.258Z",
+                      "phase":  "pre",
+                      "toolName":  "copilot_readFile"
+                  }
+              ]
+}

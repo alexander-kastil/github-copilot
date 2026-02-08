@@ -1,0 +1,2 @@
+uid=1_0 RootWebArea url="http://localhost:5166/"
+  uid=1_1 StaticText "Copilot API - Visit /scalar for API documentation"
