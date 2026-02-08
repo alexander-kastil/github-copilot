@@ -6,6 +6,7 @@
 ## Sequence Diagram
 
 ```mermaid
+%%{init: {'theme':'dark', 'themeVariables': {'primaryTextColor':'#ffff00', 'primaryBorderColor':'#ffff00', 'textColor':'#ffff00'}}}%%
 sequenceDiagram
     autonumber
     actor User as User
@@ -26,6 +27,9 @@ sequenceDiagram
     Bot-->>User: Executed 18 actions: 11× replaceString, 4× readFile, 3× run in terminal
     User->>Bot: yes ... but i meant as a mermaid ... no need to have 1.5 ......
     Bot-->>User: Executed 7 actions: 5× replaceString, run in terminal, readFile
+    User->>Bot: i have undone changes. the only thing i am asking is the tex...
+    Bot-->>User: Executed 5 actions: 3× readFile, findTextInFiles, replaceString
+    User->>Bot: if it is not possible just tell me so
 
     Note over User,Bot: Conversation ends
 ```

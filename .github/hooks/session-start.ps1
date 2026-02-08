@@ -4,7 +4,7 @@ try { $hookData = $inputJson | ConvertFrom-Json } catch { }
 
 $sessionId = [guid]::NewGuid().ToString()
 
-$metadataPath = Join-Path $PSScriptRoot "../../.copilot-metadata"
+$metadataPath = Join-Path $PSScriptRoot "../../.copilot-conversation"
 $dataPath = Join-Path $metadataPath "data"
 
 if (-not (Test-Path $dataPath)) {

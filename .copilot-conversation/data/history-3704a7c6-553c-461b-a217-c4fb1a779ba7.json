@@ -1,0 +1,13 @@
+{
+    "status":  "active",
+    "endTime":  null,
+    "startTime":  "2026-02-08T19:23:30.378Z",
+    "sessionId":  "3704a7c6-553c-461b-a217-c4fb1a779ba7",
+    "messages":  [
+                     {
+                         "content":  "i want to rename this .copilot-metadata to .copilot-conversation. also update everything related in .github\\hooks. this are hooks #fetch https://docs.github.com/en/copilot/how-tos/use-copilot-agents/coding-agent/use-hooks",
+                         "timestamp":  "2026-02-08T19:23:30.639Z",
+                         "role":  "user"
+                     }
+                 ]
+}

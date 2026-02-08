@@ -7,7 +7,7 @@ $inputJson = [Console]::In.ReadToEnd()
 $hookData = $null
 try { $hookData = $inputJson | ConvertFrom-Json } catch { exit 0 }
 
-$dataPath = Join-Path $PSScriptRoot "../../.copilot-metadata/data"
+$dataPath = Join-Path $PSScriptRoot "../../.copilot-conversation/data"
 $sessionFile = Join-Path $dataPath "current-session.txt"
 
 if (-not (Test-Path $sessionFile)) { exit 0 }
