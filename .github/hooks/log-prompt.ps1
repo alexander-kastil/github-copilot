@@ -1,67 +1,41 @@
-# Read JSON input from Copilot hook for userPromptSubmitted event
 $inputJson = [Console]::In.ReadToEnd()
-
 $hookData = $null
-try {
-    $hookData = $inputJson | ConvertFrom-Json
-} catch {
-    @{ error = "Failed to parse input"; success = $false } | ConvertTo-Json -Compress | Write-Host
-    exit 1
-}
+try { $hookData = $inputJson | ConvertFrom-Json } catch { exit 0 }
 
-# Get session ID from latest conversation history
-$metadataPath = Join-Path -Path $PSScriptRoot -ChildPath "../../.copilot-metadata"
-$dataPath = Join-Path -Path $metadataPath -ChildPath "data"
+$dataPath = Join-Path $PSScriptRoot "../../.copilot-conversation/data"
+$sessionFile = Join-Path $dataPath "current-session.txt"
 
-if (-not (Test-Path -Path $dataPath)) {
-    New-Item -ItemType Directory -Path $dataPath -Force | Out-Null
-}
+if (-not (Test-Path $sessionFile)) { exit 0 }
+$sessionId = (Get-Content $sessionFile -Raw).Trim()
 
-$conversationFiles = Get-ChildItem -Path "$dataPath\conversation-history--*.json" -ErrorAction SilentlyContinue | Sort-Object -Property LastWriteTime -Descending
-$SessionId = $null
+$historyPath = Join-Path $dataPath "history-$sessionId.json"
+if (-not (Test-Path $historyPath)) { exit 0 }
 
-if ($conversationFiles) {
-    $SessionId = $conversationFiles[0].Name -replace '^conversation-history--', '' -replace '\.json$', ''
-} else {
-    $SessionId = [guid]::NewGuid().ToString()
-    $conversationPath = Join-Path -Path $dataPath -ChildPath "conversation-history--$SessionId.json"
-    $conversationState = @{
-        sessionId = $SessionId
-        startTime = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
-        tools = @()
-        messages = @()
-        metadata = @{ initialized = $true }
-    }
-    $conversationState | ConvertTo-Json -Depth 10 | Set-Content -Path $conversationPath -Force
-}
-
-# Build user message entry
-$userMessage = @{
-    role = "user"
-    timestamp = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
-    content = $hookData.prompt
-}
-
-# Append to conversation history
-$conversationPath = Join-Path -Path $dataPath -ChildPath "conversation-history--$SessionId.json"
-if (Test-Path -Path $conversationPath) {
+function ConvertFrom-UnixMs($val) {
     try {
-        $conversation = Get-Content -Path $conversationPath -Raw | ConvertFrom-Json
-        
-        if (-not $conversation.messages) {
-            $conversation | Add-Member -NotePropertyName "messages" -NotePropertyValue @() -Force
+        $ms = [double]$val
+        if ($ms -gt 0) {
+            return ([datetime]::new(1970, 1, 1, 0, 0, 0, [DateTimeKind]::Utc)).AddMilliseconds($ms).ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
         }
-        
-        $conversation.messages += $userMessage
-        $conversation | ConvertTo-Json -Depth 10 | Set-Content -Path $conversationPath -Force
-    } catch {
-        Write-Error "Failed to log prompt: $_"
-    }
+    } catch { }
+    return (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
 }
 
-# Output success for logging
-@{
-    success = $true
-    sessionId = $SessionId
-    promptLength = $($hookData.prompt.Length)
-} | ConvertTo-Json -Compress | Write-Host
+$timestamp = ConvertFrom-UnixMs $hookData.timestamp
+$prompt = if ($hookData.prompt) { [string]$hookData.prompt } else { "" }
+
+$debugPath = Join-Path $dataPath "debug-$sessionId.log"
+"[userPrompt] $(Get-Date -Format o)`nRAW: $inputJson`n" | Add-Content $debugPath
+
+$history = Get-Content $historyPath -Raw | ConvertFrom-Json
+if (-not $history.messages) {
+    $history | Add-Member -NotePropertyName messages -NotePropertyValue @() -Force
+}
+
+$history.messages += @{
+    role      = "user"
+    timestamp = $timestamp
+    content   = $prompt
+}
+
+$history | ConvertTo-Json -Depth 10 | Set-Content $historyPath

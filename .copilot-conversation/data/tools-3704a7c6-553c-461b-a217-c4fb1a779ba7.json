@@ -1,0 +1,65 @@
+{
+    "sessionId":  "3704a7c6-553c-461b-a217-c4fb1a779ba7",
+    "tools":  [
+                  {
+                      "timestamp":  "2026-02-08T19:23:37.271Z",
+                      "phase":  "pre",
+                      "toolName":  "copilot_fetchWebPage"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T19:23:37.555Z",
+                      "phase":  "pre",
+                      "toolName":  "vscode_fetchWebPage_internal"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T19:23:39.450Z",
+                      "phase":  "pre",
+                      "toolName":  "copilot_findTextInFiles"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T19:23:39.792Z",
+                      "phase":  "pre",
+                      "toolName":  "copilot_listDirectory"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T19:23:43.923Z",
+                      "phase":  "pre",
+                      "toolName":  "copilot_readFile"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T19:23:44.209Z",
+                      "phase":  "pre",
+                      "toolName":  "copilot_readFile"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T19:23:44.497Z",
+                      "phase":  "pre",
+                      "toolName":  "copilot_readFile"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T19:23:44.783Z",
+                      "phase":  "pre",
+                      "toolName":  "copilot_readFile"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T19:23:45.077Z",
+                      "phase":  "pre",
+                      "toolName":  "copilot_readFile"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T19:23:53.919Z",
+                      "phase":  "pre",
+                      "toolName":  "copilot_multiReplaceString"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T19:24:01.848Z",
+                      "phase":  "pre",
+                      "toolName":  "copilot_listDirectory"
+                  },
+                  {
+                      "timestamp":  "2026-02-08T19:24:02.133Z",
+                      "phase":  "pre",
+                      "toolName":  "copilot_readFile"
+                  }
+              ]
+}
