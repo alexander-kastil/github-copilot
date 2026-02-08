@@ -1,0 +1,33 @@
+{
+    "status":  "active",
+    "endTime":  null,
+    "startTime":  "2026-02-08T19:27:49.426Z",
+    "sessionId":  "dd9eb250-a034-45d1-858e-57cd51af9006",
+    "messages":  [
+                     {
+                         "content":  "Follow instructions in [describe-module.prompt.md](file:///d%3A/git-classes/github-copilot/.github/prompts/describe-module.prompt.md).\nunder Copilot Conversation Tracker explain in 3-4 chapters (max 3 sentences each) the basics of .copilot-conversation and is registration in .github\\hooks .... leave the mermaid and integrate it into you story. you can also show hook registration but no the full file bcause auf lenght",
+                         "timestamp":  "2026-02-08T19:27:49.743Z",
+                         "role":  "user"
+                     },
+                     {
+                         "content":  "ok but in the end repeat my original mermaid",
+                         "timestamp":  "2026-02-08T19:29:45.539Z",
+                         "role":  "user"
+                     },
+                     {
+                         "content":  "Instead of Example Recording ... here is the prompt for the recording. make up a title and explain it in one paragraph:\r\n\r\nNavigate to src/ and execute: dotnet new webapi -n copilot-api\r\nNavigate to src/copilot-api and execute: dotnet new .gitignore\r\nIn src/copilot-api i want you to apply my coding conventions for .net and then remove all weather (controller) related data. next implement a InstructionsController with model name, description as a standalone controller and register it. Use microsoft learn mcp for planning.\r\nProvide scalar ui in the root. \r\nBuild run and fix all errors. while keeping the dotnet app running use your chrome dev tools mcp visit the http url and port it is configured to run on an check the result. no need to use https",
+                         "timestamp":  "2026-02-08T19:31:26.770Z",
+                         "role":  "user"
+                     },
+                     {
+                         "content":  "you may enhance the prompt",
+                         "timestamp":  "2026-02-08T19:31:40.991Z",
+                         "role":  "user"
+                     },
+                     {
+                         "content":  "I meant more like short explaination and the this was the prompt with a code block",
+                         "timestamp":  "2026-02-08T19:32:40.903Z",
+                         "role":  "user"
+                     }
+                 ]
+}

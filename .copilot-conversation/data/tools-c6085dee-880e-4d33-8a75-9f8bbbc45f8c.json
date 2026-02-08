@@ -1,0 +1,280 @@
+{
+  "sessionId": "c6085dee-880e-4d33-8a75-9f8bbbc45f8c",
+  "tools": [
+    {
+      "timestamp": "2026-02-08T20:26:59.675Z",
+      "phase": "pre",
+      "toolName": "view"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:00.493Z",
+      "phase": "pre",
+      "toolName": "view"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:01.3Z",
+      "phase": "pre",
+      "toolName": "view"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:02.152Z",
+      "phase": "post",
+      "toolName": "view",
+      "resultType": "success"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:02.974Z",
+      "phase": "post",
+      "toolName": "view",
+      "resultType": "success"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:03.796Z",
+      "phase": "post",
+      "toolName": "view",
+      "resultType": "success"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:07.851Z",
+      "phase": "pre",
+      "toolName": "view"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:08.655Z",
+      "phase": "pre",
+      "toolName": "view"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:09.472Z",
+      "phase": "post",
+      "toolName": "view",
+      "resultType": "success"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:10.294Z",
+      "phase": "post",
+      "toolName": "view",
+      "resultType": "success"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:14.972Z",
+      "phase": "pre",
+      "toolName": "view"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:15.786Z",
+      "phase": "pre",
+      "toolName": "bash"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:16.608Z",
+      "phase": "post",
+      "toolName": "view",
+      "resultType": "success"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:17.427Z",
+      "phase": "post",
+      "toolName": "bash",
+      "resultType": "success"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:23.159Z",
+      "phase": "pre",
+      "toolName": "bash"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:23.953Z",
+      "phase": "pre",
+      "toolName": "bash"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:25.272Z",
+      "phase": "post",
+      "toolName": "bash",
+      "resultType": "success"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:26.092Z",
+      "phase": "post",
+      "toolName": "bash",
+      "resultType": "success"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:29.576Z",
+      "phase": "pre",
+      "toolName": "view"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:30.382Z",
+      "phase": "post",
+      "toolName": "view",
+      "resultType": "success"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:34.989Z",
+      "phase": "pre",
+      "toolName": "bash"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:36.302Z",
+      "phase": "post",
+      "toolName": "bash",
+      "resultType": "success"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:41.69Z",
+      "phase": "pre",
+      "toolName": "view"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:42.527Z",
+      "phase": "post",
+      "toolName": "view",
+      "resultType": "success"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:49.453Z",
+      "phase": "pre",
+      "toolName": "report_progress"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:51.161Z",
+      "phase": "post",
+      "toolName": "report_progress",
+      "resultType": "success"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:58.402Z",
+      "phase": "pre",
+      "toolName": "edit"
+    },
+    {
+      "timestamp": "2026-02-08T20:27:59.222Z",
+      "phase": "post",
+      "toolName": "edit",
+      "resultType": "success"
+    },
+    {
+      "timestamp": "2026-02-08T20:28:05.697Z",
+      "phase": "pre",
+      "toolName": "edit"
+    },
+    {
+      "timestamp": "2026-02-08T20:28:06.516Z",
+      "phase": "post",
+      "toolName": "edit",
+      "resultType": "success"
+    },
+    {
+      "timestamp": "2026-02-08T20:28:13.283Z",
+      "phase": "pre",
+      "toolName": "edit"
+    },
+    {
+      "timestamp": "2026-02-08T20:28:14.075Z",
+      "phase": "post",
+      "toolName": "edit",
+      "resultType": "success"
+    },
+    {
+      "timestamp": "2026-02-08T20:28:19.985Z",
+      "phase": "pre",
+      "toolName": "edit"
+    },
+    {
+      "timestamp": "2026-02-08T20:28:20.789Z",
+      "phase": "post",
+      "toolName": "edit",
+      "resultType": "success"
+    },
+    {
+      "timestamp": "2026-02-08T20:28:26.162Z",
+      "phase": "pre",
+      "toolName": "bash"
+    },
+    {
+      "timestamp": "2026-02-08T20:28:26.957Z",
+      "phase": "pre",
+      "toolName": "bash"
+    },
+    {
+      "timestamp": "2026-02-08T20:28:28.274Z",
+      "phase": "post",
+      "toolName": "bash",
+      "resultType": "success"
+    },
+    {
+      "timestamp": "2026-02-08T20:28:29.094Z",
+      "phase": "post",
+      "toolName": "bash",
+      "resultType": "success"
+    },
+    {
+      "timestamp": "2026-02-08T20:28:33.754Z",
+      "phase": "pre",
+      "toolName": "bash"
+    },
+    {
+      "timestamp": "2026-02-08T20:28:35.069Z",
+      "phase": "post",
+      "toolName": "bash",
+      "resultType": "success"
+    },
+    {
+      "timestamp": "2026-02-08T20:28:40.835Z",
+      "phase": "pre",
+      "toolName": "report_progress"
+    },
+    {
+      "timestamp": "2026-02-08T20:28:42.363Z",
+      "phase": "post",
+      "toolName": "report_progress",
+      "resultType": "success"
+    },
+    {
+      "timestamp": "2026-02-08T20:28:47.21Z",
+      "phase": "pre",
+      "toolName": "view"
+    },
+    {
+      "timestamp": "2026-02-08T20:28:48.023Z",
+      "phase": "pre",
+      "toolName": "view"
+    },
+    {
+      "timestamp": "2026-02-08T20:28:48.835Z",
+      "phase": "post",
+      "toolName": "view",
+      "resultType": "success"
+    },
+    {
+      "timestamp": "2026-02-08T20:28:49.663Z",
+      "phase": "post",
+      "toolName": "view",
+      "resultType": "success"
+    },
+    {
+      "timestamp": "2026-02-08T20:28:57.128Z",
+      "phase": "pre",
+      "toolName": "code_review"
+    },
+    {
+      "timestamp": "2026-02-08T20:29:11.904Z",
+      "phase": "post",
+      "toolName": "code_review",
+      "resultType": "success"
+    },
+    {
+      "timestamp": "2026-02-08T20:29:16.858Z",
+      "phase": "pre",
+      "toolName": "codeql_checker"
+    },
+    {
+      "timestamp": "2026-02-08T20:29:20.802Z",
+      "phase": "post",
+      "toolName": "codeql_checker",
+      "resultType": "success"
+    }
+  ]
+}
