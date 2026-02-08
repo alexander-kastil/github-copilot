@@ -3,173 +3,185 @@ param(
     [string]$Phase = "pre"
 )
 
+# Read JSON input from Copilot hook
 $inputJson = [Console]::In.ReadToEnd()
-$timestamp = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
 
-# Parse the input
-$toolData = $null
+# Parse the input from Copilot
+$hookData = $null
 try {
-    $toolData = $inputJson | ConvertFrom-Json
+    $hookData = $inputJson | ConvertFrom-Json
 } catch {
-    $toolData = @{ rawInput = $inputJson }
-}
-
-# Build the log entry
-$logEntry = [pscustomobject]@{
-    timestamp = $timestamp
-    phase = $Phase
-    toolName = $toolData.toolName
-    toolId = $toolData.toolId
-    sessionId = $toolData.sessionId
-    input = $toolData.input
-    output = $toolData.output
-    success = $toolData.success
-    errorMessage = $toolData.errorMessage
-    duration = $toolData.duration
-    rawPayload = $toolData
+    # If parsing fails, output error in proper format and exit
+    @{ error = "Failed to parse input"; success = $false } | ConvertTo-Json -Compress | Write-Host
+    exit 1
 }
 
 # Get sessionId from latest conversation history file
-$metadataPath = Join-Path -Path $PSScriptRoot -ChildPath "..\..\.copilot-metadata"
+$metadataPath = Join-Path -Path $PSScriptRoot -ChildPath "../../.copilot-metadata"
 $dataPath = Join-Path -Path $metadataPath -ChildPath "data"
-$conversationFiles = Get-ChildItem -Path "$dataPath\conversation-history--*.json" -ErrorAction SilentlyContinue | Sort-Object -Property LastWriteTime -Descending
-$sessionId = if ($conversationFiles) { 
-    $conversationFiles[0].Name -replace '^conversation-history--', '' -replace '\.json$', ''
-} else { 
-    "unknown" 
+
+# Ensure directories exist
+if (-not (Test-Path -Path $dataPath)) {
+    New-Item -ItemType Directory -Path $dataPath -Force | Out-Null
 }
 
-# Path to the session-specific tool-use file
-$toolUsePath = Join-Path -Path $dataPath -ChildPath "tool-use--$sessionId.json"
+# Find existing session or create new one
+$conversationFiles = Get-ChildItem -Path "$dataPath\conversation-history--*.json" -ErrorAction SilentlyContinue | Sort-Object -Property LastWriteTime -Descending
+$SessionId = $null
 
-# Read existing entries or create new array
+if ($conversationFiles) { 
+    $SessionId = $conversationFiles[0].Name -replace '^conversation-history--', '' -replace '\.json$', ''
+} else {
+    # Create a new session if none exists
+    $SessionId = [guid]::NewGuid().ToString()
+    
+    $conversationPath = Join-Path -Path $dataPath -ChildPath "conversation-history--$SessionId.json"
+    $conversationState = @{
+        sessionId = $SessionId
+        startTime = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
+        tools = @()
+        messages = @()
+        metadata = @{ initialized = $true }
+    }
+    $conversationState | ConvertTo-Json -Depth 10 | Set-Content -Path $conversationPath -Force
+}
+
+# Convert Unix timestamp from Copilot to ISO string
+if ($hookData.timestamp) {
+    # Create epoch date (1970-01-01)
+    $epoch = New-Object DateTime 1970,1,1,0,0,0,0
+    $timestampUtc = $epoch.AddMilliseconds($hookData.timestamp).ToUniversalTime()
+} else {
+    $timestampUtc = (Get-Date).ToUniversalTime()
+}
+
+# Build the tool execution entry from Copilot's input
+$toolExecution = [pscustomobject]@{
+    timestamp = $timestampUtc.ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
+    phase = $Phase
+    toolName = $hookData.toolName
+    cwd = $hookData.cwd
+}
+
+# Add tool arguments if present
+if ($hookData.toolArgs) {
+    $toolExecution | Add-Member -NotePropertyName "toolArgs" -NotePropertyValue $hookData.toolArgs
+}
+
+# Add result info if post-tool
+if ($Phase -eq "post" -and $hookData.toolResult) {
+    $toolExecution | Add-Member -NotePropertyName "success" -NotePropertyValue ($hookData.toolResult.resultType -eq "success")
+    $toolExecution | Add-Member -NotePropertyName "resultType" -NotePropertyValue $hookData.toolResult.resultType
+    if ($hookData.toolResult.textResultForLlm) {
+        $toolExecution | Add-Member -NotePropertyName "textResult" -NotePropertyValue $hookData.toolResult.textResultForLlm
+    }
+}
+
+# Append to conversation history
+$conversationPath = Join-Path -Path $dataPath -ChildPath "conversation-history--$SessionId.json"
+if (Test-Path -Path $conversationPath) {
+    try {
+        $conversation = Get-Content -Path $conversationPath -Raw | ConvertFrom-Json
+        
+        # Append tool usage to tools array
+        $conversation.tools += $toolExecution
+        
+        $conversation | ConvertTo-Json -Depth 10 | Set-Content -Path $conversationPath -Force
+    } catch {
+        Write-Error "Failed to append to conversation history: $_"
+    }
+}
+
+# Append to tool-use file
+$toolUsePath = Join-Path -Path $dataPath -ChildPath "tool-use--$SessionId.json"
 $entries = @()
 if (Test-Path -Path $toolUsePath) {
     try {
         $content = Get-Content -Path $toolUsePath -Raw
-        $entries = $content | ConvertFrom-Json
-        if ($entries -isnot [array]) {
-            $entries = @($entries)
+        if ($content.Trim()) {
+            $entries = $content | ConvertFrom-Json
+            if ($entries -isnot [array]) {
+                $entries = @($entries)
+            }
         }
     } catch {
         $entries = @()
     }
 }
 
-# Append the new entry
-$entries += $logEntry
-
-# Write back to session-specific file
+$entries += $toolExecution
 $entries | ConvertTo-Json -Depth 10 | Set-Content -Path $toolUsePath -Force
 
-# Generate conversation.md from current session data
-$mdPath = Join-Path -Path $metadataPath -ChildPath "conversation--$sessionId.md"
-
-# Use entries from current session
-$postEntries = $entries | Where-Object { $_.phase -eq "post" }
-
-# Calculate metrics
-$totalCalls = ($postEntries | Measure-Object).Count
-$successCalls = ($postEntries | Where-Object { $_.success -eq $true } | Measure-Object).Count
-$totalTime = ($postEntries | Where-Object { $_.duration } | Measure-Object -Property duration -Sum).Sum
-$avgTime = if ($totalCalls -gt 0) { [math]::Round($totalTime / $totalCalls) } else { 0 }
-
-# Group by tool and get metrics
-$toolMetrics = $postEntries | 
-    Group-Object -Property toolName | 
-    Select-Object @{Name='Tool'; Expression={$_.Name}}, @{Name='Count'; Expression={$_.Count}}, @{Name='Duration'; Expression={($_.Group | Where-Object { $_.duration } | Measure-Object -Property duration -Sum).Sum}} |
-    Sort-Object -Property Count -Descending
-
-# Build sequence diagram from entries
-$sequenceDiagram = "sequenceDiagram`n    participant Agent`n    participant Tools`n"
-$prePhaseEntries = $entries | Where-Object { $_.phase -eq "pre" } | Sort-Object { [datetime]$_.timestamp }
-
-foreach ($entry in $prePhaseEntries) {
-    $toolName = $entry.toolName ?? "unknown"
-    $sequenceDiagram += "    `n    Agent->>Tools: PRE: $toolName`n"
+# Generate updated markdown from current session data
+$mdPath = Join-Path -Path $metadataPath -ChildPath "conversation--$SessionId.md"
+try {
+    $conversation = Get-Content -Path $conversationPath -Raw | ConvertFrom-Json
+    $toolEntries = @()
+    if (Test-Path -Path $toolUsePath) {
+        $content = Get-Content -Path $toolUsePath -Raw
+        if ($content.Trim()) {
+            $toolEntries = $content | ConvertFrom-Json
+            if ($toolEntries -isnot [array]) {
+                $toolEntries = @($toolEntries)
+            }
+        }
+    }
     
-    # Find corresponding post entry
-    $postEntry = $entries | Where-Object { $_.phase -eq "post" -and $_.toolName -eq $toolName -and [datetime]$_.timestamp -gt [datetime]$entry.timestamp } | Select-Object -First 1
-    if ($postEntry) {
-        $sequenceDiagram += "    activate Tools`n"
-        if ($postEntry.duration) {
-            $sequenceDiagram += "    Note right of Tools: Completed in $($postEntry.duration)ms`n"
-        } else {
-            $sequenceDiagram += "    Note right of Tools: Completed`n"
+    # Build markdown from current state
+    $mdContent = "# Conversation Session: $SessionId`n`n"
+    $mdContent += "**Started:** $(if ($conversation.startTime) { $conversation.startTime } else { 'N/A' })`n`n"
+    
+    # Add messages section
+    if ($conversation.messages -and $conversation.messages.Count -gt 0) {
+        $mdContent += "## Conversation Transcript`n`n"
+        foreach ($msg in $conversation.messages) {
+            $role = if ($msg.role -eq 'user') { 'USER' } else { 'ASSISTANT' }
+            $mdContent += "### $role - $($msg.timestamp)`n`n$($msg.content)`n`n"
         }
-        $sequenceDiagram += "    Tools->>Agent: POST: $(if ($postEntry.success) { 'Success' } else { 'Failed' })`n"
-        $sequenceDiagram += "    deactivate Tools`n"
     }
-}
-
-# Build tool metrics graph
-$graphDiagram = "graph TD`n    ROOT[`"Tool Execution Metrics`"]`n"
-$graphDiagram += "    ROOT --> TOTAL[`"Total Calls: $totalCalls`"]`n"
-$graphDiagram += "    ROOT --> SUCCESS[`"Success: $successCalls`"]`n"
-$graphDiagram += "    ROOT --> TIME[`"Total: $($totalTime)ms`"]`n"
-$graphDiagram += "    ROOT --> AVG[`"Avg: $($avgTime)ms`"]`n"
-$graphDiagram += "    `n    ROOT --> TOOLS[`"Tools`"]`n"
-
-$toolCount = 0
-foreach ($metric in $toolMetrics) {
-    $toolCount++
-    $graphDiagram += "    TOOLS --> T$toolCount[`"$($metric.Tool) - Count: $($metric.Count), Duration: $($metric.Duration)ms`"]`n"
-}
-
-$graphDiagram += "    `n    style SUCCESS fill:#90EE90`n    style TIME fill:#87CEEB`n"
-
-# Build markdown content with both conversation and tool metrics
-$mdContent = @"
-# Conversation Session: $sessionId
-
-**Duration:** $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')
-
-## Tool Execution Flow
-
-\`\`\`mermaid
-$sequenceDiagram
-\`\`\`
-
-## Tool Use Metrics
-
-\`\`\`mermaid
-$graphDiagram
-\`\`\`
-
-## Summary
-- **Total Tool Calls:** $totalCalls
-- **Successful:** $successCalls
-- **Total Time:** $($totalTime)ms
-- **Average Time:** $($avgTime)ms
-
----
-_Session ID: $sessionId_
-"@
-
-# Write markdown file
-Set-Content -Path $mdPath -Value $mdContent -Force
-
-# Append to conversation history if it exists
-$conversationPath = Join-Path -Path $dataPath -ChildPath "conversation-history--$sessionId.json"
-if (Test-Path -Path $conversationPath) {
-    try {
-        $conversation = Get-Content -Path $conversationPath -Raw | ConvertFrom-Json
-        
-        # Append the tool execution to conversation
-        $toolRecord = [pscustomobject]@{
-            timestamp = $logEntry.timestamp
-            phase = $logEntry.phase
-            toolName = $logEntry.toolName
-            success = $logEntry.success
-            duration = $logEntry.duration
+    
+    # Add tool metrics section
+    if ($toolEntries.Count -gt 0) {
+        $postEntries = $toolEntries | Where-Object { $_.phase -eq "post" }
+        if ($postEntries.Count -gt 0) {
+            $totalCalls = ($postEntries | Measure-Object).Count
+            $successCalls = ($postEntries | Where-Object { $_.success -eq $true } | Measure-Object).Count
+            $totalTime = 0
+            foreach ($entry in $postEntries) {
+                if ($entry.duration) { $totalTime += $entry.duration }
+            }
+            
+            $mdContent += "## Tool Execution Metrics`n`n"
+            $mdContent += "- **Total Calls:** $totalCalls`n"
+            $mdContent += "- **Successful:** $successCalls`n"
+            if ($totalTime -gt 0) {
+                $mdContent += "- **Total Time:** $($totalTime)ms`n`n"
+            } else {
+                $mdContent += "`n"
+            }
+            
+            # Tool breakdown
+            $toolsByName = $toolEntries | Group-Object -Property toolName
+            if ($toolsByName) {
+                $mdContent += "### Tools Used`n`n"
+                foreach ($tool in $toolsByName) {
+                    $mdContent += "- **$($tool.Name)**: $($tool.Count) call(s)`n"
+                }
+                $mdContent += "`n"
+            }
         }
-        
-        $conversation.tools += $toolRecord
-        $conversation | ConvertTo-Json -Depth 10 | Set-Content -Path $conversationPath -Force
-    } catch {
-        # Silently fail if conversation state doesn't exist yet
     }
+    
+    $mdContent += "---`n`n_Session ID: $SessionId_`n"
+    Set-Content -Path $mdPath -Value $mdContent -Force
+} catch {
+    # Continue on error
 }
 
-# Output the entry for logging
-$logEntry | ConvertTo-Json -Compress
+# Output status for logging in proper JSON format
+@{
+    success = $true
+    phase = $Phase
+    sessionId = $SessionId
+    toolName = $hookData.toolName
+} | ConvertTo-Json -Compress | Write-Host

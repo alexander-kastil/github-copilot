@@ -9,21 +9,31 @@
 				"timeoutSec": 5
 			}
 		],
+		"userPromptSubmitted": [
+			{
+				"type": "command",
+				"powershell": ".\\log-prompt.ps1",
+				"cwd": ".github/hooks",
+				"timeoutSec": 10
+			}
+		],
 		"preToolUse": [
 			{
 				"type": "command",
 				"powershell": ".\\track-tool-use.ps1 -Phase pre",
-				"cwd": ".github/hooks"
+				"cwd": ".github/hooks",
+				"timeoutSec": 10
 			}
 		],
 		"postToolUse": [
 			{
 				"type": "command",
 				"powershell": ".\\track-tool-use.ps1 -Phase post",
-				"cwd": ".github/hooks"
+				"cwd": ".github/hooks",
+				"timeoutSec": 10
 			}
 		],
-		"stop": [
+		"sessionEnd": [
 			{
 				"type": "command",
 				"powershell": ".\\finalize-conversation.ps1",

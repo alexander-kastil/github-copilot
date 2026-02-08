@@ -1,5 +1,13 @@
-$sessionId = [guid]::NewGuid().ToString()
-$metadataPath = Join-Path -Path $PSScriptRoot -ChildPath "..\..\.copilot-metadata"
+param(
+    [string]$SessionId
+)
+
+# Use provided session ID or generate new one
+if (-not $SessionId) {
+    $SessionId = [guid]::NewGuid().ToString()
+}
+
+$metadataPath = Join-Path -Path $PSScriptRoot -ChildPath "../../.copilot-metadata"
 $dataPath = Join-Path -Path $metadataPath -ChildPath "data"
 
 # Ensure metadata and data folders exist
@@ -10,11 +18,11 @@ if (-not (Test-Path -Path $dataPath)) {
     New-Item -ItemType Directory -Path $dataPath -Force | Out-Null
 }
 
-$conversationPath = Join-Path -Path $dataPath -ChildPath "conversation-history--$sessionId.json"
-$toolUsePath = Join-Path -Path $dataPath -ChildPath "tool-use--$sessionId.json"
+$conversationPath = Join-Path -Path $dataPath -ChildPath "conversation-history--$SessionId.json"
+$toolUsePath = Join-Path -Path $dataPath -ChildPath "tool-use--$SessionId.json"
 
 $conversationState = @{
-    sessionId = $sessionId
+    sessionId = $SessionId
     startTime = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
     tools = @()
     messages = @()
@@ -29,10 +37,13 @@ $conversationState | ConvertTo-Json -Depth 10 | Set-Content -Path $conversationP
 # Initialize tool-use log for this session
 @() | ConvertTo-Json -Depth 10 | Set-Content -Path $toolUsePath -Force
 
+# Store session ID in environment for later use
+$env:COPILOT_SESSION_ID = $SessionId
+
 # Create a simple conversation MD file
-$mdPath = Join-Path -Path $metadataPath -ChildPath "conversation--$sessionId.md"
+$mdPath = Join-Path -Path $metadataPath -ChildPath "conversation--$SessionId.md"
 $mdContent = @"
-# Conversation Session: $sessionId
+# Conversation Session: $SessionId
 
 **Started:** $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')
 
@@ -51,9 +62,9 @@ sequenceDiagram
 - Total Time: 0ms
 
 ---
-_Session ID: $sessionId_
+_Session ID: $SessionId_
 "@
 
 Set-Content -Path $mdPath -Value $mdContent -Force
 
-Write-Host "Conversation initialized with session ID: $sessionId"
+Write-Host "Conversation initialized with session ID: $SessionId"
