@@ -1,0 +1,35 @@
+{
+	"version": 1,
+	"hooks": {
+		"sessionStart": [
+			{
+				"type": "command",
+				"powershell": ".\\init-conversation.ps1",
+				"cwd": ".github/hooks",
+				"timeoutSec": 5
+			}
+		],
+		"preToolUse": [
+			{
+				"type": "command",
+				"powershell": ".\\track-tool-use.ps1 -Phase pre",
+				"cwd": ".github/hooks"
+			}
+		],
+		"postToolUse": [
+			{
+				"type": "command",
+				"powershell": ".\\track-tool-use.ps1 -Phase post",
+				"cwd": ".github/hooks"
+			}
+		],
+		"stop": [
+			{
+				"type": "command",
+				"powershell": ".\\finalize-conversation.ps1",
+				"cwd": ".github/hooks",
+				"timeoutSec": 5
+			}
+		]
+	}
+}

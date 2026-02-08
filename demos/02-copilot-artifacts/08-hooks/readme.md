@@ -45,23 +45,39 @@ Create a hooks.json file in the `.github/hooks/` directory (or current working d
 }
 ```
 
-The above example logs the session start time to a file. You can also reference external scripts:
+The above example logs the session start time to a file. You can also reference external scripts that capture context state. For example, this hook captures the context window state and visualizes it as a mermaid diagram:
 
-```json
-"userPromptSubmitted": [
-  {
-    "type": "command",
-    "bash": "./scripts/log-prompt.sh",
-    "powershell": "./scripts/log-prompt.ps1",
-    "cwd": "scripts",
-    "env": {
-      "LOG_LEVEL": "INFO"
-    }
-  }
-]
+```bash
+#!/bin/bash
+# scripts/capture-context.sh - Capture and visualize context window state
+
+INPUT=$(cat)
+TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+
+# Extract context information from input
+CONTEXT_SIZE=$(echo "$INPUT" | jq '.contextWindow.size // 0' 2>/dev/null)
+MESSAGES=$(echo "$INPUT" | jq '.contextWindow.messages // 0' 2>/dev/null)
+FILES=$(echo "$INPUT" | jq '.contextWindow.files // 0' 2>/dev/null)
+INSTRUCTIONS=$(echo "$INPUT" | jq '.contextWindow.instructions // 0' 2>/dev/null)
+
+# Create mermaid diagram
+DIAGRAM="graph TD
+    A[Context Window<br/>Size: ${CONTEXT_SIZE}] --> B[Messages: ${MESSAGES}]
+    A --> C[Files: ${FILES}]
+    A --> D[Instructions: ${INSTRUCTIONS}]
+    B --> E[Ready for Agent]
+    C --> E
+    D --> E"
+
+# Log structured data with diagram
+jq -n \
+  --arg timestamp "$TIMESTAMP" \
+  --arg diagram "$DIAGRAM" \
+  --arg context_size "$CONTEXT_SIZE" \
+  '{timestamp: $timestamp, context_size: $context_size, diagram: $diagram}'
 ```
 
-Commit the file to your repository and hooks will execute automatically during agent sessions.
+The above script processes the hook input, extracts context window metadata, and generates a mermaid diagram visualization showing the current state.
 
 ## Links & Resources
 

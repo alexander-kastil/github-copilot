@@ -4,11 +4,12 @@ Documented automation patterns that solve specific DevOps tasks with validated, 
 
 ## Skills Overview
 
-| Skill                                       | Purpose                                                                                                                                                                                                           |
-| ------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **[Create Workload Identity](create-wif/)** | Automate Azure DevOps service connection creation with workload identity federation. Enables secure OIDC-based authentication between Azure DevOps pipelines and Azure managed identities without storing secrets |
-| **[Get Pipeline Logs](get-pipeline-logs/)** | Retrieve logs from Azure DevOps pipeline runs using Azure CLI. Always works with the latest run to ensure logs are available and provides structured access to build step outputs                                 |
-| **[Import Pipeline](import-pipeline/)**     | Import and execute Azure DevOps pipelines from YAML files using deployment metadata. Includes automatic error diagnosis and fixing with Microsoft Learn guidance                                                  |
+| Skill                                            | Purpose                                                                                                                                                                                                           |
+| ------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **[Create Workload Identity](create-wif/)**     | Automate Azure DevOps service connection creation with workload identity federation. Enables secure OIDC-based authentication between Azure DevOps pipelines and Azure managed identities without storing secrets |
+| **[Get Pipeline Logs](get-pipeline-logs/)**     | Retrieve logs from Azure DevOps pipeline runs using Azure CLI. Always works with the latest run to ensure logs are available and provides structured access to build step outputs                                 |
+| **[Import Pipeline](import-pipeline/)**         | Import and execute Azure DevOps pipelines from YAML files using deployment metadata. Includes automatic error diagnosis and fixing with Microsoft Learn guidance                                                  |
+| **[Visualize Conversation](visualize-conversation/)** | Generate markdown documentation with Mermaid diagrams from conversation history and tool usage JSON files. Auto-updates on each session with clean visualizations and version-control friendly outputs              |
 
 ## Sample Usage
 
