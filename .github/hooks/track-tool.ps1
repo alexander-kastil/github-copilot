@@ -27,7 +27,7 @@ function ConvertFrom-UnixMs($val) {
 }
 
 $timestamp = ConvertFrom-UnixMs $hookData.timestamp
-$toolName = if ($hookData.toolName) { [string]$hookData.toolName } else { "unknown" }
+$toolName = if ($hookData.tool_name) { [string]$hookData.tool_name } elseif ($hookData.toolName) { [string]$hookData.toolName } else { "unknown" }
 
 $debugPath = Join-Path $dataPath "debug-$sessionId.log"
 "[$Phase-tool] $(Get-Date -Format o) tool=$toolName`nRAW: $inputJson`n" | Add-Content $debugPath

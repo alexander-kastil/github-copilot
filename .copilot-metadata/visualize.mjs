@@ -253,19 +253,25 @@ function processSession(sessionId) {
   const toolsPath = path.join(dataDir, `tools-${sessionId}.json`);
 
   if (!fs.existsSync(historyPath)) {
-    console.error(`History file not found: history-${sessionId}.json`);
+    console.error(`❌ History file not found: history-${sessionId}.json`);
     return false;
   }
+  
+  console.log(`✓ History file found`);
 
   const history = JSON.parse(fs.readFileSync(historyPath, 'utf-8'));
 
   let tools = [];
   if (fs.existsSync(toolsPath)) {
+    console.log(`✓ Tools file found`);
     const toolsData = JSON.parse(fs.readFileSync(toolsPath, 'utf-8'));
     tools = Array.isArray(toolsData.tools) ? toolsData.tools.filter(t => t && t.toolName) : [];
   }
 
   const agents = findAgentFiles(sessionId);
+  if (agents.length > 0) {
+    console.log(`✓ Found ${agents.length} agent file(s)`);
+  }
 
   const md = generateMarkdown(sessionId, history, tools, agents);
   const outPath = path.join(__dirname, `conv-${sessionId}.md`);
@@ -278,9 +284,12 @@ function main() {
   const sessionId = process.argv[2];
 
   if (sessionId) {
+    console.log(`📍 Session ID detected: ${sessionId}`);
     processSession(sessionId);
     return;
   }
+  
+  console.log('❌ No session ID provided, processing all sessions...');
 
   if (!fs.existsSync(dataDir)) {
     console.log('No data directory found');
