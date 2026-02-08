@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { consolidateSession } from './consolidate.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const dataDir = path.join(__dirname, 'data');
@@ -29,8 +30,8 @@ function isValidString(val) {
   return val && typeof val === 'string' && val.length > 0;
 }
 
-function buildDiagram(history, tools, agents) {
-  const validTools = tools.filter(t => t && t.toolName);
+function buildDiagram(history, tools, agents, level = 1) {
+  const validTools = level === 1 ? [] : tools.filter(t => t && t.toolName);
   const hasTools = validTools.length > 0;
   const agentNames = [...new Set(agents.map(a => a.agentName))];
   const hasAgents = agentNames.length > 0;
@@ -44,7 +45,7 @@ function buildDiagram(history, tools, agents) {
     d += `    participant Sub_${sanitize(name)} as Sub: ${sanitize(name)}\n`;
   });
   d += '\n';
-  d += '    Note over User,Bot: Conversation starts\n\n';
+  d += `    Note over User,Bot: Conversation starts (Level ${level})\n\n`;
 
   const events = [];
 
@@ -60,19 +61,21 @@ function buildDiagram(history, tools, agents) {
     });
   }
 
-  validTools.forEach((t, idx) => {
-    if (t.phase === 'pre') {
-      events.push({ type: 'tool-call', toolName: t.toolName, toolId: idx, ts: toMs(t.timestamp) });
-    } else if (t.phase === 'post') {
-      events.push({
-        type: 'tool-response',
-        toolName: t.toolName,
-        toolId: idx,
-        resultType: t.resultType || 'success',
-        ts: toMs(t.timestamp)
-      });
-    }
-  });
+  if (level === 2) {
+    validTools.forEach((t, idx) => {
+      if (t.phase === 'pre') {
+        events.push({ type: 'tool-call', toolName: t.toolName, toolId: idx, ts: toMs(t.timestamp) });
+      } else if (t.phase === 'post') {
+        events.push({
+          type: 'tool-response',
+          toolName: t.toolName,
+          toolId: idx,
+          resultType: t.resultType || 'success',
+          ts: toMs(t.timestamp)
+        });
+      }
+    });
+  }
 
   agents.forEach(agent => {
     (agent.events || []).forEach(evt => {
@@ -117,7 +120,7 @@ function buildDiagram(history, tools, agents) {
     }
   });
 
-  d += '    Note over User,Bot: Conversation ends\n';
+  d += `    Note over User,Bot: Conversation ends (Level ${level})\n`;
   return d;
 }
 
@@ -217,7 +220,7 @@ function buildMetrics(tools) {
   return md;
 }
 
-function generateMarkdown(sessionId, history, tools, agents) {
+function generateMarkdown(sessionId, history, tools, agents, level = 1) {
   const startTime = isValidString(history.startTime) ? history.startTime : 'N/A';
   const endTime = isValidString(history.endTime) ? history.endTime : null;
   const status = isValidString(history.status) ? history.status : null;
@@ -226,15 +229,21 @@ function generateMarkdown(sessionId, history, tools, agents) {
   md += `**Started:** ${startTime}\n`;
   if (endTime) md += `**Ended:** ${endTime}\n`;
   if (status) md += `**Status:** ${status}\n`;
+  md += `**Visualization Level:** ${level}\n`;
   md += '\n';
 
   md += '## Sequence Diagram\n\n';
   md += '```mermaid\n';
-  md += buildDiagram(history, tools, agents);
+  md += buildDiagram(history, tools, agents, level);
   md += '```\n\n';
-  md += buildMetrics(tools);
+  
+  if (level === 2) {
+    md += buildMetrics(tools);
+  } else {
+    md += `## Note\nLevel 1 shows user-agent conversation flow only. Use level 2 to see tool calls with extended info.\n\n`;
+  }
 
-  md += `---\n_Session: ${sessionId}_\n`;
+  md += `---\n_Session: ${sessionId} | Level: ${level}_\n`;
   return md;
 }
 
@@ -248,7 +257,7 @@ function findAgentFiles(sessionId) {
     });
 }
 
-function processSession(sessionId) {
+function processSession(sessionId, level = 1) {
   const historyPath = path.join(dataDir, `history-${sessionId}.json`);
   const toolsPath = path.join(dataDir, `tools-${sessionId}.json`);
 
@@ -273,23 +282,52 @@ function processSession(sessionId) {
     console.log(`✓ Found ${agents.length} agent file(s)`);
   }
 
-  const md = generateMarkdown(sessionId, history, tools, agents);
-  const outPath = path.join(__dirname, `conv-${sessionId}.md`);
+  const md = generateMarkdown(sessionId, history, tools, agents, level);
+  const outPath = path.join(__dirname, `conv-${sessionId}-level${level}.md`);
   fs.writeFileSync(outPath, md, 'utf-8');
-  console.log(`✓ Generated conv-${sessionId}.md`);
+  console.log(`✓ Generated conv-${sessionId}-level${level}.md`);
   return true;
 }
 
 function main() {
   const sessionId = process.argv[2];
+  const levelsArg = process.argv[3] || '-levels';
+  const defaultLevel = levelsArg.startsWith('-levels') ? 1 : (levelsArg === '2' ? 2 : 1);
 
-  if (sessionId) {
+  // Parse levels parameter: -levels or -levels=1 or -levels=1,2
+  let levels = [defaultLevel];
+  if (process.argv.includes('-levels=1,2') || process.argv.includes('-levels=1') || process.argv[4] === '-levels=2') {
+    const levelParam = process.argv.find(arg => arg.includes('-levels='));
+    if (levelParam) {
+      const parts = levelParam.split('=')[1];
+      levels = parts === '1,2' ? [1, 2] : [parseInt(parts), 2];
+    }
+  }
+
+  // If last argument is 2, render level 2 only or both
+  if (process.argv[process.argv.length - 1] === '2') {
+    levels = process.argv[process.argv.length - 2] === '1' ? [1, 2] : [2];
+  } else if (process.argv[process.argv.length - 1] === '1,2') {
+    levels = [1, 2];
+  } else if (process.argv[process.argv.length - 1] === '1') {
+    levels = [1];
+  }
+
+  if (sessionId && !sessionId.startsWith('-')) {
     console.log(`📍 Session ID detected: ${sessionId}`);
-    processSession(sessionId);
+    console.log(`📊 Rendering levels: ${levels.join(', ')}`);
+    
+    for (const level of levels) {
+      processSession(sessionId, level);
+    }
     return;
   }
   
   console.log('❌ No session ID provided, processing all sessions...');
+  console.log('Usage: node visualize.mjs <sessionId> [1|2|1,2]');
+  console.log('       node visualize.mjs <sessionId> -levels (default level 1)');
+  console.log('       node visualize.mjs <sessionId> -levels=2');
+  console.log('       node visualize.mjs <sessionId> 1 2 (renders both levels)');
 
   if (!fs.existsSync(dataDir)) {
     console.log('No data directory found');
@@ -306,11 +344,11 @@ function main() {
   for (const f of historyFiles) {
     const match = f.match(/^history-(.+)\.json$/);
     if (!match) continue;
-    if (processSession(match[1])) count++;
+    if (processSession(match[1], 1)) count++;
   }
   console.log(`\n✓ Processed ${count} session(s)`);
 }
 
-export { buildDiagram, addInferredResponses, buildMetrics, sanitize, truncate, toMs };
+export { buildDiagram, addInferredResponses, buildMetrics, sanitize, truncate, toMs, processSession, generateMarkdown };
 
 main();

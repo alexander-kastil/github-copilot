@@ -23,6 +23,11 @@
                          "content":  "question 2. couldnt we asign more meaning to the tool call when aligning it with debug-xxx.json",
                          "timestamp":  "2026-02-08T18:54:09.612Z",
                          "role":  "user"
+                     },
+                     {
+                         "content":  "ok then wouldnt it make more sense to process the 3 json files to conv-sessionsid.json to a common datasource that then could be used to serve as unified data for the mermaid and introduce another parm -levels (default 1 = user to agent) and 2 including the tool call with the extened info. please test bot param levels",
+                         "timestamp":  "2026-02-08T18:58:35.802Z",
+                         "role":  "user"
                      }
                  ]
 }

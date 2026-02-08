@@ -2,6 +2,7 @@
   "type": "module",
   "scripts": {
     "visualize": "node ./visualize.mjs",
+    "consolidate": "node ./consolidate.mjs",
     "test": "node --test ./test.mjs"
   },
   "version": "1.0.0"
