@@ -1,0 +1,508 @@
+{
+  "sessionId": "c6085dee-880e-4d33-8a75-9f8bbbc45f8c",
+  "metadata": {
+    "startTime": "2026-02-08T20:26:45.94Z",
+    "endTime": "2026-02-08T20:29:37.585Z",
+    "status": "completed",
+    "generatedAt": "2026-02-08T20:29:38.395Z"
+  },
+  "conversationFlow": {
+    "level1": [
+      {
+        "sequence": 1,
+        "type": "message",
+        "role": "user",
+        "content": "Here are some broken links https://github.com/alexander-kastil/github-copilot/tree/master/demos/02-copilot-artifacts/08-hooks. Herre modole 2 needs to be updated https://github.com/alexander-kastil/gi...",
+        "fullContent": "Here are some broken links https://github.com/alexander-kastil/github-copilot/tree/master/demos/02-copilot-artifacts/08-hooks. Herre modole 2 needs to be updated https://github.com/alexander-kastil/github-copilot/tree/master/demos",
+        "timestamp": "2026-02-08T20:26:51.766Z"
+      }
+    ],
+    "level1_5": [
+      {
+        "sequence": 1,
+        "type": "userMessage",
+        "role": "user",
+        "content": "Here are some broken links https://github.com/alexander-kastil/github-copilot/tree/master/demos/02-copilot-artifacts/08-hooks. Herre modole 2 needs to be updated https://github.com/alexander-kastil/gi...",
+        "fullContent": "Here are some broken links https://github.com/alexander-kastil/github-copilot/tree/master/demos/02-copilot-artifacts/08-hooks. Herre modole 2 needs to be updated https://github.com/alexander-kastil/github-copilot/tree/master/demos",
+        "timestamp": "2026-02-08T20:26:51.766Z"
+      },
+      {
+        "sequence": 2,
+        "type": "actionSummary",
+        "userPromptIndex": 0,
+        "actionCount": 50,
+        "summary": "**Copilot Actions**: Executed 50 actions: 20× view, 14× bash, 8× edit in 166.6s",
+        "details": [
+          "view (20)",
+          "bash (14)",
+          "edit (8)"
+        ],
+        "duration": "166.6s",
+        "timestampRange": {
+          "start": "2026-02-08T20:26:51.766Z",
+          "end": "2026-02-08T20:29:38.395Z"
+        }
+      }
+    ],
+    "level2": [
+      {
+        "sequence": 1,
+        "type": "message",
+        "role": "user",
+        "content": "Here are some broken links https://github.com/alexander-kastil/github-copilot/tree/master/demos/02-copilot-artifacts/08-hooks. Herre modole 2 needs to be updated https://github.com/alexander-kastil/gi...",
+        "fullContent": "Here are some broken links https://github.com/alexander-kastil/github-copilot/tree/master/demos/02-copilot-artifacts/08-hooks. Herre modole 2 needs to be updated https://github.com/alexander-kastil/github-copilot/tree/master/demos",
+        "timestamp": "2026-02-08T20:26:51.766Z"
+      },
+      {
+        "sequence": 2,
+        "type": "toolCall",
+        "phase": "pre",
+        "toolName": "view",
+        "timestamp": "2026-02-08T20:26:59.675Z",
+        "resultType": "pending",
+        "sourceIndex": 0
+      },
+      {
+        "sequence": 3,
+        "type": "toolCall",
+        "phase": "pre",
+        "toolName": "view",
+        "timestamp": "2026-02-08T20:27:00.493Z",
+        "resultType": "pending",
+        "sourceIndex": 1
+      },
+      {
+        "sequence": 4,
+        "type": "toolCall",
+        "phase": "pre",
+        "toolName": "view",
+        "timestamp": "2026-02-08T20:27:01.3Z",
+        "resultType": "pending",
+        "sourceIndex": 2
+      },
+      {
+        "sequence": 5,
+        "type": "toolCall",
+        "phase": "post",
+        "toolName": "view",
+        "timestamp": "2026-02-08T20:27:02.152Z",
+        "resultType": "success",
+        "sourceIndex": 3
+      },
+      {
+        "sequence": 6,
+        "type": "toolCall",
+        "phase": "post",
+        "toolName": "view",
+        "timestamp": "2026-02-08T20:27:02.974Z",
+        "resultType": "success",
+        "sourceIndex": 4
+      },
+      {
+        "sequence": 7,
+        "type": "toolCall",
+        "phase": "post",
+        "toolName": "view",
+        "timestamp": "2026-02-08T20:27:03.796Z",
+        "resultType": "success",
+        "sourceIndex": 5
+      },
+      {
+        "sequence": 8,
+        "type": "toolCall",
+        "phase": "pre",
+        "toolName": "view",
+        "timestamp": "2026-02-08T20:27:07.851Z",
+        "resultType": "pending",
+        "sourceIndex": 6
+      },
+      {
+        "sequence": 9,
+        "type": "toolCall",
+        "phase": "pre",
+        "toolName": "view",
+        "timestamp": "2026-02-08T20:27:08.655Z",
+        "resultType": "pending",
+        "sourceIndex": 7
+      },
+      {
+        "sequence": 10,
+        "type": "toolCall",
+        "phase": "post",
+        "toolName": "view",
+        "timestamp": "2026-02-08T20:27:09.472Z",
+        "resultType": "success",
+        "sourceIndex": 8
+      },
+      {
+        "sequence": 11,
+        "type": "toolCall",
+        "phase": "post",
+        "toolName": "view",
+        "timestamp": "2026-02-08T20:27:10.294Z",
+        "resultType": "success",
+        "sourceIndex": 9
+      },
+      {
+        "sequence": 12,
+        "type": "toolCall",
+        "phase": "pre",
+        "toolName": "view",
+        "timestamp": "2026-02-08T20:27:14.972Z",
+        "resultType": "pending",
+        "sourceIndex": 10
+      },
+      {
+        "sequence": 13,
+        "type": "toolCall",
+        "phase": "pre",
+        "toolName": "bash",
+        "timestamp": "2026-02-08T20:27:15.786Z",
+        "resultType": "pending",
+        "sourceIndex": 11
+      },
+      {
+        "sequence": 14,
+        "type": "toolCall",
+        "phase": "post",
+        "toolName": "view",
+        "timestamp": "2026-02-08T20:27:16.608Z",
+        "resultType": "success",
+        "sourceIndex": 12
+      },
+      {
+        "sequence": 15,
+        "type": "toolCall",
+        "phase": "post",
+        "toolName": "bash",
+        "timestamp": "2026-02-08T20:27:17.427Z",
+        "resultType": "success",
+        "sourceIndex": 13
+      },
+      {
+        "sequence": 16,
+        "type": "toolCall",
+        "phase": "pre",
+        "toolName": "bash",
+        "timestamp": "2026-02-08T20:27:23.159Z",
+        "resultType": "pending",
+        "sourceIndex": 14
+      },
+      {
+        "sequence": 17,
+        "type": "toolCall",
+        "phase": "pre",
+        "toolName": "bash",
+        "timestamp": "2026-02-08T20:27:23.953Z",
+        "resultType": "pending",
+        "sourceIndex": 15
+      },
+      {
+        "sequence": 18,
+        "type": "toolCall",
+        "phase": "post",
+        "toolName": "bash",
+        "timestamp": "2026-02-08T20:27:25.272Z",
+        "resultType": "success",
+        "sourceIndex": 16
+      },
+      {
+        "sequence": 19,
+        "type": "toolCall",
+        "phase": "post",
+        "toolName": "bash",
+        "timestamp": "2026-02-08T20:27:26.092Z",
+        "resultType": "success",
+        "sourceIndex": 17
+      },
+      {
+        "sequence": 20,
+        "type": "toolCall",
+        "phase": "pre",
+        "toolName": "view",
+        "timestamp": "2026-02-08T20:27:29.576Z",
+        "resultType": "pending",
+        "sourceIndex": 18
+      },
+      {
+        "sequence": 21,
+        "type": "toolCall",
+        "phase": "post",
+        "toolName": "view",
+        "timestamp": "2026-02-08T20:27:30.382Z",
+        "resultType": "success",
+        "sourceIndex": 19
+      },
+      {
+        "sequence": 22,
+        "type": "toolCall",
+        "phase": "pre",
+        "toolName": "bash",
+        "timestamp": "2026-02-08T20:27:34.989Z",
+        "resultType": "pending",
+        "sourceIndex": 20
+      },
+      {
+        "sequence": 23,
+        "type": "toolCall",
+        "phase": "post",
+        "toolName": "bash",
+        "timestamp": "2026-02-08T20:27:36.302Z",
+        "resultType": "success",
+        "sourceIndex": 21
+      },
+      {
+        "sequence": 24,
+        "type": "toolCall",
+        "phase": "pre",
+        "toolName": "view",
+        "timestamp": "2026-02-08T20:27:41.69Z",
+        "resultType": "pending",
+        "sourceIndex": 22
+      },
+      {
+        "sequence": 25,
+        "type": "toolCall",
+        "phase": "post",
+        "toolName": "view",
+        "timestamp": "2026-02-08T20:27:42.527Z",
+        "resultType": "success",
+        "sourceIndex": 23
+      },
+      {
+        "sequence": 26,
+        "type": "toolCall",
+        "phase": "pre",
+        "toolName": "report_progress",
+        "timestamp": "2026-02-08T20:27:49.453Z",
+        "resultType": "pending",
+        "sourceIndex": 24
+      },
+      {
+        "sequence": 27,
+        "type": "toolCall",
+        "phase": "post",
+        "toolName": "report_progress",
+        "timestamp": "2026-02-08T20:27:51.161Z",
+        "resultType": "success",
+        "sourceIndex": 25
+      },
+      {
+        "sequence": 28,
+        "type": "toolCall",
+        "phase": "pre",
+        "toolName": "edit",
+        "timestamp": "2026-02-08T20:27:58.402Z",
+        "resultType": "pending",
+        "sourceIndex": 26
+      },
+      {
+        "sequence": 29,
+        "type": "toolCall",
+        "phase": "post",
+        "toolName": "edit",
+        "timestamp": "2026-02-08T20:27:59.222Z",
+        "resultType": "success",
+        "sourceIndex": 27
+      },
+      {
+        "sequence": 30,
+        "type": "toolCall",
+        "phase": "pre",
+        "toolName": "edit",
+        "timestamp": "2026-02-08T20:28:05.697Z",
+        "resultType": "pending",
+        "sourceIndex": 28
+      },
+      {
+        "sequence": 31,
+        "type": "toolCall",
+        "phase": "post",
+        "toolName": "edit",
+        "timestamp": "2026-02-08T20:28:06.516Z",
+        "resultType": "success",
+        "sourceIndex": 29
+      },
+      {
+        "sequence": 32,
+        "type": "toolCall",
+        "phase": "pre",
+        "toolName": "edit",
+        "timestamp": "2026-02-08T20:28:13.283Z",
+        "resultType": "pending",
+        "sourceIndex": 30
+      },
+      {
+        "sequence": 33,
+        "type": "toolCall",
+        "phase": "post",
+        "toolName": "edit",
+        "timestamp": "2026-02-08T20:28:14.075Z",
+        "resultType": "success",
+        "sourceIndex": 31
+      },
+      {
+        "sequence": 34,
+        "type": "toolCall",
+        "phase": "pre",
+        "toolName": "edit",
+        "timestamp": "2026-02-08T20:28:19.985Z",
+        "resultType": "pending",
+        "sourceIndex": 32
+      },
+      {
+        "sequence": 35,
+        "type": "toolCall",
+        "phase": "post",
+        "toolName": "edit",
+        "timestamp": "2026-02-08T20:28:20.789Z",
+        "resultType": "success",
+        "sourceIndex": 33
+      },
+      {
+        "sequence": 36,
+        "type": "toolCall",
+        "phase": "pre",
+        "toolName": "bash",
+        "timestamp": "2026-02-08T20:28:26.162Z",
+        "resultType": "pending",
+        "sourceIndex": 34
+      },
+      {
+        "sequence": 37,
+        "type": "toolCall",
+        "phase": "pre",
+        "toolName": "bash",
+        "timestamp": "2026-02-08T20:28:26.957Z",
+        "resultType": "pending",
+        "sourceIndex": 35
+      },
+      {
+        "sequence": 38,
+        "type": "toolCall",
+        "phase": "post",
+        "toolName": "bash",
+        "timestamp": "2026-02-08T20:28:28.274Z",
+        "resultType": "success",
+        "sourceIndex": 36
+      },
+      {
+        "sequence": 39,
+        "type": "toolCall",
+        "phase": "post",
+        "toolName": "bash",
+        "timestamp": "2026-02-08T20:28:29.094Z",
+        "resultType": "success",
+        "sourceIndex": 37
+      },
+      {
+        "sequence": 40,
+        "type": "toolCall",
+        "phase": "pre",
+        "toolName": "bash",
+        "timestamp": "2026-02-08T20:28:33.754Z",
+        "resultType": "pending",
+        "sourceIndex": 38
+      },
+      {
+        "sequence": 41,
+        "type": "toolCall",
+        "phase": "post",
+        "toolName": "bash",
+        "timestamp": "2026-02-08T20:28:35.069Z",
+        "resultType": "success",
+        "sourceIndex": 39
+      },
+      {
+        "sequence": 42,
+        "type": "toolCall",
+        "phase": "pre",
+        "toolName": "report_progress",
+        "timestamp": "2026-02-08T20:28:40.835Z",
+        "resultType": "pending",
+        "sourceIndex": 40
+      },
+      {
+        "sequence": 43,
+        "type": "toolCall",
+        "phase": "post",
+        "toolName": "report_progress",
+        "timestamp": "2026-02-08T20:28:42.363Z",
+        "resultType": "success",
+        "sourceIndex": 41
+      },
+      {
+        "sequence": 44,
+        "type": "toolCall",
+        "phase": "pre",
+        "toolName": "view",
+        "timestamp": "2026-02-08T20:28:47.21Z",
+        "resultType": "pending",
+        "sourceIndex": 42
+      },
+      {
+        "sequence": 45,
+        "type": "toolCall",
+        "phase": "pre",
+        "toolName": "view",
+        "timestamp": "2026-02-08T20:28:48.023Z",
+        "resultType": "pending",
+        "sourceIndex": 43
+      },
+      {
+        "sequence": 46,
+        "type": "toolCall",
+        "phase": "post",
+        "toolName": "view",
+        "timestamp": "2026-02-08T20:28:48.835Z",
+        "resultType": "success",
+        "sourceIndex": 44
+      },
+      {
+        "sequence": 47,
+        "type": "toolCall",
+        "phase": "post",
+        "toolName": "view",
+        "timestamp": "2026-02-08T20:28:49.663Z",
+        "resultType": "success",
+        "sourceIndex": 45
+      },
+      {
+        "sequence": 48,
+        "type": "toolCall",
+        "phase": "pre",
+        "toolName": "code_review",
+        "timestamp": "2026-02-08T20:28:57.128Z",
+        "resultType": "pending",
+        "sourceIndex": 46
+      },
+      {
+        "sequence": 49,
+        "type": "toolCall",
+        "phase": "post",
+        "toolName": "code_review",
+        "timestamp": "2026-02-08T20:29:11.904Z",
+        "resultType": "success",
+        "sourceIndex": 47
+      },
+      {
+        "sequence": 50,
+        "type": "toolCall",
+        "phase": "pre",
+        "toolName": "codeql_checker",
+        "timestamp": "2026-02-08T20:29:16.858Z",
+        "resultType": "pending",
+        "sourceIndex": 48
+      },
+      {
+        "sequence": 51,
+        "type": "toolCall",
+        "phase": "post",
+        "toolName": "codeql_checker",
+        "timestamp": "2026-02-08T20:29:20.802Z",
+        "resultType": "success",
+        "sourceIndex": 49
+      }
+    ]
+  }
+}
