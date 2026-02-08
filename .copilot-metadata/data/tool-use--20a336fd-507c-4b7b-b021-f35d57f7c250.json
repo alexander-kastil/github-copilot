@@ -4,7 +4,10 @@
     "description": "Tool execution flow for building a data-driven conversation visualization system"
   },
   "sequence": {
-    "actors": ["Agent", "Tools"],
+    "actors": [
+      "Agent",
+      "Tools"
+    ],
     "events": [
       {
         "type": "call",

@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "generate:metadata": "node ./generate.mjs",
+    "generate:metadata": "node ./.copilot-metadata/generate.mjs",
     "release": "commit-and-tag-version"
   },
   "devDependencies": {
