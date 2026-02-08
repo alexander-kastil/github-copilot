@@ -38,6 +38,26 @@ function parseDebugLog(filePath) {
   return events;
 }
 
+function buildLevel1(history) {
+  const flow = [];
+  
+  if (history.messages) {
+    history.messages.forEach((msg, idx) => {
+      if (!msg || !msg.content) return;
+      flow.push({
+        sequence: idx + 1,
+        type: 'message',
+        role: msg.role,
+        content: msg.content.substring(0, 200) + (msg.content.length > 200 ? '...' : ''),
+        fullContent: msg.content,
+        timestamp: msg.timestamp
+      });
+    });
+  }
+
+  return flow;
+}
+
 function consolidateSession(sessionId) {
   const historyPath = path.join(dataDir, `history-${sessionId}.json`);
   const toolsPath = path.join(dataDir, `tools-${sessionId}.json`);
@@ -68,6 +88,7 @@ function consolidateSession(sessionId) {
     },
     conversationFlow: {
       level1: buildLevel1(history),
+      level1_5: buildLevel1WithSummaries(history, tools, debugEvents),
       level2: buildLevel2(history, tools, debugEvents)
     }
   };
@@ -75,25 +96,102 @@ function consolidateSession(sessionId) {
   return unified;
 }
 
-function buildLevel1(history) {
+function buildLevel1WithSummaries(history, tools, debugEvents) {
   const flow = [];
   
-  if (history.messages) {
-    history.messages.forEach((msg, idx) => {
-      if (!msg || !msg.content) return;
-      flow.push({
-        sequence: idx + 1,
-        type: 'message',
-        role: msg.role,
-        content: msg.content.substring(0, 200) + (msg.content.length > 200 ? '...' : ''),
-        fullContent: msg.content,
-        timestamp: msg.timestamp
-      });
-    });
+  if (!history.messages || history.messages.length === 0) {
+    return flow;
   }
+
+  history.messages.forEach((msg, msgIdx) => {
+    if (!msg || !msg.content) return;
+
+    const msgTime = new Date(msg.timestamp).getTime();
+    const nextMsgTime = (msgIdx + 1 < history.messages.length) 
+      ? new Date(history.messages[msgIdx + 1].timestamp).getTime()
+      : Date.now();
+
+    // Add user message
+    flow.push({
+      sequence: flow.length + 1,
+      type: 'userMessage',
+      role: msg.role,
+      content: msg.content.substring(0, 200) + (msg.content.length > 200 ? '...' : ''),
+      fullContent: msg.content,
+      timestamp: msg.timestamp
+    });
+
+    // Find all tool calls between this message and the next
+    const actionsInRange = tools.filter(t => {
+      const toolTime = new Date(t.timestamp).getTime();
+      return toolTime >= msgTime && toolTime < nextMsgTime;
+    });
+
+    if (actionsInRange.length > 0) {
+      const summary = generateActionSummary(actionsInRange, msgIdx, msgTime, nextMsgTime);
+      flow.push({
+        sequence: flow.length + 1,
+        type: 'actionSummary',
+        userPromptIndex: msgIdx,
+        actionCount: actionsInRange.length,
+        summary: summary.text,
+        details: summary.details,
+        duration: `${((nextMsgTime - msgTime) / 1000).toFixed(1)}s`,
+        timestampRange: {
+          start: new Date(msgTime).toISOString(),
+          end: new Date(nextMsgTime).toISOString()
+        }
+      });
+    }
+  });
 
   return flow;
 }
+
+function generateActionSummary(tools, promptIdx, startTime, endTime) {
+  const grouped = {};
+  const toolSequence = [];
+
+  tools.forEach(t => {
+    if (!grouped[t.toolName]) {
+      grouped[t.toolName] = 0;
+    }
+    grouped[t.toolName]++;
+    toolSequence.push(t.toolName);
+  });
+
+  // Find top actions and interesting ones
+  const sorted = Object.entries(grouped).sort((a, b) => b[1] - a[1]);
+  const topActions = sorted.slice(0, 3);
+
+  let text = '**Copilot Actions**: ';
+  const details = [];
+
+  // Create readable summary
+  if (topActions.length === 1 && topActions[0][1] === 1) {
+    text += `Executed ${topActions[0][0]}`;
+    details.push(topActions[0][0]);
+  } else if (topActions.length === 1) {
+    text += `Executed ${topActions[0][1]} ${topActions[0][0]} calls`;
+    details.push(`${topActions[0][0]} (${topActions[0][1]})`);
+  } else {
+    text += `Executed ${tools.length} actions: `;
+    const summary = topActions.map(([name, count]) => 
+      count === 1 ? name : `${count}× ${name}`
+    ).join(', ');
+    text += summary;
+    topActions.forEach(([name, count]) => {
+      details.push(`${name} (${count})`);
+    });
+  }
+
+  // Add timing
+  const duration = ((endTime - startTime) / 1000).toFixed(1);
+  text += ` in ${duration}s`;
+
+  return { text, details, toolSequence };
+}
+
 
 function buildLevel2(history, tools, debugEvents) {
   const flow = buildLevel1(history);
@@ -166,6 +264,7 @@ function main() {
     if (unified) {
       saveConsolidated(sessionId, unified);
       console.log(`\n✓ Level 1 (User-Agent): ${unified.conversationFlow.level1.length} events`);
+      console.log(`✓ Level 1.5 (Two-way + Summaries): ${unified.conversationFlow.level1_5.length} events`);
       console.log(`✓ Level 2 (with Tools): ${unified.conversationFlow.level2.length} events`);
     }
     return;
@@ -175,6 +274,6 @@ function main() {
   console.log('Usage: node consolidate.mjs <sessionId>');
 }
 
-export { consolidateSession, buildLevel1, buildLevel2, parseDebugLog };
+export { consolidateSession, buildLevel1, buildLevel1WithSummaries, buildLevel2, parseDebugLog };
 
 main();

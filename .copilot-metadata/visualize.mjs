@@ -45,18 +45,19 @@ function buildDiagram(history, tools, agents, level = 1) {
     d += `    participant Sub_${sanitize(name)} as Sub: ${sanitize(name)}\n`;
   });
   d += '\n';
-  d += `    Note over User,Bot: Conversation starts (Level ${level})\n\n`;
+  d += `    Note over User,Bot: Conversation starts\n\n`;
 
   const events = [];
 
   if (history.messages) {
-    history.messages.forEach(msg => {
+    history.messages.forEach((msg, msgIdx) => {
       if (!msg || !msg.content) return;
       events.push({
         type: 'message',
         role: msg.role,
         content: msg.content,
-        ts: toMs(msg.timestamp)
+        ts: toMs(msg.timestamp),
+        msgIdx: msgIdx
       });
     });
   }
@@ -95,11 +96,43 @@ function buildDiagram(history, tools, agents, level = 1) {
     switch (evt.type) {
       case 'message':
         if (evt.role === 'user') {
-          d += `    User->>Bot: ${truncate(evt.content)}\n\n`;
+          d += `    User->>Bot: ${truncate(evt.content)}\n`;
+          
+          // For Level 1, add action summary after user message
+          if (level === 1) {
+            const nextMsgIdx = evt.msgIdx + 1;
+            if (nextMsgIdx < history.messages.length) {
+              const msgTime = toMs(evt.ts);
+              const nextMsgTime = toMs(history.messages[nextMsgIdx].timestamp);
+              const actionsInRange = tools.filter(t => {
+                const toolTime = toMs(t.timestamp);
+                return toolTime >= msgTime && toolTime < nextMsgTime;
+              });
+              
+              if (actionsInRange.length > 0) {
+                const summary = buildActionSummaryShort(actionsInRange);
+                d += `    Bot-->>User: ${summary}\n`;
+              }
+            } else if (evt.msgIdx === history.messages.length - 1) {
+              // Last message - show actions to present time
+              const msgTime = toMs(evt.ts);
+              const actionsInRange = tools.filter(t => {
+                const toolTime = toMs(t.timestamp);
+                return toolTime >= msgTime;
+              });
+              
+              if (actionsInRange.length > 0) {
+                const summary = buildActionSummaryShort(actionsInRange);
+                d += `    Bot-->>User: ${summary}\n`;
+              }
+            }
+          }
         }
         break;
       case 'assistant-response':
-        d += '    Bot-->>User: [response]\n\n';
+        if (level === 2) {
+          d += '    Bot-->>User: [processing]/[response]\n';
+        }
         break;
       case 'tool-call': {
         const label = evt.toolName === 'unknown' ? `Tool Call #${evt.toolId}` : truncate(evt.toolName, 40);
@@ -108,20 +141,46 @@ function buildDiagram(history, tools, agents, level = 1) {
       }
       case 'tool-response': {
         const status = evt.resultType === 'success' ? 'OK' : evt.resultType;
-        d += `    API-->>-Bot: ${status}\n\n`;
+        d += `    API-->>-Bot: ${status}\n`;
         break;
       }
       case 'agent-start':
         d += `    Bot->>+Sub_${sanitize(evt.agentName)}: start\n`;
         break;
       case 'agent-stop':
-        d += `    Sub_${sanitize(evt.agentName)}-->>-Bot: done\n\n`;
+        d += `    Sub_${sanitize(evt.agentName)}-->>-Bot: done\n`;
         break;
     }
   });
 
-  d += `    Note over User,Bot: Conversation ends (Level ${level})\n`;
+  d += `\n    Note over User,Bot: Conversation ends\n`;
   return d;
+}
+
+function buildActionSummaryShort(tools) {
+  const grouped = {};
+  tools.forEach(t => {
+    if (!grouped[t.toolName]) {
+      grouped[t.toolName] = 0;
+    }
+    grouped[t.toolName]++;
+  });
+
+  const sorted = Object.entries(grouped).sort((a, b) => b[1] - a[1]);
+  const topActions = sorted.slice(0, 3);
+
+  if (tools.length === 0) return '';
+  
+  if (topActions.length === 1 && topActions[0][1] === 1) {
+    return `Executed: ${topActions[0][0]}`;
+  }
+  
+  const summary = topActions.map(([name, count]) => {
+    const clean = name.replace(/copilot_|mcp_/g, '').replace(/_/g, ' ');
+    return count === 1 ? clean : `${count}× ${clean}`;
+  }).join(', ');
+  
+  return `Executed ${tools.length} actions: ${summary}`;
 }
 
 function addInferredResponses(events) {
@@ -229,7 +288,6 @@ function generateMarkdown(sessionId, history, tools, agents, level = 1) {
   md += `**Started:** ${startTime}\n`;
   if (endTime) md += `**Ended:** ${endTime}\n`;
   if (status) md += `**Status:** ${status}\n`;
-  md += `**Visualization Level:** ${level}\n`;
   md += '\n';
 
   md += '## Sequence Diagram\n\n';
@@ -237,13 +295,83 @@ function generateMarkdown(sessionId, history, tools, agents, level = 1) {
   md += buildDiagram(history, tools, agents, level);
   md += '```\n\n';
   
-  if (level === 2) {
+  if (level === 1) {
+    md += '> Level 1: User prompts with Copilot action summaries\n\n';
+  } else if (level === 2) {
     md += buildMetrics(tools);
-  } else {
-    md += `## Note\nLevel 1 shows user-agent conversation flow only. Use level 2 to see tool calls with extended info.\n\n`;
   }
 
   md += `---\n_Session: ${sessionId} | Level: ${level}_\n`;
+  return md;
+}
+
+function buildLevel1_5Content(history, tools) {
+  let md = '> Shows the conversation flow with summaries of actions Copilot took between your prompts.\n\n';
+
+  if (!history.messages) return md;
+
+  history.messages.forEach((msg, msgIdx) => {
+    if (!msg || !msg.content) return;
+
+    const msgTime = new Date(msg.timestamp).getTime();
+    const nextMsgTime = (msgIdx + 1 < history.messages.length) 
+      ? new Date(history.messages[msgIdx + 1].timestamp).getTime()
+      : Date.now();
+
+    // User message
+    md += `**User [${new Date(msg.timestamp).toLocaleTimeString()}]:**\n`;
+    md += `> ${msg.content.substring(0, 500)}\n`;
+    if (msg.content.length > 500) md += `> ...\n`;
+    md += '\n';
+
+    // Find actions between messages
+    const actionsInRange = tools.filter(t => {
+      const toolTime = new Date(t.timestamp).getTime();
+      return toolTime >= msgTime && toolTime < nextMsgTime;
+    });
+
+    if (actionsInRange.length > 0) {
+      md += `**Copilot Response [${((nextMsgTime - msgTime) / 1000).toFixed(1)}s]:**\n\n`;
+
+      // Group by phase
+      const preCalls = actionsInRange.filter(t => t.phase === 'pre');
+      
+      // Summarize actions
+      const grouped = {};
+      preCalls.forEach(t => {
+        if (!grouped[t.toolName]) grouped[t.toolName] = 0;
+        grouped[t.toolName]++;
+      });
+
+      const actionList = Object.entries(grouped)
+        .sort((a, b) => b[1] - a[1])
+        .map(([name, count]) => {
+          const cleanName = name.replace(/^copilot_|^mcp_|_/g, (m) => m === '_' ? ' ' : '').replace(/([A-Z])/g, ' $1').trim();
+          return count === 1 ? `• ${cleanName}` : `• ${cleanName} (${count}×)`;
+        });
+
+      md += 'Executed:\n';
+      md += actionList.join('\n');
+      md += '\n\n';
+
+      md += `<details>\n<summary>View Tool Calls (${preCalls.length} total)</summary>\n\n`;
+      md += `| Position | Tool | Time |\n`;
+      md += `|----------|------|------|\n`;
+      
+      preCalls.forEach((t, idx) => {
+        const cleanName = t.toolName.replace(/^copilot_|^mcp_/g, '').replace(/_/g, ' ');
+        const toolTime = new Date(t.timestamp).toLocaleTimeString();
+        md += `| ${idx + 1} | ${cleanName} | ${toolTime} |\n`;
+      });
+
+      md += `\n</details>\n\n`;
+    } else {
+      md += `**Copilot:** (No additional actions taken)\n\n`;
+    }
+
+    md += '---\n\n';
+  });
+
   return md;
 }
 
@@ -294,23 +422,31 @@ function main() {
   const levelsArg = process.argv[3] || '-levels';
   const defaultLevel = levelsArg.startsWith('-levels') ? 1 : (levelsArg === '2' ? 2 : 1);
 
-  // Parse levels parameter: -levels or -levels=1 or -levels=1,2
+  // Parse levels parameter
   let levels = [defaultLevel];
-  if (process.argv.includes('-levels=1,2') || process.argv.includes('-levels=1') || process.argv[4] === '-levels=2') {
-    const levelParam = process.argv.find(arg => arg.includes('-levels='));
-    if (levelParam) {
-      const parts = levelParam.split('=')[1];
-      levels = parts === '1,2' ? [1, 2] : [parseInt(parts), 2];
-    }
+  const levelParam = process.argv.find(arg => arg.includes('-levels='));
+  if (levelParam) {
+    const parts = levelParam.split('=')[1];
+    levels = parts === '1,2' ? [1, 2] : [parseInt(parts)];
   }
 
-  // If last argument is 2, render level 2 only or both
-  if (process.argv[process.argv.length - 1] === '2') {
-    levels = process.argv[process.argv.length - 2] === '1' ? [1, 2] : [2];
-  } else if (process.argv[process.argv.length - 1] === '1,2') {
-    levels = [1, 2];
-  } else if (process.argv[process.argv.length - 1] === '1') {
-    levels = [1];
+  // If last arguments are numbers, use them as levels
+  const lastArgs = process.argv.slice(3);
+  const numericArgs = lastArgs.filter(arg => !arg.startsWith('-') && (arg === '1' || arg === '2' || arg.includes(',')));
+  
+  if (numericArgs.length > 0) {
+    levels = [];
+    numericArgs.forEach(arg => {
+      if (arg.includes(',')) {
+        arg.split(',').forEach(l => {
+          const lv = parseFloat(l);
+          if (lv === 1 || lv === 2) levels.push(lv);
+        });
+      } else {
+        const lv = parseFloat(arg);
+        if (lv === 1 || lv === 2) levels.push(lv);
+      }
+    });
   }
 
   if (sessionId && !sessionId.startsWith('-')) {
@@ -323,11 +459,11 @@ function main() {
     return;
   }
   
-  console.log('❌ No session ID provided, processing all sessions...');
-  console.log('Usage: node visualize.mjs <sessionId> [1|2|1,2]');
-  console.log('       node visualize.mjs <sessionId> -levels (default level 1)');
-  console.log('       node visualize.mjs <sessionId> -levels=2');
-  console.log('       node visualize.mjs <sessionId> 1 2 (renders both levels)');
+  console.log('❌ No session ID provided');
+  console.log('Usage:');
+  console.log('  node visualize.mjs <sessionId>         (default: level 1)');
+  console.log('  node visualize.mjs <sessionId> 1 2     (both levels)');
+  console.log('  node visualize.mjs <sessionId> 2       (level 2 only)');
 
   if (!fs.existsSync(dataDir)) {
     console.log('No data directory found');

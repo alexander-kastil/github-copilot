@@ -28,6 +28,16 @@
                          "content":  "ok then wouldnt it make more sense to process the 3 json files to conv-sessionsid.json to a common datasource that then could be used to serve as unified data for the mermaid and introduce another parm -levels (default 1 = user to agent) and 2 including the tool call with the extened info. please test bot param levels",
                          "timestamp":  "2026-02-08T18:58:35.802Z",
                          "role":  "user"
+                     },
+                     {
+                         "content":  "that is already great progress! my initial request was having 2 way communications. what we do not have is what copilot did between the prompt and the next promot of the user. to get a summary as list of the main actions taken out of debug based on timestamps in between 2 user prompts would be great!",
+                         "timestamp":  "2026-02-08T19:03:21.105Z",
+                         "role":  "user"
+                     },
+                     {
+                         "content":  "yes ... but i meant as a mermaid ... no need to have 1.5 ... the info you just produced as 1",
+                         "timestamp":  "2026-02-08T19:07:55.895Z",
+                         "role":  "user"
                      }
                  ]
 }

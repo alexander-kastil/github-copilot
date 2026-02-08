@@ -2,7 +2,6 @@
 
 **Started:** 2026-02-08T18:46:37.414Z
 **Status:** active
-**Visualization Level:** 2
 
 ## Sequence Diagram
 
@@ -13,10 +12,9 @@ sequenceDiagram
     participant Bot as GH Copilot
     participant API as Tool Use
 
-    Note over User,Bot: Conversation starts (Level 2)
+    Note over User,Bot: Conversation starts
 
     User->>Bot: Navigate to src/ and execute: dotnet new webapit -n copilot-...
-
     Bot->>+API: copilot_readFile
     Bot->>+API: manage_todo_list
     Bot->>+API: run_in_terminal
@@ -48,67 +46,36 @@ sequenceDiagram
     Bot->>+API: copilot_readFile
     Bot->>+API: copilot_readFile
     API-->>-Bot: OK
-
     API-->>-Bot: OK
-
     API-->>-Bot: OK
-
     API-->>-Bot: OK
-
     API-->>-Bot: OK
-
     API-->>-Bot: OK
-
     API-->>-Bot: OK
-
     API-->>-Bot: OK
-
     API-->>-Bot: OK
-
     API-->>-Bot: OK
-
     API-->>-Bot: OK
-
     API-->>-Bot: OK
-
     API-->>-Bot: OK
-
     API-->>-Bot: OK
-
     API-->>-Bot: OK
-
     API-->>-Bot: OK
-
     API-->>-Bot: OK
-
     API-->>-Bot: OK
-
     API-->>-Bot: OK
-
     API-->>-Bot: OK
-
     API-->>-Bot: OK
-
     API-->>-Bot: OK
-
     API-->>-Bot: OK
-
     API-->>-Bot: OK
-
     API-->>-Bot: OK
-
     API-->>-Bot: OK
-
     API-->>-Bot: OK
-
     API-->>-Bot: OK
-
     API-->>-Bot: OK
-
     API-->>-Bot: OK
-
     User->>Bot: whilee the terminal runs use chrome mcp
-
     Bot->>+API: run_in_terminal
     Bot->>+API: await_terminal
     Bot->>+API: mcp_chrome-devtoo_new_page
@@ -123,43 +90,25 @@ sequenceDiagram
     Bot->>+API: mcp_chrome-devtoo_take_snapshot
     Bot->>+API: mcp_chrome-devtoo_click
     API-->>-Bot: OK
-
     API-->>-Bot: OK
-
     API-->>-Bot: OK
-
     API-->>-Bot: OK
-
     API-->>-Bot: OK
-
     API-->>-Bot: OK
-
     API-->>-Bot: OK
-
     API-->>-Bot: OK
-
     API-->>-Bot: OK
-
     API-->>-Bot: OK
-
     API-->>-Bot: OK
-
     API-->>-Bot: OK
-
     API-->>-Bot: OK
-
     User->>Bot: questions. do this mermaids support making the tool call lay...
-
     Bot->>+API: get-syntax-docs-mermaid
     Bot->>+API: copilot_readFile
     API-->>-Bot: OK
-
     API-->>-Bot: OK
-
     User->>Bot: question 2. couldnt we asign more meaning to the tool call w...
-
     User->>Bot: ok then wouldnt it make more sense to process the 3 json fil...
-
     Bot->>+API: copilot_listDirectory
     Bot->>+API: copilot_listDirectory
     Bot->>+API: copilot_readFile
@@ -177,48 +126,90 @@ sequenceDiagram
     Bot->>+API: copilot_replaceString
     Bot->>+API: run_in_terminal
     Bot->>+API: run_in_terminal
+    Bot->>+API: copilot_readFile
+    Bot->>+API: copilot_readFile
+    Bot->>+API: copilot_readFile
+    Bot->>+API: copilot_readFile
+    API-->>-Bot: OK
+    API-->>-Bot: OK
+    API-->>-Bot: OK
+    API-->>-Bot: OK
+    API-->>-Bot: OK
+    API-->>-Bot: OK
+    API-->>-Bot: OK
+    API-->>-Bot: OK
+    API-->>-Bot: OK
+    API-->>-Bot: OK
+    API-->>-Bot: OK
+    API-->>-Bot: OK
+    API-->>-Bot: OK
+    API-->>-Bot: OK
+    API-->>-Bot: OK
+    API-->>-Bot: OK
+    API-->>-Bot: OK
+    API-->>-Bot: OK
+    API-->>-Bot: OK
+    API-->>-Bot: OK
+    API-->>-Bot: OK
+    User->>Bot: that is already great progress! my initial request was havin...
+    Bot->>+API: copilot_replaceString
+    Bot->>+API: copilot_replaceString
+    Bot->>+API: copilot_replaceString
+    Bot->>+API: copilot_replaceString
+    Bot->>+API: copilot_replaceString
+    Bot->>+API: copilot_replaceString
+    Bot->>+API: copilot_replaceString
+    Bot->>+API: copilot_replaceString
+    Bot->>+API: copilot_replaceString
+    Bot->>+API: run_in_terminal
+    Bot->>+API: copilot_readFile
+    Bot->>+API: copilot_replaceString
+    Bot->>+API: copilot_readFile
+    Bot->>+API: copilot_replaceString
+    Bot->>+API: copilot_readFile
+    Bot->>+API: run_in_terminal
+    Bot->>+API: run_in_terminal
+    Bot->>+API: copilot_readFile
+    API-->>-Bot: OK
+    API-->>-Bot: OK
+    API-->>-Bot: OK
+    API-->>-Bot: OK
+    API-->>-Bot: OK
+    API-->>-Bot: OK
+    API-->>-Bot: OK
+    API-->>-Bot: OK
+    API-->>-Bot: OK
+    API-->>-Bot: OK
+    API-->>-Bot: OK
+    API-->>-Bot: OK
+    API-->>-Bot: OK
+    API-->>-Bot: OK
+    API-->>-Bot: OK
+    API-->>-Bot: OK
+    API-->>-Bot: OK
+    API-->>-Bot: OK
+    User->>Bot: yes ... but i meant as a mermaid ... no need to have 1.5 ......
+    Bot->>+API: copilot_replaceString
+    Bot->>+API: copilot_replaceString
+    Bot->>+API: copilot_replaceString
+    Bot->>+API: copilot_replaceString
+    Bot->>+API: copilot_replaceString
+    Bot->>+API: run_in_terminal
+    API-->>-Bot: OK
+    API-->>-Bot: OK
+    API-->>-Bot: OK
+    API-->>-Bot: OK
+    API-->>-Bot: OK
     API-->>-Bot: OK
 
-    API-->>-Bot: OK
-
-    API-->>-Bot: OK
-
-    API-->>-Bot: OK
-
-    API-->>-Bot: OK
-
-    API-->>-Bot: OK
-
-    API-->>-Bot: OK
-
-    API-->>-Bot: OK
-
-    API-->>-Bot: OK
-
-    API-->>-Bot: OK
-
-    API-->>-Bot: OK
-
-    API-->>-Bot: OK
-
-    API-->>-Bot: OK
-
-    API-->>-Bot: OK
-
-    API-->>-Bot: OK
-
-    API-->>-Bot: OK
-
-    API-->>-Bot: OK
-
-    Note over User,Bot: Conversation ends (Level 2)
+    Note over User,Bot: Conversation ends
 ```
 
 ## Metrics
 
 | Metric | Value |
 |--------|-------|
-| Total Tool Calls | 62 |
+| Total Tool Calls | 90 |
 | Successful | 0 |
 | Failed | 0 |
 
@@ -226,11 +217,11 @@ sequenceDiagram
 
 | Tool | Calls |
 |------|-------|
-| copilot_readFile | 13 |
+| copilot_readFile | 21 |
 | manage_todo_list | 2 |
-| run_in_terminal | 11 |
+| run_in_terminal | 15 |
 | copilot_listDirectory | 5 |
-| copilot_replaceString | 10 |
+| copilot_replaceString | 26 |
 | copilot_createDirectory | 2 |
 | copilot_createFile | 3 |
 | kill_terminal | 3 |
