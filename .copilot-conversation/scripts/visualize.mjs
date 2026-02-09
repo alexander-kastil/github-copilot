@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import readline from 'readline';
 import { consolidateSession } from './consolidate.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -460,6 +461,33 @@ function deleteAllSessions() {
   console.log(`\n✓ Deleted ${totalDeleted} session(s)`);
 }
 
+function promptForSessions() {
+  const sessions = findAllSessions();
+  
+  if (sessions.length === 0) {
+    console.log('❌ No sessions found');
+    return [];
+  }
+
+  console.log('\n📊 Available conversations:\n');
+  sessions.forEach((id, idx) => {
+    const historyPath = path.join(dataDir, `history-${id}.json`);
+    let title = id;
+    try {
+      const history = JSON.parse(fs.readFileSync(historyPath, 'utf-8'));
+      if (history.messages && history.messages.length > 0) {
+        const firstMsg = history.messages[0].content;
+        title = firstMsg.length > 40 ? firstMsg.substring(0, 40) + '...' : firstMsg;
+      }
+    } catch (e) {}
+    
+    console.log(`  [${idx + 1}] ${id}`);
+    console.log(`      "${title}"`);
+  });
+
+  return sessions;
+}
+
 function showAvailableSessions() {
   const sessions = findAllSessions();
   
@@ -475,8 +503,9 @@ function showAvailableSessions() {
     try {
       const history = JSON.parse(fs.readFileSync(historyPath, 'utf-8'));
       if (history.messages && history.messages.length > 0) {
-        const firstMsg = history.messages[0].content.substring(0, 50);
-        title = `${firstMsg}...`;
+        const firstMsg = history.messages[0].content;
+        const truncated = firstMsg.length > 40 ? firstMsg.substring(0, 40) + '...' : firstMsg;
+        title = truncated;
       }
     } catch (e) {}
     
@@ -484,7 +513,7 @@ function showAvailableSessions() {
     console.log(`      "${title}"`);
   });
 
-  console.log('\nUsage:');
+  console.log('\nUsage for deletion:');
   console.log(`  node ./scripts/visualize.mjs --delete --session <id>`);
   console.log(`  node ./scripts/visualize.mjs --delete --session all\n`);
 }
@@ -567,32 +596,17 @@ function main() {
     return;
   }
   
-  // No session specified - process all sessions
-  console.log('📊 Processing all sessions...\n');
-
-  if (!fs.existsSync(dataDir)) {
-    console.log('❌ No data directory found');
-    console.log('\nUsage:');
-    console.log('  npm run visualize');
-    console.log('  node ./scripts/visualize.mjs --session <id>');
-    console.log('  node ./scripts/visualize.mjs --session <id> --level <level>');
-    console.log('  node ./scripts/visualize.mjs --delete');
-    console.log('  node ./scripts/visualize.mjs --delete --session <id>');
-    console.log('  node ./scripts/visualize.mjs --delete --session all');
+  // No session specified - show available and process all
+  const sessions = promptForSessions();
+  if (sessions.length === 0) {
     return;
   }
 
-  const historyFiles = fs.readdirSync(dataDir).filter(f => f.startsWith('history-') && f.endsWith('.json'));
-  if (historyFiles.length === 0) {
-    console.log('❌ No session data found');
-    return;
-  }
+  console.log(`📊 Processing ${sessions.length} session(s)...\n`);
 
   let count = 0;
-  for (const f of historyFiles) {
-    const match = f.match(/^history-(.+)\.json$/);
-    if (!match) continue;
-    if (processSession(match[1], 1)) count++;
+  for (const sessionId of sessions) {
+    if (processSession(sessionId, 1)) count++;
   }
   console.log(`\n✓ Processed ${count} session(s)`);
 }
