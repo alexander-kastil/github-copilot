@@ -1,12 +1,18 @@
 # GitHub Copilot Introduction
 
-Get started with GitHub Copilot — understand its capabilities, installation options, latest releases, and available extensions. This module establishes the foundation for using AI-assisted coding in VS Code and GitHub workflows.
+Get started with GitHub Copilot — understand its capabilities, installation options, latest releases, and available extensions This module establishes the foundation for using AI-assisted coding in VS Code and GitHub workflows.
 
-**Visual Studio Code Updates** — Track new VS Code releases, features, and improvements that impact Copilot integration and development workflows.
+GitHub Copilot operates in two complementary modes. AI Assisted Coding provides real-time completions and suggestions as you type, allowing you to accept or modify highlighted code snippets directly. In contrast, Agentic Software Engineering employs specialized agents that autonomously work toward assigned goals, orchestrating multiple tools and decisions to deliver complete solutions. 
 
-**GitHub Copilot Extensions** — Discover and install specialized extensions that extend Copilot capabilities with domain-specific AI agents and tools.
+>Note: Although this class quickly introduces AI Assisted Coding, it focuses on Agentic Software Engineering.
 
-**GitHub Blog** — Stay informed on GitHub announcements, product releases, and best practices from the community and GitHub team.
+GitHub Copilot Plans & Features provides an overview of available subscription tiers and the specific capabilities included in each plan, helping you choose the right option for your needs.
+
+Visual Studio Code Updates tracks new VS Code releases and features that impact Copilot integration, ensuring you stay current with the latest development tools and improvements.
+
+GitHub Copilot Extensions expands Copilot's functionality with domain-specific AI agents and tools, enabling specialized capabilities for different development domains and workflows.
+
+GitHub Blog delivers announcements, product releases, and best practices from GitHub and the community, keeping you informed about new features and recommended usage patterns.
 
 ## Links & Resources
 
