@@ -1,3 +1,0 @@
-# Exclude all data from git
-*
-!.gitignore
