@@ -2,13 +2,12 @@
 
 ## [Module 1: GitHub Copilot Fundamentals](./01-fundamentals/)
 
+- [GitHub Codespaces](01-fundamentals/00-codespaces/)
 - [Introduction](01-fundamentals/01-intro/)
-- [GitHub Codespaces / Dev Containers](01-fundamentals/02-codespaces/)
-- [Prompting Techniques](01-fundamentals/03-prompting/)
-- [Copilot Settings](01-fundamentals/03-settings/)
-- [Models & Language Models Editor](01-fundamentals/04-models/)
-- [Slash Commands / Agents (Chat Participants)](01-fundamentals/05-slash-commands/)
-- [Context Variables](01-fundamentals/06-context-variables/)
+- [Selecting Models](01-fundamentals/02-models/)
+- [AI Assisted Coding](01-fundamentals/03-ai-assisted-coding/)
+- [Slash Commands](01-fundamentals/04-slash-commands/)
+- [Context Variables](01-fundamentals/05-context-variables/)
 
 ## [Module 2: Copilot Artifacts](./02-copilot-artifacts/)
 
