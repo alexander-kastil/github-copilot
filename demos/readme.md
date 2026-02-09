@@ -9,7 +9,7 @@
 - [Slash Commands](01-fundamentals/04-slash-commands/)
 - [Context Variables](01-fundamentals/05-context-variables/)
 
-## [Module 2: Copilot Artifacts](./02-copilot-artifacts/)
+## [Module 2: Copilot Artifacts & Tools](./02-copilot-artifacts/)
 
 - [Instructions & Reusable Prompts](02-copilot-artifacts/01-instructions/)
 - [Prompts](02-copilot-artifacts/02-prompts/)

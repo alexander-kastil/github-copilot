@@ -1,4 +1,4 @@
-# Copilot Artifacts
+# Copilot Artifacts & Tools
 
 ## Copilot Customization Overview
 
