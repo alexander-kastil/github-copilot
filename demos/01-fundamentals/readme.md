@@ -6,10 +6,10 @@ Master the core capabilities and foundational concepts of GitHub Copilot — fro
 
 | Topic                                            | Description                                                                                                  |
 | ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
-| **[Intro](./01-intro/)**                         | Overview of GitHub Copilot capabilities, installation, and initial setup in VS Code.                         |
-| **[Codespaces](./02-codespaces/)**               | Using Copilot within GitHub Codespaces for cloud-based development and instant, pre-configured environments. |
-| **[Prompting](./03-prompting/)**                 | Techniques for writing effective prompts to get better code suggestions and AI responses.                    |
-| **[Settings](./03-settings/)**                   | Configuring Copilot behavior, model selection, and workspace preferences in VS Code.                         |
-| **[Models](./04-models/)**                       | Understanding different AI models available in Copilot and their strengths for various tasks.                |
-| **[Slash Commands](./05-slash-commands/)**       | Using Copilot Chat slash commands for focused tasks like `/test`, `/fix`, `/explain`, and more.              |
-| **[Context Variables](./06-context-variables/)** | Leveraging context variables to provide relevant code and file context to Copilot.                           |
+| **[Introduction](./01-intro/)**                 | Overview of GitHub Copilot capabilities, installation, and initial setup in VS Code.                         |
+| **[Codespaces](./02-codespaces/)**              | Using Copilot within GitHub Codespaces for cloud-based development and instant, pre-configured environments. |
+| **[Settings](./03-settings/)**                  | Configure VS Code to optimize Copilot workflows, control behavior, inline suggestions, and workspace consistency. |
+| **[Models](./04-models/)**                      | Explore multiple AI models available in Copilot and select the best one for your task based on capabilities. |
+| **[AI Assisted Coding](./05-ai-assisted-coding/)**| Master prompting techniques including few-shot, chain-of-thought, and context-based approaches to guide Copilot. |
+| **[Slash Commands](./06-slash-commands/)**      | Using Copilot Chat slash commands for focused tasks like `/test`, `/fix`, `/explain`, and more.              |
+| **[Context Variables](./07-context-variables/)** | Leveraging context variables to provide relevant code and file context to Copilot.                           |
