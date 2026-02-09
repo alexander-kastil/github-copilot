@@ -185,6 +185,13 @@ function buildActionSummaryShort(tools) {
   return `Executed ${tools.length} actions: ${summary}`;
 }
 
+function toWordSummary(text, maxWords = 6) {
+  if (!text) return '';
+  const words = text.split(/\s+/).filter(Boolean);
+  if (words.length <= maxWords) return text;
+  return words.slice(0, maxWords).join(' ');
+}
+
 function addInferredResponses(events) {
   const result = [];
   let hadAgentActivity = false;
@@ -285,8 +292,13 @@ function generateMarkdown(sessionId, history, tools, agents, level = 1) {
   const startTime = isValidString(history.startTime) ? history.startTime : 'N/A';
   const endTime = isValidString(history.endTime) ? history.endTime : null;
   const status = isValidString(history.status) ? history.status : null;
+  const preTools = tools.filter(t => t && t.phase === 'pre');
+  const actionSummary = preTools.length > 0
+    ? toWordSummary(buildActionSummaryShort(preTools), 6)
+    : 'No actions recorded';
 
-  let md = `# Conversation: ${sessionId}\n\n`;
+  let md = `# ${actionSummary}\n\n`;
+  md += `_Session ID: ${sessionId}_\n\n`;
   md += `**Started:** ${startTime}\n`;
   if (endTime) md += `**Ended:** ${endTime}\n`;
   if (status) md += `**Status:** ${status}\n`;
@@ -303,7 +315,7 @@ function generateMarkdown(sessionId, history, tools, agents, level = 1) {
     md += buildMetrics(tools);
   }
 
-  md += `---\n_Session: ${sessionId} | Level: ${level}_\n`;
+  md += `---\n_Level: ${level}_\n`;
   return md;
 }
 

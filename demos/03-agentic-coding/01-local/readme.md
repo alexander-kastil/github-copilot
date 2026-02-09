@@ -14,3 +14,9 @@ Local agents execute within your current VS Code session with real-time feedback
 | Auth Context     | Full access to local authentication: Azure CLI credentials, Git tokens, SSH keys, environment variables                                                                                |
 | Online Resources | Yes, can interact with online resources through local tools: Azure DevOps MCP, GitHub API, cloud CLIs                                                                                  |
 | Limitations      | Blocks editor; limited by local resources; cannot parallelize                                                                                                                          |
+
+## Demos
+
+| Name | Description |
+| --- | --- |
+| [Scaffold .NET API](./01-scaffold-net/) | Create a starter .NET API using a local agent workflow. |

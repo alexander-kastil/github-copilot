@@ -1,6 +1,6 @@
 # Sub-Agents
 
-Sub-agents enable one agent to delegate work to specialized agents, keeping the main agent's context focused. By offloading research, analysis, and implementation tasks to focused sub-agents, you prevent context bloat and help the main agent stay focused on orchestrating the overall workflow.
+Sub-agents enable one agent to delegate work to specialized agents, keeping the main agent's context window focused. By offloading research, analysis, and implementation tasks to focused sub-agents, you prevent context bloat and help the main agent stay focused on orchestrating the overall workflow.
 
 The key advantage is parallel execution—VS Code can run multiple sub-agents simultaneously for multi-step workflows. Instead of researching authentication patterns, analyzing code structure, then reviewing documentation sequentially, you can do all three at once.
 

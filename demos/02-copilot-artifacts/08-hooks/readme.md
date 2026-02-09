@@ -44,28 +44,28 @@ The tracker captures the full conversation lifecycle as a sequence of events lea
 sequenceDiagram
     autonumber
     actor User as User
-    participant Agent as GH Copilot
+    participant GHCopilot as "GH Copilot"
 
-    Note over User,Agent: Conversation starts
-    Note over User,Agent: sessionStart: Create session ID & JSON files
+    Note over User,GHCopilot: Conversation starts
+    Note over User,GHCopilot: sessionStart: Create session ID & JSON files
 
-    User->>Agent: Navigate to src/ and execute: dotnet new webapit -n copilot-...
-    Note over User,Agent: userPromptSubmitted: Log prompt to history
-    Agent->>Agent: preToolUse: Record run_in_terminal
-    Agent-->>Agent: postToolUse: Log command output
-    Agent->>Agent: preToolUse: Record readFile calls
-    Agent-->>Agent: postToolUse: Log file contents
-    Agent-->>User: Executed 30 actions: 8× run in terminal, 4× readFile, 3× replaceString
+    User->>GHCopilot: Navigate to src/ and execute: dotnet new webapit -n copilot-...
+    Note over User,GHCopilot: userPromptSubmitted: Log prompt to history
+    GHCopilot->>GHCopilot: preToolUse: Record run_in_terminal
+    GHCopilot-->>GHCopilot: postToolUse: Log command output
+    GHCopilot->>GHCopilot: preToolUse: Record readFile calls
+    GHCopilot-->>GHCopilot: postToolUse: Log file contents
+    GHCopilot-->>User: Executed 30 actions: 8× run in terminal, 4× readFile, 3× replaceString
 
-    User->>Agent: while the terminal runs use chrome mcp
-    Note over User,Agent: Multiple preToolUse/postToolUse events
-    Agent-->>User: Executed 13 actions: 3× readFile, 3× chrome snapshot, 2× new page
+    User->>GHCopilot: while the terminal runs use chrome mcp
+    Note over User,GHCopilot: Multiple preToolUse/postToolUse events
+    GHCopilot-->>User: Executed 13 actions: 3× readFile, 3× chrome snapshot, 2× new page
 
-    User->>Agent: More questions and refinements
-    Agent-->>User: Multiple iterations with tool tracking
+    User->>GHCopilot: More questions and refinements
+    GHCopilot-->>User: Multiple iterations with tool tracking
 
-    Note over User,Agent: Conversation ends
-    Note over User,Agent: sessionEnd: Finalize history & run visualize.mjs
+    Note over User,GHCopilot: Conversation ends
+    Note over User,GHCopilot: sessionEnd: Finalize history & run visualize.mjs
 ```
 
 The visualization generates a Mermaid sequence diagram showing the complete interaction pattern, making it easy to understand tool usage patterns, identify bottlenecks, and replay conversation flows for debugging or documentation purposes.
@@ -79,12 +79,12 @@ Here's the prompt that generated this recorded conversation:
 ```
 Navigate to src/ and execute: dotnet new webapi -n copilot-api
 Navigate to src/copilot-api and execute: dotnet new .gitignore
-In src/copilot-api i want you to apply my coding conventions for .net and then remove all weather (controller) related data. 
-next implement a InstructionsController with model name, description as a standalone controller and register it. 
-Use microsoft learn mcp for planning.
-Provide scalar ui in the root. 
-Build run and fix all errors. while keeping the dotnet app running use your chrome dev tools mcp visit the http url 
-and port it is configured to run on an check the result. no need to use https
+In src/copilot-api i want you to apply my coding conventions for .NET and then remove all weather (controller) related data. 
+Next implement a InstructionsController with model name, description as a standalone controller and register it. 
+Use Microsoft Learn MCP for planning.
+Provide Scalar UI in the root. 
+Build run and fix all errors. while keeping the .NET app running use your Chrome Dev Tools MCP visit the HTTP URL 
+and port it is configured to run on an check the result. no need to use HTTPS
 ```
 
 The hooks recorded every tool call, file modification, terminal command, and browser interaction during this workflow:
@@ -93,25 +93,25 @@ The hooks recorded every tool call, file modification, terminal command, and bro
 sequenceDiagram
     autonumber
     actor User as User
-    participant Bot as GH Copilot
+    participant GHCopilot as "GH Copilot"
 
-    Note over User,Bot: Conversation starts
+    Note over User,GHCopilot: Conversation starts
 
-    User->>Bot: Navigate to src/ and execute: dotnet new webapit -n copilot-...
-    Bot-->>User: Executed 30 actions: 8× run in terminal, 4× readFile, 3× replaceString
-    User->>Bot: whilee the terminal runs use chrome mcp
-    Bot-->>User: Executed 13 actions: 3× readFile, 3× chrome-devtoo take snapshot, 2× chrome-devtoo new page
-    User->>Bot: questions. do this mermaids support making the tool call lay...
-    Bot-->>User: Executed 2 actions: get-syntax-docs-mermaid, readFile
-    User->>Bot: question 2. couldnt we asign more meaning to the tool call w...
-    User->>Bot: ok then wouldnt it make more sense to process the 3 json fil...
-    Bot-->>User: Executed 21 actions: 9× readFile, 7× replaceString, 2× listDirectory
-    User->>Bot: that is already great progress! my initial request was havin...
-    Bot-->>User: Executed 18 actions: 11× replaceString, 4× readFile, 3× run in terminal
-    User->>Bot: yes ... but i meant as a mermaid ... no need to have 1.5 ......
-    Bot-->>User: Executed 7 actions: 5× replaceString, run in terminal, readFile
+    User->>GHCopilot: Navigate to src/ and execute: dotnet new webapit -n copilot-...
+    GHCopilot-->>User: Executed 30 actions: 8× run in terminal, 4× readFile, 3× replaceString
+    User->>GHCopilot: whilee the terminal runs use chrome mcp
+    GHCopilot-->>User: Executed 13 actions: 3× readFile, 3× chrome-devtoo take snapshot, 2× chrome-devtoo new page
+    User->>GHCopilot: questions. do this mermaids support making the tool call lay...
+    GHCopilot-->>User: Executed 2 actions: get-syntax-docs-mermaid, readFile
+    User->>GHCopilot: question 2. couldnt we asign more meaning to the tool call w...
+    User->>GHCopilot: ok then wouldnt it make more sense to process the 3 json fil...
+    GHCopilot-->>User: Executed 21 actions: 9× readFile, 7× replaceString, 2× listDirectory
+    User->>GHCopilot: that is already great progress! my initial request was havin...
+    GHCopilot-->>User: Executed 18 actions: 11× replaceString, 4× readFile, 3× run in terminal
+    User->>GHCopilot: yes ... but i meant as a mermaid ... no need to have 1.5 ......
+    GHCopilot-->>User: Executed 7 actions: 5× replaceString, run in terminal, readFile
 
-    Note over User,Bot: Conversation ends
+    Note over User,GHCopilot: Conversation ends
 ```
 
 ## Links & Resources
