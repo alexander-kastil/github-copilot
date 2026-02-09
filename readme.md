@@ -2,10 +2,6 @@
 
 Companion Material for Class Delivery by [Alexander Kastil](https://www.integrations.at/kontakt-impressum.aspx) containing:
 
-## Session Recordings
-
-- [Latest Conversation](.copilot-conversation/conv-dd9eb250-a034-45d1-858e-57cd51af9006-level1.md)
-
 ## License & Re-Use
 
 This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
