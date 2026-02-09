@@ -92,7 +92,7 @@ Add this setting to your VS Code user settings:
 
 Claude agents are included in your **GitHub Copilot Pro+ subscription** — no additional setup or billing required.
 
-## Links & Resources
+## Key Topics Covered in This Section
 
 - [VS Code Custom Agents Documentation](https://code.visualstudio.com/docs/copilot/customization/custom-agents)
 - [Third-party agents in Visual Studio Code](https://code.visualstudio.com/docs/copilot/agents/third-party-agents)

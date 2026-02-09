@@ -70,6 +70,6 @@ In this class we have [registered](/.vscode/mcp.json) several MCP servers that i
 | **Debug MCP**       | Local (`npx`)   | Debugging and diagnostic capabilities for agents, enabling introspection and issue diagnosis.            |
 | **Chrome DevTools** | Local (`npx`)   | Chrome DevTools protocol integration for browser debugging, performance profiling, and DOM inspection.   |
 
-## Links & Resources
+## Key Topics Covered in This Section
 
 - [VS Code MCP Servers Documentation](https://code.visualstudio.com/docs/copilot/customization/mcp-servers)

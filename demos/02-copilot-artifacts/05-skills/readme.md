@@ -43,7 +43,7 @@ description: Description of what the skill does and when to use it
 Your detailed instructions, guidelines, and examples go here...
 ```
 
-## Links & Resources
+## Key Topics Covered in This Section
 
 - [VS Code Agent Skills Documentation](https://code.visualstudio.com/docs/copilot/customization/agent-skills)
 - [Agent Skills Standard](https://agentskills.io/)

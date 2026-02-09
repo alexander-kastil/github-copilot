@@ -39,7 +39,7 @@ Enable core customization features in VS Code settings:
 | **[Context Engineering](./07-context-engineering/)**                                       | Advanced techniques for structuring context to improve Copilot's understanding and suggestions. This involves understanding how Copilot processes information and optimizing your prompts and context to yield better results.                                                                                                                         |
 | **[Hooks](./08-hooks/)**                                                                   | Extend agent behavior by executing custom shell commands at key points during agent execution. Hooks enable logging, validation, notifications, and custom integrations by triggering on session events, tool invocations, and agent lifecycle changes without modifying agent code.                                                                    |
 
-## Links & Resources
+## Key Topics Covered in This Section
 
 - [VS Code Copilot Customization Overview](https://code.visualstudio.com/docs/copilot/customization/overview)
 - [Awesome Copilot - Community Resources](https://github.com/github/awesome-copilot)

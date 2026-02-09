@@ -61,7 +61,7 @@ Copilot manages the entire agent lifecycle—when you define a tool, Copilot dec
 
 For a complete tutorial with examples, see the [Getting Started Guide](https://github.com/github/copilot-sdk/blob/main/docs/getting-started.md).
 
-## Links & Resources
+## Key Topics Covered in This Section
 
 - [GitHub Copilot SDK Repository](https://github.com/github/copilot-sdk)
 - [Getting Started Guide](https://github.com/github/copilot-sdk/blob/main/docs/getting-started.md)

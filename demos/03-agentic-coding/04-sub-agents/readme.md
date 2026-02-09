@@ -24,7 +24,7 @@ Implement the following Angular component using test-driven development with Vit
 3. Use the Refactor agent to improve code quality while keeping tests green
 ```
 
-## Links & Resources
+## Key Topics Covered in This Section
 
 - [VS Code Subagents Documentation](https://code.visualstudio.com/docs/copilot/agents/subagents)
 - [Custom Agents](https://code.visualstudio.com/docs/copilot/customization/custom-agents)

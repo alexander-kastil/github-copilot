@@ -114,7 +114,7 @@ sequenceDiagram
     Note over User,GHCopilot: Conversation ends
 ```
 
-## Links & Resources
+## Key Topics Covered in This Section
 
 - [Using hooks with GitHub Copilot agents](https://docs.github.com/en/copilot/how-tos/use-copilot-agents/coding-agent/use-hooks)
 - [Hooks configuration reference](https://docs.github.com/en/copilot/reference/hooks-configuration)
