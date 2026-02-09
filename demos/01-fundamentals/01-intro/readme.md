@@ -10,6 +10,7 @@ Get started with GitHub Copilot — understand its capabilities, installation op
 
 ## Links & Resources
 
+- [GitHub Copilot Plans & Features](https://docs.github.com/en/copilot/get-started/plans)
 - [Visual Studio Code Updates](https://code.visualstudio.com/updates)
 - [GitHub Copilot Extensions](https://github.com/marketplace?type=apps&copilot_app=true)
 - [GitHub Blog](https://github.blog/)
