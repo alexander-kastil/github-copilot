@@ -276,4 +276,6 @@ function main() {
 
 export { consolidateSession, buildLevel1, buildLevel1WithSummaries, buildLevel2, parseDebugLog };
 
-main();
+if (process.argv[1] && process.argv[1].endsWith('consolidate.mjs')) {
+  main();
+}

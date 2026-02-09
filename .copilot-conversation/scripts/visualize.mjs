@@ -386,6 +386,109 @@ function findAgentFiles(sessionId) {
     });
 }
 
+function findAllSessions() {
+  if (!fs.existsSync(dataDir)) return [];
+  const files = fs.readdirSync(dataDir);
+  const sessionIds = new Set();
+  
+  files.forEach(f => {
+    const match = f.match(/^(history|tools|debug|agents-.+)-(.*)\.(json|log)$/);
+    if (match && match[2]) {
+      sessionIds.add(match[2]);
+    }
+  });
+  
+  return Array.from(sessionIds).sort();
+}
+
+function deleteSession(sessionId) {
+  if (!fs.existsSync(dataDir)) {
+    console.log('❌ Data directory not found');
+    return false;
+  }
+
+  const conversationsDir = path.join(__dirname, '../conversations');
+  const files = [
+    path.join(dataDir, `history-${sessionId}.json`),
+    path.join(dataDir, `tools-${sessionId}.json`),
+    path.join(dataDir, `debug-${sessionId}.log`),
+    path.join(dataDir, `conv-${sessionId}.json`),
+    path.join(conversationsDir, `conv-${sessionId}.md`)
+  ];
+
+  // Also find agent files for this session
+  const allFiles = fs.readdirSync(dataDir);
+  const agentFiles = allFiles
+    .filter(f => f.startsWith('agents-') && f.endsWith(`-${sessionId}.json`))
+    .map(f => path.join(dataDir, f));
+  
+  files.push(...agentFiles);
+
+  let deleted = 0;
+  files.forEach(f => {
+    if (fs.existsSync(f)) {
+      fs.unlinkSync(f);
+      deleted++;
+    }
+  });
+
+  if (deleted > 0) {
+    console.log(`✓ Deleted ${deleted} file(s) for session ${sessionId}`);
+    return true;
+  } else {
+    console.log(`⚠️  No files found for session ${sessionId}`);
+    return false;
+  }
+}
+
+function deleteAllSessions() {
+  const sessions = findAllSessions();
+  
+  if (sessions.length === 0) {
+    console.log('❌ No sessions found');
+    return;
+  }
+
+  console.log(`\n⚠️  Deleting all ${sessions.length} session(s)...\n`);
+  
+  let totalDeleted = 0;
+  sessions.forEach(id => {
+    const result = deleteSession(id);
+    if (result) totalDeleted++;
+  });
+  
+  console.log(`\n✓ Deleted ${totalDeleted} session(s)`);
+}
+
+function showAvailableSessions() {
+  const sessions = findAllSessions();
+  
+  if (sessions.length === 0) {
+    console.log('❌ No sessions found');
+    return;
+  }
+
+  console.log('\n📊 Available conversations:\n');
+  sessions.forEach((id, idx) => {
+    const historyPath = path.join(dataDir, `history-${id}.json`);
+    let title = id;
+    try {
+      const history = JSON.parse(fs.readFileSync(historyPath, 'utf-8'));
+      if (history.messages && history.messages.length > 0) {
+        const firstMsg = history.messages[0].content.substring(0, 50);
+        title = `${firstMsg}...`;
+      }
+    } catch (e) {}
+    
+    console.log(`  [${idx + 1}] ${id}`);
+    console.log(`      "${title}"`);
+  });
+
+  console.log('\nUsage:');
+  console.log(`  node ./scripts/visualize.mjs --delete --session <id>`);
+  console.log(`  node ./scripts/visualize.mjs --delete --session all\n`);
+}
+
 function processSession(sessionId, level = 1) {
   const historyPath = path.join(dataDir, `history-${sessionId}.json`);
   const toolsPath = path.join(dataDir, `tools-${sessionId}.json`);
@@ -421,61 +524,67 @@ function processSession(sessionId, level = 1) {
 }
 
 function main() {
-  const sessionId = process.argv[2];
-  const levelsArg = process.argv[3] || '-levels';
+  const args = process.argv.slice(2);
   
-  // Default: level 2 if sessionId provided, level 1 if processing all
-  const defaultLevel = sessionId && !sessionId.startsWith('-') ? 2 : 1;
-  
-  // Parse levels parameter
-  let levels = [defaultLevel];
-  const levelParam = process.argv.find(arg => arg.includes('-levels='));
-  if (levelParam) {
-    const parts = levelParam.split('=')[1];
-    levels = parts === '1,2' ? [1, 2] : [parseInt(parts)];
-  }
+  let sessionId = null;
+  let level = 1;
+  let deleteMode = false;
 
-  // If last arguments are numbers, use them as levels
-  const lastArgs = process.argv.slice(3);
-  const numericArgs = lastArgs.filter(arg => !arg.startsWith('-') && (arg === '1' || arg === '2' || arg.includes(',')));
-  
-  if (numericArgs.length > 0) {
-    levels = [];
-    numericArgs.forEach(arg => {
-      if (arg.includes(',')) {
-        arg.split(',').forEach(l => {
-          const lv = parseFloat(l);
-          if (lv === 1 || lv === 2) levels.push(lv);
-        });
-      } else {
-        const lv = parseFloat(arg);
-        if (lv === 1 || lv === 2) levels.push(lv);
+  // Parse --session, --level, and --delete flags
+  for (let i = 0; i < args.length; i++) {
+    if (args[i] === '--session' && i + 1 < args.length) {
+      sessionId = args[i + 1];
+      i++;
+    } else if (args[i] === '--level' && i + 1 < args.length) {
+      const lvl = parseInt(args[i + 1]);
+      if (lvl === 1 || lvl === 2) {
+        level = lvl;
       }
-    });
+      i++;
+    } else if (args[i] === '--delete') {
+      deleteMode = true;
+    }
   }
 
-  if (sessionId && !sessionId.startsWith('-')) {
-    console.log(`📍 Session ID detected: ${sessionId}`);
-    console.log(`📊 Rendering level: ${levels[0]}`);
+  // Handle delete mode
+  if (deleteMode) {
+    if (sessionId === 'all') {
+      deleteAllSessions();
+    } else if (sessionId) {
+      deleteSession(sessionId);
+    } else {
+      showAvailableSessions();
+    }
+    return;
+  }
+
+  // If session provided, process it
+  if (sessionId) {
+    console.log(`📍 Session ID: ${sessionId}`);
+    console.log(`📊 Rendering level: ${level}`);
     
-    processSession(sessionId, levels[0]);
+    processSession(sessionId, level);
     return;
   }
   
-  console.log('❌ No session ID provided');
-  console.log('Usage:');
-  console.log('  node visualize.mjs <sessionId>         (default: level 2 with tools)');
-  console.log('  node visualize.mjs <sessionId> 1       (level 1 only - user prompts)');
-  console.log('  node visualize.mjs <sessionId> 1 2     (both levels)');
+  // No session specified - process all sessions
+  console.log('📊 Processing all sessions...\n');
 
   if (!fs.existsSync(dataDir)) {
-    console.log('No data directory found');
+    console.log('❌ No data directory found');
+    console.log('\nUsage:');
+    console.log('  npm run visualize');
+    console.log('  node ./scripts/visualize.mjs --session <id>');
+    console.log('  node ./scripts/visualize.mjs --session <id> --level <level>');
+    console.log('  node ./scripts/visualize.mjs --delete');
+    console.log('  node ./scripts/visualize.mjs --delete --session <id>');
+    console.log('  node ./scripts/visualize.mjs --delete --session all');
     return;
   }
 
   const historyFiles = fs.readdirSync(dataDir).filter(f => f.startsWith('history-') && f.endsWith('.json'));
   if (historyFiles.length === 0) {
-    console.log('No session data found');
+    console.log('❌ No session data found');
     return;
   }
 

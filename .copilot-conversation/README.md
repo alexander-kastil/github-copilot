@@ -19,7 +19,7 @@ sequenceDiagram
     Bot-->>User: Executed: copilot_replaceString
     User->>Bot: you may enhance the prompt
     Bot-->>User: Executed: copilot_replaceString
-    User->>Bot: I meant more like short explaination and the this was the pr...
+    User->>Bot: I meant more like short explanation and the this was the pr...
     Bot-->>User: Executed: copilot_replaceString
 
     Note over User,Bot: Conversation ends
@@ -29,10 +29,9 @@ sequenceDiagram
 
 ```powershell
 cd .copilot-conversation
-npm run visualize              # all sessions → conversations/ (level 1)
-npm run visualize -- {id}      # specific session → conversations/ (level 2)
-npm run visualize -- {id} 1    # specific session at level 1 (user prompts only)
-npm run visualize -- {id} 1 2  # specific session at both levels
+npm run visualize                                       # all sessions → conversations/ (level 1)
+node ./scripts/visualize.mjs --session <id>             # specific session → conversations/ (level 1)
+node ./scripts/visualize.mjs --session <id> --level 2   # specific session at level 2 (with tools)
 ```
 
 ## Structure
