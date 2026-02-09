@@ -1,6 +1,6 @@
 # Master Class: Agentic Software Engineering using GitHub Copilot
 
-Companion Material for Class Delivery by [Alexander Kastil](https://www.integrations.at/kontakt-impressum.aspx) containing:
+Companion Material for Class Delivery by [Alexander Kastil](https://www.integrations.at/kontakt-impressum.aspx)
 
 ## License & Re-Use
 
