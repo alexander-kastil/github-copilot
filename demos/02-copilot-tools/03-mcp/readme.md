@@ -13,10 +13,7 @@ Configure VS Code to auto-discover and start MCP servers:
 ```json
 {
   "chat.mcp.discovery.enabled": {
-    "claude-desktop": true,
-    "windsurf": true,
-    "cursor-global": true,
-    "cursor-workspace": true
+    "claude-desktop": true
   },
   "chat.mcp.autostart": "newAndOutdated",
   "chat.mcp.gallery.enabled": true
@@ -25,11 +22,11 @@ Configure VS Code to auto-discover and start MCP servers:
 
 ## MCP Server Types & Integration
 
-MCP servers can be integrated in multiple ways depending on their nature: **local executables** (via `npx` or `stdio` commands), **remote HTTP endpoints** for cloud services, or **browser extensions** that bundle MCPs automatically. You can configure MCPs globally via the **user-level `~/.copilot/mcp.json`** for persistent access across all workspaces, or locally in a **workspace-level `.vscode/mcp.json`** to isolate tools for specific projects. The MCPs can come from VS Code extensions, npm packages, or custom implementations.
+MCP servers can be integrated in multiple ways depending on their nature: **local executables** (via `npx` or `stdio` commands), **remote HTTP endpoints** for cloud services, or **browser extensions** that bundle MCPs automatically. You can configure MCPs globally via the **user-level [~/.copilot/mcp.json](/.copilot/mcp.json)** for persistent access across all workspaces, or locally in a **workspace-level [.vscode/mcp.json](/.vscode/mcp.json)** to isolate tools for specific projects. The MCPs can come from VS Code extensions, npm packages, or custom implementations.
 
 ## MCP Configuration
 
-The `mcp.json` file contains server definitions organized by name, with each server specifying its type (`stdio`, `http`), command/URL, and optional arguments. For sensitive data (API keys, passwords, organization names), MCPs support **input parameters** that prompt for values at runtime and pass them securely via environment or URL variables, preventing hardcoding of credentials.
+The [mcp.json](/.vscode/mcp.json) file contains server definitions organized by name, with each server specifying its type (`stdio`, `http`), command/URL, and optional arguments. For sensitive data (API keys, passwords, organization names), MCPs support **input parameters** that prompt for values at runtime and pass them securely via environment or URL variables, preventing hardcoding of credentials.
 
 ### Structure Example
 

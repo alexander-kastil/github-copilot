@@ -24,7 +24,7 @@ Memory ist stored in the settings of your GitHub repository:
 
 ### 1. Deployment Configuration Management
 
-When Copilot discovers your repository maintains a `deploy.json` file as the single source of truth for Azure deployment metadata (service connections, container registries, environments), it stores this as a memory. Later, when scripting deployments or creating pipelines, Copilot automatically retrieves configuration from this file instead of hardcoding values, ensuring consistency across all deployment operations.
+When Copilot discovers your repository maintains a [deploy.json](/.github/deploy.json) file as the single source of truth for Azure deployment metadata (service connections, container registries, environments), it stores this as a memory. Later, when scripting deployments or creating pipelines, Copilot automatically retrieves configuration from this file instead of hardcoding values, ensuring consistency across all deployment operations.
 
 ```
 Memory: "Deployment configuration always sourced from .github/deploy.json"

@@ -39,8 +39,8 @@ Enable core Copilot features in your VS Code `settings.json`:
 ## Copilot Settings Location Options
 
 - **User-level settings** (`.json`): Personal preferences applied across all workspaces
-- **Workspace settings** (`.vscode/settings.json`): Project-specific overrides for team consistency
-- **Dev Container settings** (`.devcontainer/devcontainer.json`): Standardized environments with pre-configured extensions and tools
+- **Workspace settings** ([.vscode/settings.json](/.vscode/settings.json)): Project-specific overrides for team consistency
+- **Dev Container settings** ([.devcontainer/devcontainer.json](/.devcontainer/devcontainer.json)): Standardized environments with pre-configured extensions and tools
 
 ## Key Topics Covered in This Section
 

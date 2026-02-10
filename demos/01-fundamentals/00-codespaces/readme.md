@@ -16,7 +16,7 @@ GitHub Codespaces are cloud-hosted development environments that spin up in seco
 
 ### Configuration
 
-Codespaces are configured using [devcontainer.json](../../../.devcontainer/devcontainer.json) which defines the base image, installed features, VS Code extensions, port forwarding, and post-creation commands.
+Codespaces are configured using [devcontainer.json](/.devcontainer/devcontainer.json) which defines the base image, installed features, VS Code extensions, port forwarding, and post-creation commands.
 
 Image specifies the base container image (Python 3.12):
 

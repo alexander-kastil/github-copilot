@@ -10,7 +10,7 @@ Managing state with NgRx Signal Store
 
 You're building a user authentication feature in Angular and want to manage client-side state with NgRx Signal Store. Delegate a Red agent to write failing tests for store actions, a Green agent to implement the store with authentication slices, and a Refactor agent to optimize selectors—all proceeding in parallel through the TDD cycle.
 
-Create a custom TDD agent in `.github/agents/tdd-angular.md`:
+Create a custom TDD agent in [.github/agents/tdd-angular.md](/.github/agents/tdd-angular.md):
 
 ```markdown
 ---
