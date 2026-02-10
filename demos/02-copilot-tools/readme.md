@@ -4,28 +4,6 @@
 
 Copilot customization enables you to tailor AI behavior for your specific workflows, team standards, and project requirements. VS Code provides multiple layers of customization—from general repository rules to reusable prompts, model context protocols, custom agents, and specialized skills—that work together to optimize both LLM context window efficiency and consistency across your organization.
 
-## Enable Copilot Customization Features
-
-Enable core customization features in VS Code settings:
-
-```json
-{
-  "chat.instructionsFilesLocations": {
-    ".github/instructions": true,
-    ".github/copilot-instructions.md": true
-  },
-  "github.copilot.chat.customAgents.showOrganizationAndEnterpriseAgents": true,
-  "github.copilot.chat.copilotMemory.enabled": true,
-  "chat.useAgentSkills": true,
-  "chat.mcp.discovery.enabled": {
-    "claude-desktop": true,
-    "windsurf": true,
-    "cursor-global": true,
-    "cursor-workspace": true
-  }
-}
-```
-
 ## Customization Features
 
 | Feature                                                                                    | Purpose                                                                                                                                                                                                                                                                                                                                             |
