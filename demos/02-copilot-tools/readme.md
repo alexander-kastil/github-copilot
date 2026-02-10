@@ -20,4 +20,4 @@ Copilot customization enables you to tailor AI behavior for your specific workfl
 ## Key Topics Covered in This Section
 
 - [VS Code Copilot Customization Overview](https://code.visualstudio.com/docs/copilot/customization/overview)
-- [Awesome Copilot - Community Resources](https://github.com/github/awesome-copilot)
+- [Awesome Copilot - Copilot Tools & Artifacts](https://github.com/github/awesome-copilot)
