@@ -9,16 +9,16 @@
 - [Slash Commands](01-fundamentals/04-slash-commands/)
 - [Context Variables](01-fundamentals/05-context-variables/)
 
-## [Module 2: Copilot Artifacts & Tools](./02-copilot-artifacts/)
+## [Module 2: Copilot Artifacts & Tools](./02-copilot-tools/)
 
-- [Instructions & Reusable Prompts](02-copilot-artifacts/01-instructions/)
-- [Prompts](02-copilot-artifacts/02-prompts/)
-- [Model Context Protocol (MCP)](02-copilot-artifacts/03-mcp/)
-- [Custom Agents](02-copilot-artifacts/04-agents/)
-- [Agent Skills](02-copilot-artifacts/05-skills/)
-- [GitHub Copilot Memory](02-copilot-artifacts/06-memory/)
-- [Context Engineering](02-copilot-artifacts/07-context-engineering/)
-- [Hooks](02-copilot-artifacts/08-hooks/)
+- [Instructions](02-copilot-tools/01-instructions/)
+- [Prompt Files](02-copilot-tools/02-prompts/)
+- [Model Context Protocol (MCP)](02-copilot-tools/03-mcp/)
+- [Custom Agents](02-copilot-tools/04-agents/)
+- [Agent Skills](02-copilot-tools/05-skills/)
+- [GitHub Copilot Memory](02-copilot-tools/06-memory/)
+- [Context Engineering](02-copilot-tools/07-context-engineering/)
+- [Hooks](02-copilot-tools/08-hooks/)
 
 ## [Module 3: Agentic Coding](./03-agentic-coding/)
 

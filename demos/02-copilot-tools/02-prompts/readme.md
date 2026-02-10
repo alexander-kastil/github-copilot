@@ -28,8 +28,8 @@ Ensure Copilot Chat is enabled and prompt discovery is active:
 
 | Prompt Name                                                        | Description                                                                                                                                                                                           |
 | ------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Describe Module](../../.github/prompts/describe-module.prompt.md) | Enhances markdown documentation by analyzing folder contents and rewriting descriptions with consistent tone and technical details. Used throughout the repo to document modules, labs, and features. |
-| [Create Docs](../../.github/prompts/create-docs.prompt.md)         | Generates comprehensive documentation across project levels using a bottom-up approach, from service-level details up to project overviews. Ensures consistency and proper Markdown formatting.       |
+| [Describe Module](/.github/prompts/describe-module.prompt.md) | Enhances markdown documentation by analyzing folder contents and rewriting descriptions with consistent tone and technical details. Used throughout the repo to document modules, labs, and features. |
+| [Create Docs](/.github/prompts/create-docs.prompt.md)         | Generates comprehensive documentation across project levels using a bottom-up approach, from service-level details up to project overviews. Ensures consistency and proper Markdown formatting.       |
 
 ## Key Topics Covered in This Section
 

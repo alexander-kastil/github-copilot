@@ -30,6 +30,10 @@ Ensure Copilot Chat is enabled in VS Code:
 | `/clear`    | Start a new session / clear conversation.                         |
 | `/new`      | Create a new project / new chat session.                          |
 
+## Demos & Examples
+
+
+
 ## Key Topics Covered in This Section
 
 - [GitHub Copilot Slash Commands](https://docs.github.com/en/copilot/using-github-copilot/asking-github-copilot-questions-in-your-ide#using-slash-commands)

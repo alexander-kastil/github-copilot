@@ -18,7 +18,7 @@ Configure VS Code to automatically load instructions from your repository:
 
 ## General Repository Instructions
 
-**File**: [.github/copilot-instructions.md](./.../../.github/copilot-instructions.md)
+**File**: [.github/copilot-instructions.md](/.github/copilot-instructions.md)
 
 General instructions establish repository-wide policies and conventions that apply to all development work, regardless of technology stack. They cover philosophy, architecture decisions, naming conventions, security practices, and project structure.
 
@@ -26,7 +26,7 @@ General instructions establish repository-wide policies and conventions that app
 
 - Write clean code with no unnecessary comments or over-engineering
 - Consult Microsoft Learn MCP when implementing, updating, or fixing code
-- Never hardcode deployment values—always read from `.github/deploy.json`
+- Never hardcode deployment values—always read from [.github/deploy.json](/.github/deploy.json)
 - Use Workload Identity Federation (WIF) for all Azure DevOps authentication
 - Follow strict naming conventions for pipelines, resources, and Docker artifacts
 
@@ -36,7 +36,7 @@ General instructions establish repository-wide policies and conventions that app
 
 ## Stack-Specific Instructions
 
-**Directory**: [.github/instructions/](./.../../.github/instructions/)
+**Directory**: [.github/instructions/](/.github/instructions/)
 
 Stack-specific instructions provide detailed, technology-focused conventions for the languages and frameworks used in the repository. They're self-contained guides for formatting, tooling, and best practices within their domain.
 
@@ -44,10 +44,10 @@ Stack-specific instructions provide detailed, technology-focused conventions for
 
 | Instruction                                                     | Focus                                                                                                                                                                   |
 | --------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **[Angular Instructions](angular.instructions.md)**             | Framework conventions for Angular 18+ with standalone components, reactive patterns, Angular CLI scaffolding, and deployment targets (Static Web Apps, Container Apps). |
-| **[.NET Instructions](dotnet.instructions.md)**                 | C# naming conventions (PascalCase/camelCase), primary constructors, async/await patterns, dotnet CLI usage, and instance lifecycle management.                          |
-| **[Azure CLI Instructions](azure-cli.instructions.md)**         | Bash/PowerShell scripting for resource provisioning, variable naming (camelCase), resource composition, command substitution, and automation workflows.                 |
-| **[Documentation Instructions](documentation.instructions.md)** | Markdown structure, readability standards, code block formatting, heading hierarchy, and technical guide organization.                                                  |
+| **[Angular Instructions](/.github/instructions/angular.instructions.md)**             | Framework conventions for Angular 18+ with standalone components, reactive patterns, Angular CLI scaffolding, and deployment targets (Static Web Apps, Container Apps). |
+| **[.NET Instructions](/.github/instructions/dotnet.instructions.md)**                 | C# naming conventions (PascalCase/camelCase), primary constructors, async/await patterns, dotnet CLI usage, and instance lifecycle management.                          |
+| **[Azure CLI Instructions](/.github/instructions/azure-cli.instructions.md)**         | Bash/PowerShell scripting for resource provisioning, variable naming (camelCase), resource composition, command substitution, and automation workflows.                 |
+| **[Documentation Instructions](/.github/instructions/documentation.instructions.md)** | Markdown structure, readability standards, code block formatting, heading hierarchy, and technical guide organization.                                                  |
 
 **Example**: When you're working in an Angular project, the Angular instructions are automatically loaded into context. They specify that components should use standalone APIs, Angular CLI for scaffolding, feature-based folder organization, and Static Web Apps or Container Apps for deployment. If you then write a `.NET` service to support the Angular app, the .NET instructions activate, adding guidance on PascalCase conventions and primary constructors.
 
