@@ -26,8 +26,11 @@ MCP servers can be integrated in multiple ways depending on their nature: **loca
 
 You can configure MCPs in the following ways:
 
-- **Global configuration** ([~/.vscode/mcp.json](/.vscode/mcp.json)): Available across all workspaces for persistent access
-- **Workspace-level configuration** ([.vscode/mcp.json](/.vscode/mcp.json)): Scoped to the current project to isolate tools for specific needs
+- **Global configuration**  Available across all workspaces for persistent access
+  - `~/.mcp.json` on Linux/macOS, 
+  - `%USERPROFILE%\.mcp.json` on Windows
+- **Workspace-level configuration**  Scoped to the current project to isolate tools for specific needs
+  - (`.vscode/mcp.json` in the workspace root):
 
 MCPs can come from:
 
