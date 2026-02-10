@@ -22,7 +22,18 @@ Configure VS Code to auto-discover and start MCP servers:
 
 ## MCP Server Types & Integration
 
-MCP servers can be integrated in multiple ways depending on their nature: **local executables** (via `npx` or `stdio` commands), **remote HTTP endpoints** for cloud services, or **browser extensions** that bundle MCPs automatically. You can configure MCPs globally via the **user-level [~/.copilot/mcp.json](/.copilot/mcp.json)** for persistent access across all workspaces, or locally in a **workspace-level [.vscode/mcp.json](/.vscode/mcp.json)** to isolate tools for specific projects. The MCPs can come from VS Code extensions, npm packages, or custom implementations.
+MCP servers can be integrated in multiple ways depending on their nature: **local executables** (via `npx` or `stdio` commands) and **remote HTTP endpoints** for cloud services. 
+
+You can configure MCPs in the following ways:
+
+- **Global configuration** ([~/.vscode/mcp.json](/.vscode/mcp.json)): Available across all workspaces for persistent access
+- **Workspace-level configuration** ([.vscode/mcp.json](/.vscode/mcp.json)): Scoped to the current project to isolate tools for specific needs
+
+MCPs can come from:
+
+- VS Code extensions
+- npm packages
+- Custom implementations
 
 ## MCP Configuration
 
